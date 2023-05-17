@@ -1,2 +1,2 @@
-# dino_feed_reader
-rss feed reader by php
+dino_feed_reader
+================
