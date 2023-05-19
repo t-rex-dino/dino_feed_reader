@@ -18,10 +18,10 @@ $_config
 
 ///
 ///
-/// User Config
+/// Additional Config
 ///
 ///
 
 
-$_userConfig
+$_addsConfig
 = array();
