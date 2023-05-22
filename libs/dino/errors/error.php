@@ -2,3 +2,10 @@
 
 
 
+
+namespace Dino\Errors
+{
+    class Error
+        extends \Exception
+    {}
+}
