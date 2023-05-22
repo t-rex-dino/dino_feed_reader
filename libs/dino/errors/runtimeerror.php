@@ -6,6 +6,6 @@
 namespace Dino\Errors
 {
     class RunTimeError
-        extends Errors
+        extends Error
     {}
 }
