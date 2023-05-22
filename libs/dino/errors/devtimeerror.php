@@ -6,6 +6,6 @@
 namespace Dino\Errors
 {
     class DevTimeError
-        extends Errors
+        extends Error
     {}
 }
