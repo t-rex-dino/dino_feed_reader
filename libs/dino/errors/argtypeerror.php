@@ -17,7 +17,7 @@ namespace Dino\Errors
             $message
             = '';
             
-            if (!$argInfo == false) {
+            if ($argInfo !== false) {
                 list($argName, $argType)
                 = explode(':', $argInf);
                 
