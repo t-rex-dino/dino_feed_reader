@@ -7,6 +7,7 @@ namespace Dino\General
 {
     use Dino\Errors\ArgTypeError;
     use Dino\Errors\EmptyArgError;
+    use Dino\Errors\KeyNotFoundError;
     
     
     class Config
@@ -28,6 +29,11 @@ namespace Dino\General
             if (is_array($path)
              && is_null($value)
              && empty(self::$_data)) {
+                
+                $path
+                = array_change_key_case(
+                    $path,
+                    CASE_LOWER);
                 
                 self::$_data
                 = $path;
@@ -73,7 +79,7 @@ namespace Dino\General
                 }
             }
             
-            if ($source == false) {
+            if (!is_array($source)) {
                 $source
                 =& self::$_data;
             }
@@ -97,8 +103,63 @@ namespace Dino\General
         public
         static
         function
-        check($path)
-        {}
+        check(
+            $path,
+            &$value  = false)
+        {
+            if (!is_string($path)) {
+                throw
+                new ArgTypeError(
+                        $path,
+                        'path:string');
+            }
+            
+            if (empty($path)) {
+                throw
+                new EmptyArgError(
+                        'path');
+            }
+            
+            $path
+            = strtolower($path);
+            
+            $path
+            = explode('.', $path);
+            
+            $name
+            = array_shift($path);
+            
+            if (!isset(self::$_data[$name])) {
+                return false;
+            }
+            
+            $value
+            = self::$_data[$name];
+            
+            if (!empty($path)) {
+                foreach ($path as $name) {
+                    if (!is_array($value)) {
+                        $value = false;
+                        return false;
+                    }
+                    
+                    $value
+                    = array_change_key_case(
+                        $value,
+                        CASE_LOWER);
+                    
+                    if (!isset($value[$name])) {
+                        $value = false;
+                        return false;
+                    }
+                    
+                    $value
+                    = $value[$name];
+                }
+            }
+            
+            return true;
+        }
         
         
         
@@ -106,6 +167,15 @@ namespace Dino\General
         static
         function
         get($path)
-        {}
+        {
+            if(self::check($path, $value)) {
+                return $value;
+            }
+            
+            throw
+            new KeyNotFoundError(
+                    'config',
+                    $path);
+        }
     }
 }
