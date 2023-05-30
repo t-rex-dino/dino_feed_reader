@@ -2,3 +2,9 @@
 
 
 
+
+namespace Dindo\Contents
+{
+    class View
+    {}
+}
