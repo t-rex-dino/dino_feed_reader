@@ -3,7 +3,7 @@
 
 
 
-namespace Dindo\Contents
+namespace Dino\Contents
 {
     class View
     {}
