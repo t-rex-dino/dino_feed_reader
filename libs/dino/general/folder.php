@@ -129,7 +129,7 @@ namespace Dino\General
                 
                 $branch
                 = str_replace(
-                    array(),
+                    array('/', '\\', '//', '\\\\'),
                     DIRECTORY_SEPARATOR,
                     $branch);
             }
