@@ -5,6 +5,10 @@
 
 namespace Dino\General
 {
+    use Dino\Errors\ClassNotFoundError;
+    use Dino\Errors\FileNotFoundError;
+    
+    
     class Loader
     {
         public
