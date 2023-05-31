@@ -68,8 +68,8 @@ namespace Dino\General
                         $incPath,
                         $path);
                 }
-            }echo "\n---\n";
-            var_dump($paths);
+            }
+            
             foreach ($paths as $path) {
                 if (file_exists($path)) {
                     $fullPath
