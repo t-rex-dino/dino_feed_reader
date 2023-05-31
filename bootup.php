@@ -128,7 +128,7 @@ if (!isset($_config['themename'])
  || empty($_config['themename'])
  || !is_string($_config['themename'])) {
     
-    throw new Exception('Theme invalid!').
+    throw new Exception('Theme invalid!');
 }
 
 $_config['themefolderpath']
@@ -180,19 +180,9 @@ define(
 
 ///
 ///
-/// Requires and Include
+/// Require Libraries and Classes
 ///
 ///
-
-
-
-//
-// errors
-//
-
-
-require LIBSPATH . 'dino/errors/error.php';
-
 
 
 //
@@ -200,4 +190,57 @@ require LIBSPATH . 'dino/errors/error.php';
 //
 
 
-require LIBSPATH . 'dino/general/config.php';
+require LIBSPATH . 'dino/general/folder.php';
+require LIBSPATH . 'dino/general/file.php';
+require LIBSPATH . 'dino/general/loader.php';
+
+
+
+
+
+///
+///
+/// PHP Settings
+///
+///
+
+
+//
+// set Includes Paths
+//
+
+set_include_path(
+    ROOTPATH
+    . PATH_SEPARATOR
+    . LIBSPATH);
+
+
+
+//
+// auto loader
+//
+
+spl_autoload_register(
+    function ($className) {
+        Dino\General\Loader::loadClass(
+            strtolower($className));
+    });
+
+
+
+
+
+///
+///
+/// Load Content
+///
+///
+
+
+//
+// set config
+//
+
+Dino\General\Config::set(
+    $_config);
+

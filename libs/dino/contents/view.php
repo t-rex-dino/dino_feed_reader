@@ -2,3 +2,9 @@
 
 
 
+
+namespace Dino\Contents
+{
+    class View
+    {}
+}
