@@ -25,7 +25,7 @@ namespace Dino\General
             
             self::loadFile("{$className}.php");
             if (!class_exists($className, false)
-             && interface_exists($className, false)) {
+             && !interface_exists($className, false)) {
                 
                 throw
                 new ClassNotFoundError(
