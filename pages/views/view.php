@@ -23,6 +23,3 @@ class view
     }
 
 }
-
-/* This line for testing this class */
-$view = new view ('categories.html.php');
