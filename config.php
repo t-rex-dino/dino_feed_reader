@@ -57,7 +57,7 @@ $_config
     'useOfExtension' => true,
     
     // default extension
-    'extensionDefault' => 'html',
+    'defaultExt' => 'html',
     
     // list of valid extension
     'extensionList' =>
@@ -66,7 +66,28 @@ $_config
             'css',
             'js',
             'png',
-            'jpg')
+            'jpg'),
     
     
+    
+    //
+    // load content
+    //
+    
+    // source of user-request
+    'userRequest' =>
+        function () {
+            $request
+            = '';
+            
+            if (isset($_SERVER['REQUEST_URI'])
+             && !empty($_SERVER['REQUEST_URI'])) {
+                $request
+                = $_SERVER['REQUEST_URI'];
+            }
+            
+            return $request;
+        },
+    
+    'defaultPage' => 'home'
     );
