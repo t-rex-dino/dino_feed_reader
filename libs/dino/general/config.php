@@ -168,7 +168,20 @@ namespace Dino\General
         function
         get($path)
         {
+            $args
+            = func_get_args();
+            
+            $path
+            = array_shift($args);
+            
             if(self::check($path, $value)) {
+                if (is_callable($value)) {
+                    $value
+                    = call_user_func_array(
+                        $value,
+                        $args);
+                }
+                
                 return $value;
             }
             
