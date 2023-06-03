@@ -1,53 +1,52 @@
 <?php
-namespace libs\dino\contents;
-
-class view
+namespace libs\dino\contents 
 {
 
-    /**
-     * To hold values
-     *
-     * @var type
-     */
-    private $values = [];
+    class view
+    {
 
-    public function __construct ($view , $value = null) {
-        $this->load_view ($view);
+        /**
+         * To hold params
+         *
+         * @var type
+         */
+        private $params = [];
 
-        $this->add_value ($value);
-    }
+        /**
+         * To hold view path
+         *
+         * @var type
+         */
+        private $viewPath = '';
 
-    /**
-     * Loading a view
-     *
-     * @param type $view
-     */
-    private function load_view ($view) {
-        if (file_exists ("./$view")) {
-            include_once "./$view";
-        } else {
-            /* Not found view */
-            include_once './view-not-found.html';
+        public function __construct ($viewPath , $params) 
+		{
+            $this->viewPath = $viewPath;
+			
+            array_push ($this->params , $params);
         }
-    }
 
-    /**
-     * Add a value to the $values property
-     *
-     * @param type $value
-     */
-    private function add_value ($value) {
-        if ($value) {
-            array_push ($this->values , $value);
+        /**
+         * Loading a view
+         *
+         */
+        public function load_view () 
+		{
+            if (file_exists ($this->viewPath)) {
+                include_once $this->viewPath;
+            }
         }
-    }
 
-    public function __set ($property , $value) {
-        $this->$property = $value;
-    }
+        public function __set ($property , $value) 
+		{
+            $this->$property = $value;
+        }
 
-    public function __get ($property) {
-        return $this->$property;
+        public function __get ($property) 
+		{
+            return $this->$property;
+        }
+
     }
 
 }
