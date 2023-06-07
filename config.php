@@ -5,89 +5,54 @@
 
 ///
 ///
-/// System Config
+/// System Configuration
 ///
 ///
 
 
 $_config
 = array(
-    
-    
-    //
-    // Root Folder Path
-    //
-    
-    'rootFolderPath' => __DIR__,
-    
-    
-    //
-    // Libraries Folder Path
-    //
-    
-    'libsFolderPath' =>
-        '%rootFolderPath%/libs',
-    
-    
-    //
-    // Page Contents Folder Paths
-    //
-    
-    'pagesFolderPath'  =>
-        '%rootFolderPath%/pages',
-    
-    
-    //
-    // Themes
-    //
-    
-    // themes folder path
-    'themesFolderPath' =>
-        '%rootFolderPath%/themes',
-    
-    // theme name
-    'themeName' => 'muscari',
-    
-    
-    //
-    // Extention
-    //
-    
-    // use of extension in url path
-    'useOfExtension' => true,
-    
-    // default extension
-    'defaultExt' => 'html',
-    
-    // list of valid extension
-    'extensionList' =>
+    'webApp' =>
         array(
-            'html',
-            'css',
-            'js',
-            'png',
-            'jpg'),
+            'subFolder' => 'dino_feed_reader-main'),
     
-    
-    
-    //
-    // load content
-    //
-    
-    // source of user-request
-    'userRequest' =>
-        function () {
-            $request
-            = '';
+    'page' =>
+        array(
+            'path' =>
+                function () {
+                    $request
+                    = '';
+                    
+                    if (isset($_SERVER['REQUEST_URI'])
+                     && !empty($_SERVER['REQUEST_URI'])) {
+                        
+                        $request
+                        = strtolower(
+                            trim(
+                                $_SERVER['REQUEST_URI'],
+                                '/'));
+                        
+                        $webAppSubFolder
+                        = strtolower(
+                            trim(
+                                Dino\General\Config::get(
+                                    'WebApp.SubFolder'),
+                                '/'));
+                        
+                        $request
+                        = trim(
+                            str_ireplace(
+                                $webAppSubFolder,
+                                '',
+                                $request),
+                            '/');
+                    }
+                    
+                    return
+                    $request;
+                },
             
-            if (isset($_SERVER['REQUEST_URI'])
-             && !empty($_SERVER['REQUEST_URI'])) {
-                $request
-                = $_SERVER['REQUEST_URI'];
-            }
-            
-            return $request;
-        },
-    
-    'defaultPage' => 'home'
-    );
+            'defaultPage' => 'home',
+            'defaultExt'  => 'html',
+            'useOfExt'    => true,
+            'pagesFolderPath' => 'pages'));
