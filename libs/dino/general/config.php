@@ -99,6 +99,48 @@ namespace Dino\General
         }
         
         
+        public
+        static
+        function
+        load(
+            $configFilePath)
+        {
+            if (!is_string($configFilePath)) {
+                throw
+                new ArgTypeError(
+                        $configFilePath,
+                        'configFilePath:string');
+            }
+            
+            if (!File::check(
+                    $configFilePath,
+                    $path)) {
+                
+                throw
+                new FileNotFoundError(
+                        $configFilePath);
+            }
+            
+            require $path;
+            
+            if (!isset($_config)) {
+                throw
+                new ConfigNotFoundError(
+                        $configFilePath);
+            }
+            
+            $_config
+            = array_change_key_case(
+                $_config,
+                CASE_LOWER);
+            
+            self::$_data
+            = array_merge(
+                self::$_data,
+                $_config);
+        }
+        
+        
         
         public
         static
