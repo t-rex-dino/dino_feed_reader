@@ -89,6 +89,7 @@ namespace Dino\Contents
             }
             
             require $this->page->filePath;
+            require $this->page->viewFikePath;
         }
     }
 }
