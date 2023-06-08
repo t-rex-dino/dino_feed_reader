@@ -89,7 +89,7 @@ namespace Dino\Contents
             
             if (!isset($this->_prpts['name'])) {
                 $this->_prpts['name']
-                = $this->_prpts['path'];
+                = basename($this->_prpts['path']);
             }
             
             if (!isset($this->_prpts['extension'])) {
