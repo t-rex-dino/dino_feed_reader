@@ -5,6 +5,7 @@
 
 namespace Dino\Contents
 {
+    use Dino\Errors\PageNotFoundError;
     use Dino\Errors\PropertyNotFoundError;
     
     
