@@ -55,4 +55,6 @@ $_config
             'defaultPage' => 'news',
             'defaultExt'  => 'html',
             'useOfExt'    => true,
-            'pagesFolderPath' => 'pages'));
+            'pagesFolderPath' => 'pages',
+            'viewsFolderName' => 'views',
+            'viewFileNamePattern' => '%name%.%ext%.php'));
