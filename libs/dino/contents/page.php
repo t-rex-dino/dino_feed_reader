@@ -213,6 +213,36 @@ namespace Dino\Contents
                             'Page.UseOfExt');
                         break;
                     
+                    case 'viewfilepath':
+                        $this->_prpts['viewfilepath']
+                        = Folder::branch(
+                            $this->viewFolderPath,
+                            $this->viewFileName);
+                        break;
+                    
+                    case 'viewfilename':
+                        $this->_prpts['viewfilename']
+                        = str_ireplace(
+                            array(
+                                '%name%',
+                                '%ext%'),
+                            array(
+                                $this->viewName,
+                                $this->extension),
+                            Config::get('Page.ViewFileNamePattern'));
+                        break;
+                    
+                    case 'viewfolderpath':
+                        $this->_prpts['viewfolderpath']
+                        = Folder::branch(
+                            $this->folderPath,
+                            Config::get('Page.ViewsFolderName'));
+                        break;
+                    
+                    case 'viewname':
+                        return $this->name;
+                        break;
+                    
                     default:
                         throw
                         new PropertyNotFoundError(
