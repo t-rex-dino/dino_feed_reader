@@ -230,7 +230,15 @@ namespace Dino\Contents
         function
         exists()
         {
-            return File::check($this->filePath);
+            if (!File::check($this->viewFilePath)) {
+                return false;
+            }
+            
+            if (!File::check($this->filePath)) {
+                return false;
+            }
+            
+            return true;
         }
     }
 }
