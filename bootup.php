@@ -79,4 +79,4 @@ Dino\General\Config::load(
 
 
 // create content
-(new Dino\Contents\Content())->load();
+(new Dino\Contents\Page())->load();
