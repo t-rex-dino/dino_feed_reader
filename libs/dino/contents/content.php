@@ -27,20 +27,20 @@ namespace Dino\Contents
             
             if (is_string($prpts)) {
                 $prpts
-                = new Page($prpts);
+                = new Component($prpts);
             }
             
-            if ($prpts instanceof Page) {
+            if ($prpts instanceof Component) {
                 $prpts
                 = array(
-                    'page' => $prpts);
+                    'content' => $prpts);
             }
             
             if (!is_array($prpts)) {
                 throw
                 new ArgTypeError(
                         $prpts,
-                        'prpts:array|string|Page');
+                        'prpts:array|string|Component');
             }
             
             $this->_prpts
@@ -48,9 +48,9 @@ namespace Dino\Contents
                 $prpts,
                 CASE_LOWER);
             
-            if (!isset($this->_prpts['page'])) {
-                $this->_prpts['page']
-                = new Page();
+            if (!isset($this->_prpts['content'])) {
+                $this->_prpts['content']
+                = new Component();
             }
         }
         
@@ -58,38 +58,12 @@ namespace Dino\Contents
         public
         function
         __get($prpt)
-        {
-            $name
-            = strtolower($prpt);
-            
-            if (!isset($this->_prpts[$name])) {
-                switch ($name)
-                {
-                    default:
-                        throw
-                        new PropertyNotFoundError(
-                                get_called_class(),
-                                $prpt);
-                        break;
-                }
-            }
-            
-            return $this->_prpts[$name];
-        }
+        {}
         
         
         public
         function
         load()
-        {
-            if (!$this->page->exists()) {
-                throw
-                new PageNotFoundError(
-                        $this->page->path);
-            }
-            
-            require $this->page->filePath;
-            require $this->page->viewFilePath;
-        }
+        {}
     }
 }
