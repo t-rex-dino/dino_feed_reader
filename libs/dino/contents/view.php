@@ -1,8 +1,12 @@
-<?php
-namespace libs\dino\contents 
+<?PHP
+
+
+
+
+namespace Dino\Contents 
 {
 
-    class view
+    class View
     {
 
         /**
@@ -10,43 +14,74 @@ namespace libs\dino\contents
          *
          * @var type
          */
-        private $params = [];
+        private
+        $_prpts;
+        
 
         /**
          * To hold view path
          *
          * @var type
          */
-        private $viewPath = '';
+        private
+        $_viewFilePath;
+        
 
-        public function __construct ($viewPath , $params) 
-		{
-            $this->viewPath = $viewPath;
-			
-            array_push ($this->params , $params);
+        public
+        function
+        __construct(
+            $viewFilePath,
+            $prpts = array()) 
+        {
+            if (!is_string($viewFilePath)) {
+                throw
+                new ArgTypeError(
+                        $viewFilePath,
+                        'viewFilePath:string');
+            }
+            
+            if (empty($viewFilePath)) {
+                throw
+                new EmptyArgError(
+                        $viewFilePath);
+            }
+            
+            $this->_viewFilePath = $viewFilePath;
+            
+            if (!is_array($prpts)) {
+                throw
+                new ArgTypeError(
+                        $prpts,
+                        'prpts:array');
+            }
+            
+            $this->_prpts
+            = array_change_key_case(
+                $prpts,
+                CASE_LOWER);
         }
-
-        /**
-         * Loading a view
-         *
-         */
-        public function load_view () 
-		{
+        
+        
+        public
+        function
+        __set()
+        {}
+        
+        
+        public
+        function
+        __get()
+        {}
+        
+        
+        public
+        function
+        load()
+        {
             if (file_exists ($this->viewPath)) {
                 include_once $this->viewPath;
             }
         }
-
-        public function __set ($property , $value) 
-		{
-            $this->$property = $value;
-        }
-
-        public function __get ($property) 
-		{
-            return $this->$property;
-        }
-
     }
 
 }
