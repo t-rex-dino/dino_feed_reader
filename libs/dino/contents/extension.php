@@ -2,3 +2,11 @@
 
 
 
+
+namespace Dino\Contents
+{
+    class Extension
+    {
+        
+    }
+}
