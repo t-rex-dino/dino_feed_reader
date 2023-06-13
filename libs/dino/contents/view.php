@@ -5,7 +5,9 @@
 
 namespace Dino\Contents 
 {
-
+    use Dino\Errors\PropertyNotFoundError;
+    
+    
     class View
     {
 
@@ -64,23 +66,53 @@ namespace Dino\Contents
         
         public
         function
-        __set()
-        {}
+        __set($prpt, $value)
+        {
+            $this->_prpts[strtolower($prpt)]
+            = $value;
+        }
         
         
         public
         function
-        __get()
-        {}
+        __get($prpt)
+        {
+            $name
+            = strtolower($prpt);
+            
+            if (!isset($this->_prpts[$name])) {
+                switch ($name)
+                {
+                    default:
+                        throw
+                        new PropertyNotFoundError(
+                                get_called_class(),
+                                $prpt);
+                        break;
+                }
+            }
+            
+            if ($this->_prpts[$name] instanceof Component) {
+                return
+                $this->_prpts[$name]->load();
+            }
+            
+            return
+            $this->_prpts[$name];
+        }
         
         
         public
         function
         load()
         {
-            if (file_exists ($this->viewPath)) {
-                include_once $this->viewPath;
+            if (!file_exists($this->_viewFilePath)) {
+                throw
+                new FileNotFoundError(
+                        $this->_viewFilePath);
             }
+            
+            require $this->_viewFilePath;
         }
     }
 
