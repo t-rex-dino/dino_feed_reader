@@ -5,163 +5,59 @@
 
 namespace Dino\Contents
 {
+    use Dino\Errors\ArgTypeError;
+    use Dino\Errors\PageNotFoundError;
     use Dino\Errors\PropertyNotFoundError;
+    
     
     use Dino\General\Config;
     use Dino\General\Folder;
-    use Dino\General\File;
     
     
     class Page
     {
         private
-        $_prpts
-        = array();
+        $_prpts;
         
         
         public
         function
         __construct(
-            $prpts = '')
+            $prpts = array())
         {
             if (is_string($prpts)) {
+                $this->path
+                = $prpts;
+                
                 $prpts
-                = array(
-                    'path' => $prpts);
+                = array();
             }
             
-            $this->_prpts
+            if ($prpts instanceof Component
+             || $prpts instanceof Res) {
+                
+                $prpts
+                = array(
+                    'content' => $prpts);
+            }
+            
+            if (!is_array($prpts)) {
+                throw
+                new ArgTypeError(
+                        $prpts,
+                        'prpts:array|string|Component');
+            }
+            
+            $prpts
             = array_change_key_case(
                 $prpts,
                 CASE_LOWER);
             
-            if (!isset($this->_prpts['path'])) {
-                $this->_prpts['path']
-                = '';
-            }
+            $this->_prpts
+            = $prpts;
             
-            if (empty($this->_prpts['path'])) {
-                $this->_prpts['path']
-                = Config::get('Page.Path');
-            }
-            
-            if (is_callable($this->_prpts['path'])) {
-                $this->_prpts['path']
-                = call_user_func(
-                    $this->_prpts['path']);
-            }
-            
-            if (!is_string($this->_prpts['path'])) {
-                throw
-                new ArgTypeError(
-                        $this->_prpts['path'],
-                        'Page.path:string');
-            }
-            
-            if (empty($this->_prpts['path'])) {
-                $this->_prpts['path']
-                = $this->defaultPage;
-                
-                if ($this->useOfExt) {
-                    $this->_prpts['path']
-                    = $this->_prpts['path']
-                    . '.'
-                    . $this->defaultExt;
-                }
-            }
-            
-            if (!isset($this->_prpts['folderpath'])) {
-                $this->_prpts['folderpath']
-                = dirname($this->_prpts['path']);
-                
-                if ($this->_prpts['folderpath']
-                        == '.') {
-                    
-                    $this->_prpts['folderpath']
-                    = '';
-                }
-                
-                $this->_prpts['folderpath']
-                = Folder::branch(
-                    $this->pagesFolderPath,
-                    $this->_prpts['folderpath']);
-            }
-            
-            if (!isset($this->_prpts['name'])) {
-                $this->_prpts['name']
-                = basename($this->_prpts['path']);
-            }
-            
-            if (!isset($this->_prpts['extension'])) {
-                $this->_prpts['extension']
-                = false;
-                
-                if (preg_match(
-                        '/^[^\.]+\.[^\.]+$/i',
-                        $this->_prpts['name'])) {
-                    
-                    $this->_prpts['extension']
-                    = preg_replace(
-                        '/^[^\.]+\./i',
-                        '',
-                        $this->_prpts['name']);
-                    
-                    $this->_prpts['name']
-                    = str_ireplace(
-                        ".{$this->_prpts['extension']}",
-                        '',
-                        $this->_prpts['name']);
-                }
-            }
-            
-            if (!isset($this->_prpts['params'])) {
-                $this->_prpts['params']
-                = false;
-                
-                if (preg_match(
-                        '/^[^\-](\-[^\-]+)+$/i',
-                        $this->_prpts['name'])) {
-                    
-                    $this->_prpts['params']
-                    = preg_replace(
-                        '//i',
-                        '',
-                        $this->_prpts['name']);
-                    
-                    $this->_prpts['name']
-                    = str_ireplace(
-                        $this->_prpts['params'],
-                        '',
-                        $this->_prpts['name']);
-                    
-                    $this->_prpts['params']
-                    = preg_replace(
-                        '/\.[^\.]+$/i',
-                        '',
-                        $this->_prpts['params']);
-                    
-                    $this->_prpts['params']
-                    = explode(
-                        '-',
-                        $this->_prpts['params']);
-                    
-                    if (empty($this->_prpts['params'])) {
-                        $this->_prpts['params']
-                        = false;
-                    }
-                }
-            }
-            
-            if (preg_match(
-                    '/^[^\.]+((\-[^\-])+|(\.[^\.]))$/i',
-                    $this->_prpts['name'])) {
-                
-                $this->_prpts['name']
-                = preg_replace(
-                    '/((\-[^\-]+)|(\.[^\.]+))$/i',
-                    '',
-                    $this->_prpts['name']);
-            }
+            // create content
+            $this->_contentCreator();
         }
         
         
@@ -184,6 +80,10 @@ namespace Dino\Contents
             if (!isset($this->_prpts[$name])) {
                 switch ($name)
                 {
+                    //
+                    // Defaults
+                    //
+                    
                     case 'defaultpage':
                         return
                         Config::get('Page.DefaultPage');
@@ -194,17 +94,9 @@ namespace Dino\Contents
                         Config::get('Page.DefaultExt');
                         break;
                     
-                    case 'filepath':
-                        $this->_prpts['filepath']
-                        = Folder::branch(
-                            $this->folderPath,
-                            "{$this->name}.php");
-                        break;
-                    
-                    case 'pagesfolderpath':
+                    case 'defaultframe':
                         return
-                        Config::get(
-                            'Page.PagesFolderPath');
+                        Config::get('Page.DefaultFrame');
                         break;
                     
                     case 'useofext':
@@ -213,34 +105,113 @@ namespace Dino\Contents
                             'Page.UseOfExt');
                         break;
                     
-                    case 'viewfilepath':
+                    
+                    //
+                    // Requests
+                    //
+                    
+                    case 'path':
+                        $path
+                        = Config::get('Page.Path');
+                        
+                        if (is_callable($path)) {
+                            $path
+                            = call_user_func(
+                                $path);
+                        }
+                        
+                        if (empty($path)) {
+                            $path
+                            = $this->defaultPage;
+                            
+                            if ($this->useOfExt) {
+                                $path
+                                = $path
+                                . '.'
+                                . $this->defaultExt;
+                            }
+                        }
+                        
+                        return $path;
+                        break;
+                    
+                    case 'type':
+                        return 'page';
+                        break;
+                    
+                    case 'extension':
+                        return false;
+                        break;
+                    
+                    case 'isres':
+                        return
+                        (strtolower($this->type)
+                            == 'res');
+                        break;
+                    
+                    case 'iscontent':
+                        return
+                        ($this->isPage || $this->isComponent);
+                        break;
+                    
+                    case 'ispage':
+                        return
+                        (strtolower($this->type)
+                            == 'page');
+                        break;
+                    
+                    case 'iscomponent':
+                        return
+                        (strtolower($this->type)
+                            == 'component');
+                        break;
+                    
+                    
+                    //
+                    // View
+                    //
+                    
+                    case 'view':
+                        $this->_prpts['view']
+                        = new View(
+                                $this->viewFilePath);
+                        break;
+                    
+                    case 'viewfilepath';
                         $this->_prpts['viewfilepath']
                         = Folder::branch(
                             $this->viewFolderPath,
-                            $this->viewFileName);
-                        break;
-                    
-                    case 'viewfilename':
-                        $this->_prpts['viewfilename']
-                        = str_ireplace(
-                            array(
-                                '%name%',
-                                '%ext%'),
-                            array(
-                                $this->viewName,
-                                $this->extension),
-                            Config::get('Page.ViewFileNamePattern'));
+                            $this->viewFileFullName);
                         break;
                     
                     case 'viewfolderpath':
                         $this->_prpts['viewfolderpath']
                         = Folder::branch(
-                            $this->folderPath,
-                            Config::get('Page.ViewsFolderName'));
+                            Config::get('Page.ThemesFolderPath'),
+                            $this->theme);
                         break;
                     
-                    case 'viewname':
-                        return $this->name;
+                    case 'viewfilefullname':
+                        $this->_prpts['viewfilefullname']
+                        = str_ireplace(
+                            array(
+                                '%name%',
+                                '%ext%'),
+                            array(
+                                $this->frame,
+                                $this->content->extension),
+                            Config::get('Page.FrameNamePattern'))
+                        . '.php';
+                        break;
+                    
+                    case 'theme':
+                        return
+                        Config::get('Page.ThemeName');
+                        break;
+                    
+                    case 'frame':
+                        return
+                        $this->defaultFrame;
                         break;
                     
                     default:
@@ -258,17 +229,136 @@ namespace Dino\Contents
         
         public
         function
-        exists()
+        load()
         {
-            if (!File::check($this->viewFilePath)) {
-                return false;
+            $this->view->content
+            = $this->content;
+            
+            $this->view->load();
+        }
+        
+        
+        private
+        function
+        _contentCreator()
+        {
+            if (!isset($this->_prpts['content'])) {
+                $this->_prpts['content']
+                = $this->path;
             }
             
-            if (!File::check($this->filePath)) {
-                return false;
+            if (is_string($this->_prpts['content'])) {
+                if (preg_match(
+                        '/^(res\/|page\/|component\/)/i',
+                        $this->_prpts['content'])) {
+                    
+                    list($this->type, $this->_prpts['content'])
+                    = explode(
+                        '/',
+                        $this->_prpts['content'],
+                        2);
+                }
+                
+                $this->_prpts['content']
+                = array(
+                    'path' => $this->_prpts['content']);
+                
+                if (preg_match(
+                        '/^[^\.]+\.[^\.]+$/i',
+                        $this->_prpts['content']['path'])) {
+                        
+                    list(
+                        $this->_prpts['content']['path'],
+                        $this->_prpts['content']['ext'])
+                    = explode(
+                        '.',
+                        $this->_prpts['content']['path']);
+                }
             }
             
-            return true;
+            if (is_array($this->_prpts['content'])) {
+                $this->_prpts['content']
+                = array_change_key_case(
+                    $this->_prpts['content'],
+                    CASE_LOWER);
+                
+                if (!isset($this->_prpts['content']['path'])) {
+                    throw
+                    new KeyNotFoundError(
+                            'Page.content',
+                            'path');
+                }
+                
+                if (!isset($this->_prpts['content']['ext'])) {
+                    if ($this->useOfExt
+                     || $this->isRes) {
+                        
+                        throw
+                        new PageNotFoundError(
+                                $this->_prpts['content']['path']);
+                    }
+                    
+                    $this->_prpts['content']['ext']
+                    = $this->defaultExt;
+                }
+                
+                if (!isset($this->_prpts['content']['params'])
+                 && $this->isContent) {
+                    
+                    $this->_prpts['content']['params']
+                    = array();
+                    
+                    if (preg_match(
+                            '/^[^\-]+(\-[^\-]+)+$/i',
+                            $this->_prpts['content']['path'])) {
+                        
+                        list(
+                            $this->_prpts['content']['path'],
+                            $this->_prpts['content']['params'])
+                        = explode(
+                            '-',
+                            $this->_prpts['content']['path'],
+                            2);
+                    }
+                }
+                
+                if (isset($this->_prpts['content']['params'])
+                 && is_string($this->_prpts['content']['params'])) {
+                    
+                    $this->_prpts['content']['params']
+                    = explode(
+                        '-',
+                        $this->_prpts['content']['params']);
+                }
+                
+                if ($this->isRes) {
+                    $this->_prpts['content']
+                    = new Res(
+                            $this->_prpts['content']['path'],
+                            $this->_prpts['content']['ext']);
+                }
+                else
+                if ($this->isContent) {
+                    $this->_prpts['content']
+                    = new Component(
+                            $this->_prpts['content']['path'],
+                            $this->_prpts['content']['ext'],
+                            $this->_prpts['content']['params']);
+                }
+            }
+            
+            if (!is_a(
+                    $this->_prpts['content'],
+                    'Dino\Contents\Res')
+             && !is_a(
+                     $this->_prpts['content'],
+                     'Dino\Contents\Component')) {
+                
+                throw
+                new ArgInvalidError(
+                        $this->_prpts['content'],
+                        'Page.content');
+            }
         }
     }
 }
