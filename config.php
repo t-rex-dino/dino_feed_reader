@@ -14,7 +14,7 @@ $_config
 = array(
     'webApp' =>
         array(
-            'subFolder' => 'dino_feed_reader-main'),
+            'subFolder' => 'dino_feed_reader'),
     
     'page' =>
         array(
@@ -58,7 +58,7 @@ $_config
             'useOfExt'     => true,
             'themesFolderPath' => 'themes',
             'themeName' => 'muscari',
-            'frameNamePattern' => '%name%.%exe%'),
+            'frameNamePattern' => '%name%.%ext%'),
     
     'component' =>
         array(

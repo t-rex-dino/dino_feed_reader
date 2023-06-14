@@ -36,6 +36,11 @@ namespace Dino\Contents
             if ($prpts instanceof Component
              || $prpts instanceof Res) {
                 
+                if ($prpts instanceof Res) {
+                    $this->type
+                    = 'res';
+                }
+                
                 $prpts
                 = array(
                     'content' => $prpts);
