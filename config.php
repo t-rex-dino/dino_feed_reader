@@ -52,9 +52,16 @@ $_config
                     $request;
                 },
             
-            'defaultPage' => 'news',
-            'defaultExt'  => 'html',
-            'useOfExt'    => true,
-            'pagesFolderPath' => 'pages',
-            'viewsFolderName' => 'views',
-            'viewFileNamePattern' => '%name%.%ext%.php'));
+            'defaultPage'  => 'news',
+            'defaultExt'   => 'html',
+            'defaultframe' => 'page',
+            'useOfExt'     => true,
+            'themesFolderPath' => 'themes',
+            'themeName' => 'muscari',
+            'frameNamePattern' => '%name%.%exe%'),
+    
+    'component' =>
+        array(
+            'componentsFolderPath' => 'pages',
+            'viewsFolderName'      => 'views',
+            'viewNamePattern'      => '%name%.%ext%.php'));
