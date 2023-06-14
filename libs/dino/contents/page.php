@@ -236,6 +236,8 @@ namespace Dino\Contents
         function
         load()
         {
+            $this->content->page
+            = $this;
             $this->content->load();
         }
         

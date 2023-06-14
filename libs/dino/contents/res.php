@@ -9,6 +9,9 @@ namespace Dino\Contents
     use Dino\Errors\EmmptyArgError;
     use Dino\Errors\PropertyNotFoundError;
 
+    use Dino\General\Config;
+    use Dino\General\Folder;
+
 
     class Res
     {
@@ -18,49 +21,49 @@ namespace Dino\Contents
 
 
         private
-        $_resFilePath;
+        $_resPath;
 
 
         public
         function
-        __construct($resFilePath)
+        __construct($resPath)
         {
-            if (!is_string($resFilePath)) {
+            if (!is_string($resPath)) {
                 throw
                 new ArgTypeError(
-                        $resFilePath,
-                        'resFilePath:string');
+                        $resPath,
+                        'resPath:string');
             }
 
-            if (empty($resFilePath)) {
+            if (empty($resPath)) {
                 throw
                 new EmptyArgError(
-                        $resFilePath);
+                        $resPath);
             }
 
-            $this->_resFilePath
-            = $resFilePath;
+            $this->_resPath
+            = $resPath;
 
             if (!preg_match(
                     '/.+(\.[^\.]+)+$/i',
-                    $this->_resFilePath)) {
+                    $this->_resPath)) {
                 
                 throw
                 new PageNotFoundError(
-                    $this->_resFilePath);
+                    $this->_resPath);
             }
 
             $this->extension
             = preg_replace(
                 '/^.+(\.[^\.]+)*\./i',
                 '',
-                $this->_resFilePath);
+                $this->_resPath);
             
-            $this->_resFilePath
+            $this->_resPath
             = str_ireplace(
                 ".{$this->extension}",
                 '',
-                $this->_resFilePath);
+                $this->_resPath);
         }
 
 
@@ -85,6 +88,20 @@ namespace Dino\Contents
             if (!isset($this->_prpts[$name])) {
                 switch ($name)
                 {
+                    case 'resfilepath':
+                        $this->_prpts[$name]
+                        = Folder::branch(
+                            $this->resFolderPath,
+                            $this->_resPath);
+                        break;
+                    
+                    case 'resfolderpath':
+                        $this->_prpts[$name]
+                        = Folder::branch(
+                            $this->page->viewFolderPath,
+                            Config::get('Res.ResFolderName'));
+                        break;
+                    
                     default:
                         throw
                         new PropertyNotFoundError(
@@ -102,7 +119,7 @@ namespace Dino\Contents
         function
         load()
         {
-            echo __METHOD__;
+            echo $this->resFilePath;
         }
     }
 }

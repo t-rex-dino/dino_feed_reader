@@ -64,4 +64,8 @@ $_config
         array(
             'componentsFolderPath' => 'pages',
             'viewsFolderName'      => 'views',
-            'viewNamePattern'      => '%name%.%ext%.php'));
+            'viewNamePattern'      => '%name%.%ext%.php'),
+    
+    'res' =>
+        array(
+            'resFolderName' => 'res'));
