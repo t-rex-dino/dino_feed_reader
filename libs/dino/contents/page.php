@@ -236,10 +236,7 @@ namespace Dino\Contents
         function
         load()
         {
-            $this->view->content
-            = $this->content;
-            
-            $this->view->load();
+            $this->content->load();
         }
         
         
@@ -268,7 +265,8 @@ namespace Dino\Contents
                 = array(
                     'path' => $this->_prpts['content']);
                 
-                if (preg_match(
+                if ($this->isContent
+                 && preg_match(
                         '/^[^\.]+\.[^\.]+$/i',
                         $this->_prpts['content']['path'])) {
                         
@@ -294,15 +292,14 @@ namespace Dino\Contents
                             'path');
                 }
                 
-                if (!isset($this->_prpts['content']['ext'])) {
-                    if ($this->useOfExt
-                     || $this->isRes) {
-                        
+                if ($this->isContent
+                 && !isset($this->_prpts['content']['ext'])) {
+                    if ($this->useOfExt) {
                         throw
                         new PageNotFoundError(
                                 $this->_prpts['content']['path']);
                     }
-                    
+
                     $this->_prpts['content']['ext']
                     = $this->defaultExt;
                 }
@@ -339,8 +336,7 @@ namespace Dino\Contents
                 if ($this->isRes) {
                     $this->_prpts['content']
                     = new Res(
-                            $this->_prpts['content']['path'],
-                            $this->_prpts['content']['ext']);
+                            $this->_prpts['content']['path']);
                 }
                 else
                 if ($this->isContent) {

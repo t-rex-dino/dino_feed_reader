@@ -103,7 +103,7 @@ namespace Dino\Contents
         function
         load()
         {
-            echo __FILE__;
+            echo __METHOD__;
         }
     }
 }
