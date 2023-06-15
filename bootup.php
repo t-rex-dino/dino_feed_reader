@@ -111,11 +111,17 @@ Dino\General\Config::load(
 
         if (empty($request)) {
             $request
-            = Dino\General\Config::get('Page.DefaultPage')
-            . '.'
-            . Dino\General\Config::get('Page.DefaultExt');
+            = Dino\General\Config::get('Content.DefaultPage');
+
+            if (Dino\General\Config::get('Content.UseOfExt')) {
+                $request
+                = $request
+                . '.'
+                . Dino\General\Config::get('Content.DefaultExt');
+            }
         }
         
         return
         $request;
-    }))->load();
+    })
+)->load();
