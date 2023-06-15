@@ -79,4 +79,43 @@ Dino\General\Config::load(
 
 
 // create content
-(new Dino\Contents\Page())->load();
+(new Dino\Contents\Content(
+    function () {
+        $request
+        = '';
+        
+        if (isset($_SERVER['REQUEST_URI'])
+            && !empty($_SERVER['REQUEST_URI'])) {
+            
+            $request
+            = strtolower(
+                trim(
+                    $_SERVER['REQUEST_URI'],
+                    '/'));
+            
+            $webAppSubFolder
+            = strtolower(
+                trim(
+                    Dino\General\Config::get(
+                        'WebApp.SubFolder'),
+                    '/'));
+            
+            $request
+            = trim(
+                str_ireplace(
+                    $webAppSubFolder,
+                    '',
+                    $request),
+                '/');
+        }
+
+        if (empty($request)) {
+            $request
+            = Dino\General\Config::get('Page.DefaultPage')
+            . '.'
+            . Dino\General\Config::get('Page.DefaultExt');
+        }
+        
+        return
+        $request;
+    }))->load();
