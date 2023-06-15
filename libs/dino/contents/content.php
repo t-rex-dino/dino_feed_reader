@@ -41,7 +41,9 @@ namespace Dino\Contents
                 $prpts,
                 CASE_LOWER);
             
-            if (empty($this->path)) {
+            if (!isset($this->path)
+            || empty($this->path)) {
+                
                 #ERR
                 die('err');
             }
@@ -60,12 +62,37 @@ namespace Dino\Contents
                     2);
             }
 
+            $this->extension
+            = $this->defaultExt;
+
+            if ($this->useOfExt) {
+                if (!preg_match(
+                        '/^.+(\.[^\.]+)*\.[^\.]+$/i',
+                        $this->path)) {
+                    
+                    #ERR
+                    die('err3');
+                }
+
+                $this->extension
+                = preg_replace(
+                    '/^.+(\.[^\.]+)*\./i',
+                    '',
+                    $this->path);
+                
+                $this->path
+                = str_ireplace(
+                    ".{$this->extension}",
+                    '',
+                    $this->path);
+            }
+
             $this->target
             = false;
 
             if ($this->typeIsPage) {
                 $this->target
-                = new Page($this->path);
+                = new Page($this);
             }
             else
             if ($this->typeIsComponent) {
