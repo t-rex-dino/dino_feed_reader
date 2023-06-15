@@ -35,6 +35,52 @@ namespace Dino\Contents
                         $prpts,
                         'prpts:array|string|callable');
             }
+
+            $this->_prpts
+            = array_change_key_case(
+                $prpts,
+                CASE_LOWER);
+            
+            if (empty($this->path)) {
+                #ERR
+                die('err');
+            }
+
+            $this->type
+            = 'page';
+
+            if (preg_match(
+                    '/^(page\/|Component\/|res\/)/i',
+                    $this->path)) {
+
+                list($this->type, $this->path)
+                = explode(
+                    '/',
+                    $this->path,
+                    2);
+            }
+
+            $this->target
+            = false;
+
+            if ($this->typeIsPage) {
+                $this->target
+                = new Page($this->path);
+            }
+            else
+            if ($this->typeIsComponent) {
+                $this->target
+                = new Component($this->path);
+            }
+            else
+            if ($this->typeIsRes) {
+                $this->target
+                = new Res($this->path);
+            }
+            else {
+                #ERR
+                die('err2');
+            }
         }
 
 
@@ -59,11 +105,26 @@ namespace Dino\Contents
             if(!isset($this->_prpts[$name]))
             switch ($name)
             {
+                case 'typeispage':
+                    return
+                    ($this->type == 'page');
+                    break;
+                
+                case 'typeiscomponent':
+                    return
+                    ($this->type == 'component');
+                    break;
+                
+                case 'typeisres':
+                    return
+                    ($this->type == 'res');
+                    break;
+                    
                 default:
                     throw
                     new PropertyNotFoundError(
                             get_called_class(),
-                            $prpt)
+                            $prpt);
                     break;
             }
 
@@ -74,7 +135,27 @@ namespace Dino\Contents
 
         public
         function
+        __isset(
+            $prpt)
+        {
+            return
+            isset($this->_prpts[strtolower($prpt)]);
+        }
+
+
+        public
+        function
+        __unset($prpt)
+        {
+            unset($this->_prpts[strtolower($prpt)]);
+        }
+
+
+        public
+        function
         load()
-        {}
+        {
+            print_r($this);
+        }
     }
 }
