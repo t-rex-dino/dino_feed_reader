@@ -87,9 +87,45 @@ namespace Dino\Contents
                 // Component
                 //
 
-                case 'componentfilepath':
+                case 'filepath':
                     return
-                    Folder::branch();
+                    Folder::branch(
+                        $this->folderPath,
+                        $this->fileName);
+                    break;
+                
+                case 'folderpath':
+                    $this->_prpts['folderpath']
+                    = Folder::branch(
+                        $this->content->componentsFolderPath,
+                        $this->folder);
+                    break;
+                
+                case 'folder':
+                    $folder
+                    = dirname($this->path);
+
+                    if ($folder == '.') {
+                        $folder
+                        = '';
+                    }
+
+                    return $folder;
+                    break;
+                
+                case 'filename':
+                    return
+                    $this->name
+                    . '.php';
+                    break;
+                
+                case 'name':
+                    return
+                    basename($this->path);
+                    break;
+                
+                case 'exists':
+                    return file_exists($this->filePath);
                     break;
 
 
@@ -129,9 +165,14 @@ namespace Dino\Contents
         load()
         {
             // send headers
-            $this->content->sendHeader();
+            $this->content->sendHeaders();
 
-            echo $this->componentFilePath;
+            if (!$this->exists) {
+                #ERR
+                die(__FILE__ .':'. __LINE__);
+            }
+
+            require $this->filePath;
         }
     }
 }

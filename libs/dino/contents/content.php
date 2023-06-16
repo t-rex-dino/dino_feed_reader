@@ -152,6 +152,11 @@ namespace Dino\Contents
                     Config::get('Theme.DefaultFrame');
                     break;
                 
+                case 'componentsfolderpath':
+                    return
+                    Config::get('Content.ComponentsFolderPath');
+                    break;
+                
                 case 'framenamepattern':
                     return
                     Config::get('Theme.FrameNamePattern');
