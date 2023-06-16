@@ -32,7 +32,7 @@ namespace Dino\Contents
                 throw
                 new ArgTypeError(
                         $prpts,
-                        'prpts:array|string|callable');
+                        'prpts:array|Content');
             }
 
             $this->_prpts
