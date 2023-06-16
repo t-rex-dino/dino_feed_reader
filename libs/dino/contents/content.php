@@ -9,6 +9,7 @@ namespace Dino\Contents
     use Dino\Errors\PropertyNotFoundError;
 
     use Dino\General\Config;
+    use Dino\General\Folder;
 
 
     class Content
@@ -64,16 +65,13 @@ namespace Dino\Contents
                     2);
             }
 
-            $this->extension
-            = $this->defaultExt;
-
             if ($this->useOfExt) {
                 if (!preg_match(
                         '/^.+(\.[^\.]+)*\.[^\.]+$/i',
                         $this->path)) {
                     
                     #ERR
-                    die('err3');
+                    die(__FILE__ . ':' . __LINE__);
                 }
 
                 $this->extension
@@ -188,7 +186,43 @@ namespace Dino\Contents
                     return
                     ($this->type == 'res');
                     break;
-                    
+                
+                
+                //
+                // Extension
+                //
+
+                case 'extension':
+                    return $this->defaultExt;
+                    break;
+                
+                case 'extexists':
+                    return
+                    file_exists($this->extFilePath);
+                    break;
+                
+                case 'extfilepath':
+                    return
+                    Folder::branch(
+                        $this->extFolderPath,
+                        "{$this->extension}.php");
+                    break;
+                
+                case 'extfolderpath':
+                    return
+                    Config::get('Content.ExtFolderPath');
+                    break;
+                
+                
+                //
+                // Flags
+                //
+                case 'extloaded':
+                case 'sendedheaders':
+                    return false;
+                    break;
+
+                
                 default:
                     throw
                     new PropertyNotFoundError(
@@ -225,6 +259,65 @@ namespace Dino\Contents
         load()
         {
             $this->target->load();
+        }        
+
+
+        public
+        function
+        loadExtension()
+        {
+            if ($this->extLoaded) {
+                return;
+            }
+
+            if (!$this->extExists) {
+                #ERR
+                die('err6');
+            }
+
+            require $this->extFilePath;
+
+            $this->extLoaded
+            = true;
+        }
+
+
+        public
+        function
+        sendHeaders()
+        {
+            if ($this->sendedHeaders) {
+                return;
+            }
+
+            $this->loadExtension();
+
+            if (!isset($this->headers)) {
+                #ERR
+                die(__FILE__ . ':' . __LINE__);
+            }
+
+            if (empty($this->headers)) {
+                #ERR
+                die(__FILE__ . ':' . __LINE__);
+            }
+
+            if (!is_array($this->headers)) {
+                $this->headers
+                = array($this->headers);
+            }
+
+            foreach ($this->headers as $header) {
+                if (!is_string($header)) {
+                    #ERR
+                    die(__FILE__ . ':' . __LINE__);
+                }
+
+                header($header);
+            }
+
+            $this->sendedHeaders
+            = true;
         }
     }
 }
