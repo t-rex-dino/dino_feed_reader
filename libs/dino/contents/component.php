@@ -8,6 +8,7 @@ namespace Dino\Contents
     use Dino\Errors\ArgTypeError;
     use Dino\Errors\PropertyNotFoundError;
 
+    use Dino\General\Folder;
 
     class Component
     {
@@ -72,6 +73,26 @@ namespace Dino\Contents
             if(!isset($this->_prpts[$name]))
             switch ($name)
             {
+                //
+                // Shortcuts
+                //
+
+                case 'path':
+                    return
+                    $this->content->path;
+                    break;
+                
+                
+                //
+                // Component
+                //
+
+                case 'componentfilepath':
+                    return
+                    Folder::branch();
+                    break;
+
+
                 default:
                     throw
                     new PropertyNotFoundError(
@@ -106,6 +127,11 @@ namespace Dino\Contents
         public
         function
         load()
-        {}
+        {
+            // send headers
+            $this->content->sendHeader();
+
+            echo $this->componentFilePath;
+        }
     }
 }
