@@ -48,8 +48,6 @@ namespace Dino\Contents
                 #ERR
                 die(__FILE__ .':'. __LINE__);
             }
-
-            
         }
 
 
@@ -74,6 +72,16 @@ namespace Dino\Contents
             if(!isset($this->_prpts[$name]))
             switch ($name)
             {
+                //
+                // Flags
+                //
+
+                case 'extloaded':
+                case 'sendedheaders':
+                    return false;
+                    break;
+                
+                
                 default:
                     throw
                     new PropertyNotFoundError(
@@ -108,6 +116,67 @@ namespace Dino\Contents
         public
         function
         load()
-        {}
+        {
+
+        }
+
+
+        public
+        function
+        loadExtension()
+        {
+            if ($this->extLoaded) {
+                return;
+            }
+
+            if (!$this->extExists) {
+                #ERR
+                die('err6');
+            }
+
+            require $this->extFilePath;
+
+            $this->extLoaded
+            = true;
+        }
+
+
+        public
+        function
+        sendHeaders()
+        {
+            if ($this->sendedHeaders) {
+                return;
+            }
+
+            $this->loadExtension();
+
+            if (!isset($this->headers)) {
+                #ERR
+                die(__FILE__ . ':' . __LINE__);
+            }
+
+            if (empty($this->headers)) {
+                #ERR
+                die(__FILE__ . ':' . __LINE__);
+            }
+
+            if (!is_array($this->headers)) {
+                $this->headers
+                = array($this->headers);
+            }
+
+            foreach ($this->headers as $header) {
+                if (!is_string($header)) {
+                    #ERR
+                    die(__FILE__ . ':' . __LINE__);
+                }
+
+                header($header);
+            }
+
+            $this->sendedHeaders
+            = true;
+        }
     }
 }
