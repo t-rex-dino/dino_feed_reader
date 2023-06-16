@@ -21,7 +21,9 @@
     <nav class="row"></nav>
     <main class="row">
         <div class="col border">A</div>
-        <div class="col border">B</div>
+        <div class="col border">
+        <?php $this->content; ?>
+        </div>
         <div class="col border">C</div>
     </main>
     <footer class="row"></footer>

@@ -75,6 +75,10 @@ namespace Dino\Contents
                     break;
             }
 
+            if ($this->_prpts[$name] instanceof Component) {
+                $this->_prpts[$name]->loadView();
+            }
+
             return
             $this->_prpts[$name];
         }

@@ -51,44 +51,6 @@ namespace Dino\Contents
                 #ERR
                 die(__FILE__ .':'. __LINE__);
             }
-
-            
-            if (!isset($this->params)) {
-                $this->params
-                = array();
-            }
-
-            if (empty($this->params)
-             && preg_match(
-                    '/^[^\-]+(\-[^\-]+)+$/',
-                    $this->path)) {
-
-                $this->params
-                = preg_replace(
-                    '/^[^\-]+\-/i',
-                    '',
-                    $this->path);
-                
-                $this->path
-                = str_ireplace(
-                    "-{$this->params}",
-                    '',
-                    $this->path);
-            }
-
-            if (is_string($this->params)) {
-                $this->params
-                = explode(
-                    '-',
-                    $this->params);
-            }
-
-            if (!is_array($this->params)) {
-                throw
-                new ArgTypeError(
-                        $this->params,
-                        'Page.params:array|string');
-            }
         }
 
 
@@ -210,6 +172,10 @@ namespace Dino\Contents
         {
             // send headers
             $this->content->sendHeaders();
+
+            // set content
+            $this->view->content
+            = new Component($this->content);
 
             // load page view
             $this->view->load();

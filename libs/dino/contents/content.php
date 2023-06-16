@@ -106,7 +106,7 @@ namespace Dino\Contents
             }
             else {
                 #ERR
-                die('err2');
+                die(__FILE__ . ':' . __LINE__);
             }
         }
 
@@ -155,6 +155,16 @@ namespace Dino\Contents
                 case 'componentsfolderpath':
                     return
                     Config::get('Content.ComponentsFolderPath');
+                    break;
+                
+                case 'viewsfoldername':
+                    return
+                    Config::get('Content.ViewsFolderName');
+                    break;
+                
+                case 'viewnamepattern':
+                    return
+                    Config::get('Content.ViewNamePattern');
                     break;
                 
                 case 'framenamepattern':

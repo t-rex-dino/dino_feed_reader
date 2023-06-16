@@ -49,6 +49,43 @@ namespace Dino\Contents
                 #ERR
                 die(__FILE__ .':'. __LINE__);
             }
+            
+            if (!isset($this->params)) {
+                $this->params
+                = array();
+            }
+
+            if (empty($this->params)
+             && preg_match(
+                    '/^[^\-]+(\-[^\-]+)+$/',
+                    $this->path)) {
+
+                $this->params
+                = preg_replace(
+                    '/^[^\-]+\-/i',
+                    '',
+                    $this->path);
+                
+                $this->path
+                = str_ireplace(
+                    "-{$this->params}",
+                    '',
+                    $this->path);
+            }
+
+            if (is_string($this->params)) {
+                $this->params
+                = explode(
+                    '-',
+                    $this->params);
+            }
+
+            if (!is_array($this->params)) {
+                throw
+                new ArgTypeError(
+                        $this->params,
+                        'Page.params:array|string');
+            }
         }
 
 
@@ -127,6 +164,42 @@ namespace Dino\Contents
                 case 'exists':
                     return file_exists($this->filePath);
                     break;
+                
+                
+                //
+                // Component View
+                //
+
+                case 'view':
+                    $this->_prpts['view']
+                    = new View($this->viewFilePath);
+                    break;
+                
+                case 'viewfilepath':
+                    return
+                    Folder::branch(
+                        $this->viewFolderPath,
+                        $this->viewFileName);
+                    break;
+                
+                case 'viewfolderpath':
+                    return
+                    Folder::branch(
+                        $this->folderPath,
+                        $this->content->viewsFolderName);
+                    break;
+                
+                case 'viewfilename':
+                    return
+                    str_ireplace(
+                        array(
+                            '%name%',
+                            '%ext%'),
+                        array(
+                            $this->name,
+                            $this->content->extension),
+                        $this->content->viewNamePattern);
+                    break;
 
 
                 default:
@@ -173,6 +246,14 @@ namespace Dino\Contents
             }
 
             require $this->filePath;
+        }
+
+
+        public
+        function
+        loadView()
+        {
+            $this->view->load();
         }
     }
 }
