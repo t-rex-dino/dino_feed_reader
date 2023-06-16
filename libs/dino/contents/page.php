@@ -139,12 +139,67 @@ namespace Dino\Contents
                     Config::get('Content.ExtFolderPath');
                     break;
                 
+                //
+                // Flags
+                //
+                
                 case 'extloaded':
                     return false;
                     break;
                 
                 case 'sendedheaders':
                     return false;
+                    break;
+                
+                //
+                // Page View
+                //
+
+                case 'view':
+                    $this->_prpts['view']
+                    = new View($this->viewFilePath);
+                    break;
+                
+                case 'viewfilepath':
+                    return
+                    Folder::branch(
+                        $this->themeFolderPath,
+                        $this->frameName);
+                    break;
+                
+                case 'themefolderpath':
+                    return
+                    Folder::branch(
+                        $this->themesFolderPath,
+                        $this->theme);
+                    break;
+                
+                case 'themesfolderpath':
+                    return
+                    $this->content->themesFolderPath;
+                    break;
+                
+                case 'theme':
+                    return
+                    $this->content->themeName;
+                    break;
+                
+                case 'framename':
+                    return
+                    str_ireplace(
+                        array(
+                            '%name%',
+                            '%ext%'),
+                        array(
+                            $this->frame,
+                            $this->extension),
+                        $this->content->frameNamePattern)
+                    . '.php';
+                    break;
+                
+                case 'frame':
+                    return
+                    $this->content->defaultFrame;
                     break;
                 
                 default:
@@ -221,12 +276,12 @@ namespace Dino\Contents
 
             if (!isset($this->headers)) {
                 #ERR
-                die(__FILE__ . ':' __LINE__);
+                die(__FILE__ . ':' . __LINE__);
             }
 
             if (empty($this->headers)) {
                 #ERR
-                die(__FILE__ . ':' __LINE__);
+                die(__FILE__ . ':' . __LINE__);
             }
 
             if (!is_array($this->headers)) {
@@ -237,7 +292,7 @@ namespace Dino\Contents
             foreach ($this->headers as $header) {
                 if (!is_string($header)) {
                     #ERR
-                    die(__FILE__ . ':' __LINE__);
+                    die(__FILE__ . ':' . __LINE__);
                 }
 
                 header($header);

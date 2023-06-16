@@ -148,7 +148,27 @@ namespace Dino\Contents
                     return
                     Config::get('Content.UseOfExt');
                     break;
-                            
+                
+                case 'defaultframe':
+                    return
+                    Config::get('Theme.DefaultFrame');
+                    break;
+                
+                case 'framenamepattern':
+                    return
+                    Config::get('Theme.FrameNamePattern');
+                    break;
+                
+                case 'themename':
+                    return
+                    Config::get('Theme.ThemeName');
+                    break;
+                
+                case 'themesfolderpath':
+                    return
+                    Config::get('Theme.ThemesFolderPath');
+                    break;
+                
                 case 'typeispage':
                     return
                     ($this->type == 'page');
