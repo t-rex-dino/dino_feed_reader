@@ -102,7 +102,12 @@ namespace Dino\Contents
         function
         load()
         {
-            echo $this->_viewFilePath;
+            if (!file_exists($this->_viewFilePath)) {
+                #ERR
+                die(__FILE__ . ':' . __LINE__);
+            }
+
+            require $this->_viewFilePath;
         }
     }
 }
