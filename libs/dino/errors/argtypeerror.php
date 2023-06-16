@@ -19,7 +19,7 @@ namespace Dino\Errors
             
             if ($argInfo !== false) {
                 list($argName, $argType)
-                = explode(':', $argInf);
+                = explode(':', $argInfo);
                 
                 $arg = var_export($arg, true);
                 

@@ -24,7 +24,8 @@ $_config
             'componentsFolderPath'  => 'pages',
             'viewsFolderName'       => 'views',
             'viewNamePattern'       => '%name%.%ext%.php',
-            'resFolderName'         => 'res'),
+            'resFolderName'         => 'res',
+            'extFolderPath'         => 'extensions'),
     
     'theme' =>
             array(

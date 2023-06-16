@@ -15,38 +15,34 @@ namespace Dino\Contents
         $_prpts;
 
 
+        private
+        $_viewFilePath;
+
+
         public
         function
         __construct($prpts)
         {
-            if (is_callable($prpts)) {
-                $prpts
-                = call_user_func($prpts);
-            }
-
+            
             if (is_string($prpts)) {
+                $this->_viewFilePath
+                = $prpts;
+
                 $prpts
-                = array('path' => $prpts);
+                = array();
             }
 
             if (!is_array($prpts)) {
                 throw
                 new ArgTypeError(
                         $prpts,
-                        'prpts:array|string|callable');
+                        'prpts:array|string');
             }
 
             $this->_prpts
             = array_change_key_case(
                 $prpts,
                 CASE_LOWER);
-            
-            if (!isset($this->path)
-            || empty($this->path)) {
-                
-                #ERR
-                die('err');
-            }
         }
 
 
@@ -105,6 +101,8 @@ namespace Dino\Contents
         public
         function
         load()
-        {}
+        {
+            echo __FILE__;
+        }
     }
 }

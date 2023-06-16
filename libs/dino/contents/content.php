@@ -8,6 +8,8 @@ namespace Dino\Contents
     use Dino\Errors\ArgTypeError;
     use Dino\Errors\PropertyNotFoundError;
 
+    use Dino\General\Config;
+
 
     class Content
     {
@@ -132,6 +134,21 @@ namespace Dino\Contents
             if(!isset($this->_prpts[$name]))
             switch ($name)
             {
+                case 'defaultpage':
+                    return
+                    Config::get('Content.DefaultPage');
+                    break;
+                
+                case 'defaultext':
+                    return
+                    Config::get('Content.DefaultExt');
+                    break;
+            
+                case 'useofext':
+                    return
+                    Config::get('Content.UseOfExt');
+                    break;
+                            
                 case 'typeispage':
                     return
                     ($this->type == 'page');
@@ -182,7 +199,7 @@ namespace Dino\Contents
         function
         load()
         {
-            print_r($this);
+            $this->target->load();
         }
     }
 }
