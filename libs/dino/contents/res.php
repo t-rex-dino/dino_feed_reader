@@ -74,30 +74,18 @@ namespace Dino\Contents
             if(!isset($this->_prpts[$name]))
             switch ($name)
             {
+                //
+                // Shortcuts
+                //
+
                 case 'path':
                     return $this->content->path;
                     break;
                 
-                case 'extension':
-                    return $this->content->extension;
-                    break;
                 
-                case 'extexists':
-                    return
-                    file_exists($this->extFilePath);
-                    break;
-                
-                case 'extfilepath':
-                    $this->_prpts['extfilepath']
-                    = Folder::branch(
-                        $this->extFolderPath,
-                        "{$this->extension}.php");
-                    break;
-                
-                case 'extfolderpath':
-                    return
-                    Config::get('Content.ExtFolderPath');
-                    break;
+                //
+                // Res File
+                //
                 
                 case 'resfilepath':
                     $this->_prpts['resfilepath']
@@ -125,16 +113,6 @@ namespace Dino\Contents
                     $this->content->path
                     . '.'
                     . $this->content->extension;
-                    break;
-            
-            
-                //
-                // Flags
-                //
-
-                case 'extloaded':
-                case 'sendedheaders':
-                    return false;
                     break;
                 
                 
@@ -174,68 +152,9 @@ namespace Dino\Contents
         load()
         {
             // send headers
-            $this->sendHeaders();
+            $this->content->sendHeaders();
 
             require $this->resFilePath;
-        }
-
-
-        public
-        function
-        loadExtension()
-        {
-            if ($this->extLoaded) {
-                return;
-            }
-
-            if (!$this->extExists) {
-                #ERR
-                die('err6');
-            }
-
-            require $this->extFilePath;
-
-            $this->extLoaded
-            = true;
-        }
-
-
-        public
-        function
-        sendHeaders()
-        {
-            if ($this->sendedHeaders) {
-                return;
-            }
-
-            $this->loadExtension();
-
-            if (!isset($this->headers)) {
-                #ERR
-                die(__FILE__ . ':' . __LINE__);
-            }
-
-            if (empty($this->headers)) {
-                #ERR
-                die(__FILE__ . ':' . __LINE__);
-            }
-
-            if (!is_array($this->headers)) {
-                $this->headers
-                = array($this->headers);
-            }
-
-            foreach ($this->headers as $header) {
-                if (!is_string($header)) {
-                    #ERR
-                    die(__FILE__ . ':' . __LINE__);
-                }
-
-                header($header);
-            }
-
-            $this->sendedHeaders
-            = true;
         }
     }
 }
