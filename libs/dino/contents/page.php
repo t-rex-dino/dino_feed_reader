@@ -144,12 +144,10 @@ namespace Dino\Contents
                 //
                 
                 case 'extloaded':
-                    return false;
-                    break;
-                
                 case 'sendedheaders':
                     return false;
                     break;
+                
                 
                 //
                 // Page View
