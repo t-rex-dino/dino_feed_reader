@@ -8,6 +8,8 @@ namespace Dino\Contents
     use Dino\Errors\ArgTypeError;
     use Dino\Errors\PropertyNotFoundError;
 
+    use Dino\General\Config;
+    use Dino\General\Folder;
 
     class Res
     {
@@ -72,6 +74,60 @@ namespace Dino\Contents
             if(!isset($this->_prpts[$name]))
             switch ($name)
             {
+                case 'path':
+                    return $this->content->path;
+                    break;
+                
+                case 'extension':
+                    return $this->content->extension;
+                    break;
+                
+                case 'extexists':
+                    return
+                    file_exists($this->extFilePath);
+                    break;
+                
+                case 'extfilepath':
+                    $this->_prpts['extfilepath']
+                    = Folder::branch(
+                        $this->extFolderPath,
+                        "{$this->extension}.php");
+                    break;
+                
+                case 'extfolderpath':
+                    return
+                    Config::get('Content.ExtFolderPath');
+                    break;
+                
+                case 'resfilepath':
+                    $this->_prpts['resfilepath']
+                    = Folder::branch(
+                        $this->resFolderPath,
+                        $this->resName);
+                    break;
+                
+                case 'resfolderpath':
+                    return
+                    Folder::branch(
+                        $this->themeFolderPath,
+                        $this->content->resFolderName);
+                    break;
+                
+                case 'themefolderpath':
+                    return
+                    Folder::branch(
+                        $this->content->themesFolderPath,
+                        $this->content->themeName);
+                    break;
+                
+                case 'resname':
+                    return
+                    $this->content->path
+                    . '.'
+                    . $this->content->extension;
+                    break;
+            
+            
                 //
                 // Flags
                 //
@@ -117,7 +173,10 @@ namespace Dino\Contents
         function
         load()
         {
+            // send headers
+            $this->sendHeaders();
 
+            require $this->resFilePath;
         }
 
 

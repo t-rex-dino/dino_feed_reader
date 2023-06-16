@@ -24,7 +24,6 @@ $_config
             'componentsFolderPath'  => 'pages',
             'viewsFolderName'       => 'views',
             'viewNamePattern'       => '%name%.%ext%.php',
-            'resFolderName'         => 'res',
             'extFolderPath'         => 'extensions'),
     
     'theme' =>
@@ -32,4 +31,5 @@ $_config
                 'themeName'         => 'muscari',
                 'themesFolderPath'  => 'themes',
                 'defaultframe'      => 'page',
+                'resFolderName'     => 'res',
                 'frameNamePattern'  => '%name%.%ext%'));

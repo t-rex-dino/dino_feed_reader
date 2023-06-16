@@ -169,6 +169,11 @@ namespace Dino\Contents
                     Config::get('Theme.ThemesFolderPath');
                     break;
                 
+                case 'resfoldername':
+                    return
+                    Config::get('Theme.ResFolderName');
+                    break;
+                
                 case 'typeispage':
                     return
                     ($this->type == 'page');
