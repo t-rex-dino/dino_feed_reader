@@ -274,7 +274,13 @@ namespace Dino\Contents
         load()
         {
             $this->target->load();
-        }        
+
+            if (isset($this->target->useOfView)
+             && $this->target->useOfView) {
+
+                $this->target->loadView();
+            }
+        }
 
 
         public

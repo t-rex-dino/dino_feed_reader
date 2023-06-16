@@ -51,6 +51,9 @@ namespace Dino\Contents
                 #ERR
                 die(__FILE__ .':'. __LINE__);
             }
+
+            $this->useOfView
+            = true;
         }
 
 
@@ -171,13 +174,21 @@ namespace Dino\Contents
         load()
         {
             // send headers
-            $this->content->sendHeaders();
+            #$this->content->sendHeaders();
 
             // set content
             $this->view->content
             = new Component($this->content);
 
             // load page view
+            #$this->view->load();
+        }
+
+
+        public
+        function
+        loadView()
+        {
             $this->view->load();
         }
     }

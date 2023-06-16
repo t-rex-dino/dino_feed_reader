@@ -86,6 +86,9 @@ namespace Dino\Contents
                         $this->params,
                         'Page.params:array|string');
             }
+
+            $this->useOfView
+            = true;
         }
 
 
@@ -169,7 +172,7 @@ namespace Dino\Contents
                 //
                 // Component View
                 //
-
+                
                 case 'view':
                     $this->_prpts['view']
                     = new View($this->viewFilePath);
