@@ -19,21 +19,16 @@ namespace Dino\Contents
         function
         __construct($prpts)
         {
-            if (is_callable($prpts)) {
+            if ($prpts instanceof Content) {
                 $prpts
-                = call_user_func($prpts);
-            }
-
-            if (is_string($prpts)) {
-                $prpts
-                = array('path' => $prpts);
+                = array('content' => $prpts);
             }
 
             if (!is_array($prpts)) {
                 throw
                 new ArgTypeError(
                         $prpts,
-                        'prpts:array|string|callable');
+                        'prpts:array|Content');
             }
 
             $this->_prpts
@@ -41,12 +36,20 @@ namespace Dino\Contents
                 $prpts,
                 CASE_LOWER);
             
-            if (!isset($this->path)
-            || empty($this->path)) {
+            if (!isset($this->content)) {
+                #ERR
+                die(__FILE__ .':'. __LINE__);
+            }
+
+            if (!is_a(
+                    $this->content,
+                    'Dino\Contents\Content')) {
                 
                 #ERR
-                die('err');
+                die(__FILE__ .':'. __LINE__);
             }
+
+            
         }
 
 

@@ -99,12 +99,12 @@ namespace Dino\Contents
             else
             if ($this->typeIsComponent) {
                 $this->target
-                = new Component($this->path);
+                = new Component($this);
             }
             else
             if ($this->typeIsRes) {
                 $this->target
-                = new Res($this->path);
+                = new Res($this);
             }
             else {
                 #ERR

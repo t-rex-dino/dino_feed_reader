@@ -42,7 +42,7 @@ namespace Dino\Contents
             
             if (!isset($this->content)) {
                 #ERR
-                die('err4');
+                die(__FILE__ .':'. __LINE__);
             }
         
             if (!is_a(
@@ -50,7 +50,7 @@ namespace Dino\Contents
                     'Dino\Contents\Content')) {
                 
                 #ERR
-                die('err4');
+                die(__FILE__ .':'. __LINE__);
             }
 
             
