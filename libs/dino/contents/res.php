@@ -8,7 +8,6 @@ namespace Dino\Contents
     use Dino\Errors\ArgTypeError;
     use Dino\Errors\PropertyNotFoundError;
 
-    use Dino\General\Config;
     use Dino\General\Folder;
 
     class Res
