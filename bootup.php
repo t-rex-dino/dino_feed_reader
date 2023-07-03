@@ -27,7 +27,7 @@ defined(
 
 // WebApp Config File Path
 defined(
-    'WEBAPP_CONFIG_File_PATH')
+    'WEBAPP_CONFIG_FILE_PATH')
     or define(
         'WEBAPP_CONFIG_FILE_PATH',
         'config.php');
