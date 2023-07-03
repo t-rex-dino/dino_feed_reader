@@ -68,4 +68,8 @@ spl_autoload_register(
 // WebApp Load
 //
 
+// load config file
+require WEBAPP_CONFIG_FILE_PATH;
+
+// load WebApp
 Dino\General\WebApp::load();
