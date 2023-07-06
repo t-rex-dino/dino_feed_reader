@@ -9,11 +9,13 @@ namespace Dino\General
         public
         static
         function
-        check($path,&$fullPath)
+        check(
+            $path,
+            &$fullPath)
         {
             if (self::checkPath(
-                    $path,
-                    $fullPath)) {
+                        $path,
+                        $fullPath)) {
                 
                 if (is_dir($fullPath)) {
                     return false;
