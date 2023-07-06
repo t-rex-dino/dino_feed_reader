@@ -9,6 +9,57 @@ namespace Dino\General
         public
         static
         function
+        check($path,&$fullPath)
+        {
+            if (self::checkPath(
+                    $path,
+                    $fullPath)) {
+                
+                if (is_dir($fullPath)) {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+
+        public
+        static
+        function
+        checkPath(
+            $path,
+            &$fullPath = false)
+        {
+            if (!is_string($path)) {
+                #ERR
+            }
+
+            $incPaths
+            = explode(
+                PATH_SEPARATOR,
+                get_include_path());
+            
+            foreach ($incPaths as $incPath) {
+                $fullPath
+                = self::branch(
+                    $incPath,
+                    $path);
+                
+                if (file_exists($fullPath)) {
+                    return true;
+                }
+            }
+
+            $fullPath
+            = false;
+
+            return false;
+        }
+
+        public
+        static
+        function
         branch(
             $root,
             $branch)
@@ -20,18 +71,12 @@ namespace Dino\General
             = array_shift($parts);
 
             if (!is_string($root)) {
-                throw
-                new ArgTypeError(
-                        $root,
-                        'root:string');
+                #ERR
             }
 
             foreach ($parts as $branch) {
                 if (!is_string($branch)) {
-                    throw
-                    new ArgTypeError(
-                            $branch,
-                            'branch:string');
+                    #ERR
                 }
 
                 if (empty($branch)) {
