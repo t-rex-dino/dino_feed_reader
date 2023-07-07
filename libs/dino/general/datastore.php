@@ -45,11 +45,24 @@ namespace Dino\General
         public
         static
         function
-        get($path)
+        get($path, $args = array())
         {
+            $args
+            = func_get_args();
+
+            $path
+            = array_shift($args);
+
             if (self::check(
                         $path,
                         $value)) {
+                
+                if (is_callable($value)) {
+                    $value
+                    = call_user_func_array(
+                        $value,
+                        $args);
+                }
                 
                 return $value;
             }
