@@ -36,7 +36,11 @@ namespace Dino\Contents
             }
 
             if (!isset(self::$_routers[$router])) {
-                #ERR
+                self::loadRouterFile($router);
+
+                if (!isset(self::$_routers[$router])) {
+                    #ERR
+                }
             }
 
             if (!isset(self::$_routers[$router]['checkpath'])) {
@@ -75,7 +79,11 @@ namespace Dino\Contents
             }
 
             if (!isset(self::$_routers[$router])) {
-                #ERR
+                self::loadRouterFile($router);
+
+                if (!isset(self::$_routers[$router])) {
+                    #ERR
+                }
             }
 
             if (!isset(self::$_routers[$router]['topath'])) {
@@ -114,7 +122,11 @@ namespace Dino\Contents
             }
 
             if (!isset(self::$_routers[$router])) {
-                #ERR
+                self::loadRouterFile($router);
+
+                if (!isset(self::$_routers[$router])) {
+                    #ERR
+                }
             }
 
             if (!isset(self::$_routers[$router]['checkroute'])) {
@@ -151,7 +163,11 @@ namespace Dino\Contents
             }
 
             if (!isset(self::$_routers[$router])) {
-                #ERR
+                self::loadRouterFile($router);
+
+                if (!isset(self::$_routers[$router])) {
+                    #ERR
+                }
             }
 
             if (!isset(self::$_routers[$router]['toroute'])) {
