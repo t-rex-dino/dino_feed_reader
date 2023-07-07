@@ -21,6 +21,39 @@ namespace Dino\Contents
         $_routersFolderPath
         = '';
         
+        
+        public
+        static
+        function
+        findRouterByPath(
+            $routers,
+            $path)
+        {
+            if (is_string($routers)) {
+                $routers
+                = array($routers);
+            }
+            
+            if (!is_array($routers)) {
+                #ERR
+            }
+            
+            if (!is_string($path)) {
+                #ERR
+            }
+            
+            foreach ($routers as $router) {
+                if (self::checkPath(
+                            $router,
+                            $path)) {
+                    
+                    return $router;
+                }
+            }
+            
+            return false;
+        }
+        
 
         public
         static
