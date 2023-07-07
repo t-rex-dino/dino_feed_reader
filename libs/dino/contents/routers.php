@@ -4,6 +4,7 @@
 
 namespace Dino\Contents
 {
+    use Dino\General\Folder;
     use Dino\General\File;
 
 
