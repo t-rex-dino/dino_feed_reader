@@ -24,9 +24,13 @@ namespace Dino\General
                 = DataStore::get('WebApp.Routers');
                 
                 $router
-                = Routers::findRouter(
+                = Routers::findRouterByPath(
                     $routers,
                     $route);
+                
+                if ($router == false) {
+                    #ERR
+                }
                 
                 $route
                 = Routers::pathToRoute(
