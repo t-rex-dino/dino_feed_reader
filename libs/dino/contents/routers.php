@@ -4,6 +4,9 @@
 
 namespace Dino\Contents
 {
+    use Dino\General\File;
+
+
     class Routers
     {
         private
@@ -175,11 +178,137 @@ namespace Dino\Contents
         public
         static
         function
-        setRouters($routers)
+        addCheckPath(
+            $router,
+            $checker)
         {
+            if (!is_string($router)) {
+                #ERR
+            }
+
+            if (!is_callable($checker)) {
+                #ERR
+            }
+
+            $router
+            = strtolower($router);
+
+            self::$_routers[$router]['checkpath']
+            = $checker;
+        }
+
+
+        public
+        static
+        function
+        addPathToRoute(
+            $router,
+            $toRoute)
+        {
+            if (!is_string($router)) {
+                #ERR
+            }
+
+            if (!is_callable($toRoute)) {
+                #ERR
+            }
+
+            $router
+            = strtolower($router);
+
+            self::$_routers[$router]['checkroute']
+            = $toRoute;
+        }
+
+
+        public
+        static
+        function
+        addCheckRoute(
+            $router,
+            $checker)
+        {
+            if (!is_string($router)) {
+                #ERR
+            }
+
+            if (!is_callable($checker)) {
+                #ERR
+            }
+
+            $router
+            = strtolower($router);
+
+            self::$_routers[$router]['checkroute']
+            = $checker;
+        }
+
+
+        public
+        static
+        function
+        addrouteToPath(
+            $router,
+            $toPath)
+        {
+            if (!is_string($router)) {
+                #ERR
+            }
+
+            if (!is_callable($toPath)) {
+                #ERR
+            }
+
+            $router
+            = strtolower($router);
+
+            self::$_routers[$router]['topath']
+            = $toPath;
+        }
+
+
+        public
+        static
+        function
+        loadRouterFile($routers)
+        {
+            if (is_string($routers)) {
+                $routers
+                = array($routers);
+            }
+
             if (!is_array($routers)) {
                 #ERR
             }
+
+            foreach ($routers sa $router) {
+                if (!is_string($router)) {
+                    #ERR
+                }
+
+                if (!File::check(
+                            Folder::branch(
+                                        self::$_routersFolderPath,
+                                        "{$router}.php"),
+                            $fullPath)) {
+                    
+                    require $fullPath;
+                }
+            }
+        }
+
+
+        public
+        static
+        function
+        setRoutersFolderPath($path)
+        {
+            if (!is_string($path)) {
+                #ERR
+            }
+
+            self::$_routersFolderPath
+            = $path;
         }
     }
 }
