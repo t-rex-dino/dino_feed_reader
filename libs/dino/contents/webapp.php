@@ -4,6 +4,9 @@
 
 namespace Dino\General
 {
+    use Dino\General\DataStore;
+    
+    
     class WebApp
     {
         public
@@ -16,16 +19,31 @@ namespace Dino\General
                 = DataStore::get('WebApp.Path');
             }
 
-            if (empty($route)) {
+            if (is_string($route)) {
+                $routers
+                = DataStore::get('WebApp.Routers');
+                
+                $router
+                = Routers::findRouter(
+                    $routers,
+                    $route);
+                
                 $route
-                = DataStore::get('WebApp.Home');
+                = Routers::pathToRoute(
+                    $router,
+                    $route);
             }
-
-            if (empty($route)) {
+            
+            if (!is_array($route)) {
                 #ERR
             }
-
-            if (is_string($route)) {
+            
+            $route
+            = array_change_key_case(
+                $route,
+                CASE_LOWER);
+            
+            if (!isset($route['launcher'])) {
                 
             }
         }
