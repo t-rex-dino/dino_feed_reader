@@ -11,7 +11,7 @@ namespace Dino\General
         function
         check(
             $path,
-            &$fullPath)
+            &$fullPath = false)
         {
             if (self::checkPath(
                         $path,
