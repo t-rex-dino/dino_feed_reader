@@ -19,7 +19,7 @@ namespace Dino\Contents
         private
         static
         $_routersFolderPath
-        = '';
+        = 'routers';
         
         
         public
@@ -58,6 +58,37 @@ namespace Dino\Contents
         public
         static
         function
+        pathToRoute(
+            $router,
+            $path)
+        {
+            $router
+            = strtolower(
+                $router);
+            
+            if (!self::checkPath(
+                        $router,
+                        $path)) {
+                
+                #ERR
+            }
+
+            $route
+            = call_user_func(
+                self::$_routers[$router]['topath'],
+                $path);
+            
+            if (!is_array($route)) {
+                #ERR
+            }
+
+            return $route;
+        }
+        
+
+        public
+        static
+        function
         checkPath(
             $router,
             $path)
@@ -89,92 +120,6 @@ namespace Dino\Contents
             = call_user_func(
                 self::$_routers[$router]['checkpath'],
                 $path);
-            
-            if (!is_bool($check)) {
-                #ERR
-            }
-
-            return $check;
-        }
-        
-
-        public
-        static
-        function
-        pathToRoute(
-            $router,
-            $path)
-        {
-            $router
-            = strtolower($router);
-
-            if (!is_string($path)) {
-                #ERR
-            }
-
-            if (!isset(self::$_routers[$router])) {
-                self::loadRouterFile($router);
-
-                if (!isset(self::$_routers[$router])) {
-                    #ERR
-                }
-            }
-
-            if (!isset(self::$_routers[$router]['topath'])) {
-                #ERR
-            }
-
-            if (!is_callable(self::$_routers[$router]['topath'])) {
-                #ERR
-            }
-
-            $route
-            = call_user_func(
-                self::$_routers[$router]['topath'],
-                $path);
-            
-            if (!is_array($route)) {
-                #ERR
-            }
-
-            return $route;
-        }
-
-
-        public
-        static
-        function
-        checkRoute(
-            $router,
-            $route)
-        {
-            $router
-            = strtolower($router);
-
-            if (!is_array($route)) {
-                #ERR
-            }
-
-            if (!isset(self::$_routers[$router])) {
-                self::loadRouterFile($router);
-
-                if (!isset(self::$_routers[$router])) {
-                    #ERR
-                }
-            }
-
-            if (!isset(self::$_routers[$router]['checkroute'])) {
-                #ERR
-            }
-
-            if (!is_callable(self::$_routers[$router]['checkroute'])) {
-                #ERR
-            }
-
-            $check
-            = call_user_func(
-                self::$_routers[$router]['checkroute'],
-                $route);
             
             if (!is_bool($check)) {
                 #ERR
@@ -222,6 +167,49 @@ namespace Dino\Contents
             }
 
             return $path;
+        }
+
+
+        public
+        static
+        function
+        checkRoute(
+            $router,
+            $route)
+        {
+            $router
+            = strtolower($router);
+
+            if (!is_array($route)) {
+                #ERR
+            }
+
+            if (!isset(self::$_routers[$router])) {
+                self::loadRouterFile($router);
+
+                if (!isset(self::$_routers[$router])) {
+                    #ERR
+                }
+            }
+
+            if (!isset(self::$_routers[$router]['checkroute'])) {
+                #ERR
+            }
+
+            if (!is_callable(self::$_routers[$router]['checkroute'])) {
+                #ERR
+            }
+
+            $check
+            = call_user_func(
+                self::$_routers[$router]['checkroute'],
+                $route);
+            
+            if (!is_bool($check)) {
+                #ERR
+            }
+
+            return $check;
         }
 
 
@@ -343,8 +331,12 @@ namespace Dino\Contents
                             $fullPath)) {
                     
                     require $fullPath;
+                    
+                    return true;
                 }
             }
+            
+            return false;
         }
 
 
