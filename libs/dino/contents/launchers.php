@@ -26,42 +26,58 @@ namespace Dino\Contents
             $args)
         {
             $method
-            = strtolower($methed;
-            )
+            = strtolower($methed);
+
             if (preg_match(
                     '/^([a-z]+[a-z0-9]*)+_[a-z0-9]+$/i',
                     $method)) {
+            
+                list($launcher, $method)
+                = explode(
+                    '_',
+                    $method,
+                    2);
                 
-                return false;
-            }
-            
-            list($launcher, $method)
-            = explode(
-                '_',
-                $method,
-                2);
-            
-            switch ($method)
-            {
-                case 'loader':
-                    $args
-                    = array_shift($args);
+                switch ($method)
+                {
+                    case 'loader':
+                        if (empty($args)) {
+                            #ERR
+                        }
+                        
+                        self::addLoader(
+                                $launcher,
+                                $args[0]);
+                        break;
                     
-                    self::addLoader(
-                            $launcher,
-                            $args)
-                    break;
-                
-                case 'routetopath':
-                    break;
-                
-                case 'check':
-                    break
-                
-                default:
-                    #ERR
-                    break;
+                    case 'routetopath':
+                        if (empty($args)) {
+                            #ERR
+                        }
+                        
+                        self::addRouteToPath(
+                                $launcher,
+                                $args[0]);
+                        break;
+                    
+                    case 'checkroute':
+                        if (empty($args)) {
+                            #ERR
+                        }
+                        
+                        self::addCheckRoute(
+                                $launcher,
+                                $args[0]);
+                        break
+                    
+                    default:
+                        break;
+                }
+
+                return;
             }
+
+            #ERR
         }
         
         
@@ -70,6 +86,10 @@ namespace Dino\Contents
         load($router)
         {
             if (!self::check($route)) {
+                #ERR
+            }
+
+            if (!isset(self::$_launchers[$route['launcher']]['loader'])) {
                 #ERR
             }
             
@@ -86,6 +106,10 @@ namespace Dino\Contents
         RouteToPath($route)
         {
             if (!self::check($route)) {
+                #ERR
+            }
+
+            if (!isset(self::$_launchers[$route['launcher']]['topath'])) {
                 #ERR
             }
             
@@ -230,6 +254,20 @@ namespace Dino\Contents
             
             self::$_launchers[$name]['check']
             = $checker;
+        }
+
+
+        public
+        static
+        function
+        setLaunchersFolderPath($path)
+        {
+            if (!is_string($path)) {
+                #ERR
+            }
+
+            self::$_routersFolderPath
+            = $path;
         }
     }
 }

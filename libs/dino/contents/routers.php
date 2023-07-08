@@ -20,6 +20,59 @@ namespace Dino\Contents
         static
         $_routersFolderPath
         = 'routers';
+
+
+        public
+        static
+        function
+        __callStatic(
+            $method,
+            $args)
+        {
+            $method
+            = strtolower($methed);
+
+            if (preg_match(
+                    '/^([a-z]+[a-z0-9]*)+_[a-z0-9]+$/i',
+                    $method)) {
+            
+                list($launcher, $method)
+                = explode(
+                    '_',
+                    $method,
+                    2);
+                
+                switch ($method)
+                {
+                    case 'checkpath':
+                        if (empty($args)) {
+                            #ERR
+                        }
+                        
+                        self::addCheckPath(
+                                $launcher,
+                                $args[0]);
+                        break;
+                    
+                    case 'pathtoroute':
+                        if (empty($args)) {
+                            #ERR
+                        }
+                        
+                        self::addPathToRoute(
+                                $launcher,
+                                $args[0]);
+                        break;
+                    
+                    default:
+                        break;
+                }
+
+                return;
+            }
+
+            #ERR
+        }
         
         
         public
@@ -132,90 +185,6 @@ namespace Dino\Contents
         public
         static
         function
-        routeToPath($router, $route)
-        {
-            $router
-            = strtolower($router);
-
-            if (!is_array($route)) {
-                #ERR
-            }
-
-            if (!isset(self::$_routers[$router])) {
-                self::loadRouterFile($router);
-
-                if (!isset(self::$_routers[$router])) {
-                    #ERR
-                }
-            }
-
-            if (!isset(self::$_routers[$router]['toroute'])) {
-                #ERR
-            }
-
-            if (!is_callable(self::$_routers[$router]['toroute'])) {
-                #ERR
-            }
-
-            $path
-            = call_user_func(
-                self::$_routers[$router]['toroute'],
-                $route);
-            
-            if (!is_string($path)) {
-                #ERR
-            }
-
-            return $path;
-        }
-
-
-        public
-        static
-        function
-        checkRoute(
-            $router,
-            $route)
-        {
-            $router
-            = strtolower($router);
-
-            if (!is_array($route)) {
-                #ERR
-            }
-
-            if (!isset(self::$_routers[$router])) {
-                self::loadRouterFile($router);
-
-                if (!isset(self::$_routers[$router])) {
-                    #ERR
-                }
-            }
-
-            if (!isset(self::$_routers[$router]['checkroute'])) {
-                #ERR
-            }
-
-            if (!is_callable(self::$_routers[$router]['checkroute'])) {
-                #ERR
-            }
-
-            $check
-            = call_user_func(
-                self::$_routers[$router]['checkroute'],
-                $route);
-            
-            if (!is_bool($check)) {
-                #ERR
-            }
-
-            return $check;
-        }
-
-
-        public
-        static
-        function
         addCheckPath(
             $router,
             $checker)
@@ -256,52 +225,6 @@ namespace Dino\Contents
 
             self::$_routers[$router]['checkroute']
             = $toRoute;
-        }
-
-
-        public
-        static
-        function
-        addCheckRoute(
-            $router,
-            $checker)
-        {
-            if (!is_string($router)) {
-                #ERR
-            }
-
-            if (!is_callable($checker)) {
-                #ERR
-            }
-
-            $router
-            = strtolower($router);
-
-            self::$_routers[$router]['checkroute']
-            = $checker;
-        }
-
-
-        public
-        static
-        function
-        addrouteToPath(
-            $router,
-            $toPath)
-        {
-            if (!is_string($router)) {
-                #ERR
-            }
-
-            if (!is_callable($toPath)) {
-                #ERR
-            }
-
-            $router
-            = strtolower($router);
-
-            self::$_routers[$router]['topath']
-            = $toPath;
         }
 
 

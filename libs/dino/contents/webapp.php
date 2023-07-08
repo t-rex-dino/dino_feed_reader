@@ -38,7 +38,8 @@ namespace Dino\General
                     $route);
             }
             
-            
+            Routers::setRoutersFolderPath();
+            Launchers::setLaunchersFolderPath();
         }
     }
 }
