@@ -38,18 +38,7 @@ namespace Dino\General
                     $route);
             }
             
-            if (!is_array($route)) {
-                #ERR
-            }
             
-            $route
-            = array_change_key_case(
-                $route,
-                CASE_LOWER);
-            
-            if (!isset($route['launcher'])) {
-                
-            }
         }
     }
 }
