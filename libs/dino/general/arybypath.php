@@ -16,11 +16,17 @@ namespace Dino\General
             $separator = '.')
         {
             if (!is_array($source)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'source',
+                    'array');
             }
 
             if (!is_string($seperator)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'separator',
+                    'string');
             }
 
             if (is_string($path)) {
@@ -31,7 +37,10 @@ namespace Dino\General
             }
 
             if (!is_array($path)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'array|string');
             }
 
             $firstKey
@@ -62,11 +71,17 @@ namespace Dino\General
             $separator = '.')
         {
             if (!is_array($source)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'source',
+                    'array');
             }
 
-            if (!is_string($separator)) {
-                #ERR
+            if (!is_string($seperator)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'separator',
+                    'string');
             }
 
             if (is_string($path)) {
@@ -77,7 +92,10 @@ namespace Dino\General
             }
 
             if (!is_array($path)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'array|string');
             }
 
             $firstKey
