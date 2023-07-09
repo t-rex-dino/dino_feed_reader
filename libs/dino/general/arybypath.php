@@ -42,7 +42,7 @@ namespace Dino\General
                 = self::add(
                     $source[$firstKey],
                     $path,
-                    $value)
+                    $value);
             }
 
             $source[$firstKey]
