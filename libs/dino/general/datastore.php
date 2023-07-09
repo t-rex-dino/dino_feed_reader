@@ -45,7 +45,9 @@ namespace Dino\General
         public
         static
         function
-        get($path, $args = array())
+        get(
+            $path,
+            $args = array())
         {
             $args
             = func_get_args();
