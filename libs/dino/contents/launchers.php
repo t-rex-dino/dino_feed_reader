@@ -68,7 +68,7 @@ namespace Dino\Contents
                         self::addCheckRoute(
                                 $launcher,
                                 $args[0]);
-                        break
+                        break;
                     
                     default:
                         break;
