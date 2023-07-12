@@ -20,7 +20,27 @@ namespace Dino\General
             . "acceptable [Types : {$argType}]";
 
             $code
-            = 2111; // devTime.coding.argument.type
+            = 211; // devTime.coding.argument.type
+
+            self::send(
+                $message,
+                $code);
+        }
+
+
+        public
+        static
+        function
+        pathNotFound(
+            $method,
+            $path)
+        {
+            $message
+            = 'Path Not Found Error.'
+            . "\n For [Method: {$method}] sended [Path: {$path}]";
+
+            $code
+            = 311; // devTime.editing.path.notFound
 
             self::send(
                 $message,
