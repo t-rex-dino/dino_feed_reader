@@ -69,7 +69,9 @@ namespace Dino\General
                 return $value;
             }
 
-            #ERR
+            FatalError::pathnotFound(
+                __METHOD__,
+                $path);
         }
     }
 }
