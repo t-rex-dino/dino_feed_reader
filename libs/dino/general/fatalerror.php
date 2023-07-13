@@ -95,11 +95,13 @@ namespace Dino\General
         public
         static
         function
-        argNotFound($method)
+        argNotFound(
+            $method,
+            $requestMethod)
         {
             $message
             = 'Argumentr requirment Error.'
-            . "\n For [Method: {$method}]";
+            . "\n For [Method: {$method}] requested [Method: {$requestedMethod}]";
 
             $code
             = 160301; // devTimeEditing.notfound.argument
