@@ -37,7 +37,7 @@ namespace Dino\General
         {
             $message
             = 'Path Not Found Error.'
-            . "\n For [Method: {$method}] sended [Path: {$path}]";
+            . "\n For [Method: {$method}] requested [Path: {$path}]";
 
             $code
             = 311; // devTime.editing.notFound.path
@@ -57,7 +57,7 @@ namespace Dino\General
         {
             $message
             = 'File Not Found Error.'
-            . "\n For [Method: {$method}] and [filePath: {$filePath}]";
+            . "\n For [Method: {$method}] requested [filePath: {$filePath}]";
 
             $code
             = 312; // devTime.editing.notFound.file
@@ -77,14 +77,30 @@ namespace Dino\General
         {
             $message
             = 'Class Not Found Error.'
-            . "\n For [Method: {$method}] and [Class: {$className}]";
+            . "\n For [Method: {$method}] requested [Class: {$className}]";
 
             $code
-            = 313; // devTime.editing.notFound.class
+            = 221; // devTime.coding.notFound.class
 
             self::send(
                 $message,
                 $code);
+        }
+
+
+        public
+        static
+        function
+        propertyNotFound(
+            $method,
+            $property)
+        {
+            $message
+            = 'Property Not Found Error'
+            . "\n For [Method: {$method}] requested [Property: {$property}]";
+
+            $code
+            = 222; // devTime.coding.notFound.property
         }
 
 
