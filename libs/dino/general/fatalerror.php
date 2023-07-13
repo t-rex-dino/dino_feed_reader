@@ -111,6 +111,26 @@ namespace Dino\General
         public
         static
         function
+        methodNotFound(
+            $calledMethod,
+            $requestedMethod)
+        {
+            $message
+            = 'Method Not Found Error.'
+            . "\n For [Method: {$calledMethod}] requested [Method: {$requestedMethod}]";
+
+            $code
+            = 223; // devTime.coding.notFound.method
+
+            self::send(
+                $message,
+                $code);
+        }
+
+
+        public
+        static
+        function
         send(
             $message,
             $code)
