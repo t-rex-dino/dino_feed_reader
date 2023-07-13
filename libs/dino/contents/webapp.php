@@ -4,6 +4,7 @@
 
 namespace Dino\General
 {
+    use Dino\General\FatalError;
     use Dino\General\DataStore;
     
     
