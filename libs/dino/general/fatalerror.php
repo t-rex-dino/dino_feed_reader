@@ -40,7 +40,47 @@ namespace Dino\General
             . "\n For [Method: {$method}] sended [Path: {$path}]";
 
             $code
-            = 311; // devTime.editing.path.notFound
+            = 311; // devTime.editing.notFound.path
+
+            self::send(
+                $message,
+                $code);
+        }
+
+
+        public
+        static
+        function
+        fileNotFound(
+            $method,
+            $filePath)
+        {
+            $message
+            = 'File Not Found Error.'
+            . "\n For [Method: {$method}] and [filePath: {$filePath}]";
+
+            $code
+            = 312; // devTime.editing.notFound.file
+
+            self::send(
+                $message,
+                $code);
+        }
+
+
+        public
+        static
+        function
+        classNotFound(
+            $method,
+            $className)
+        {
+            $message
+            = 'Class Not Found Error.'
+            . "\n For [Method: {$method}] and [Class: {$className}]";
+
+            $code
+            = 313; // devTime.editing.notFound.class
 
             self::send(
                 $message,
