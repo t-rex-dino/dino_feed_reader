@@ -71,6 +71,22 @@ namespace Dino\General
         }
 
 
+        public
+        static
+        function
+        emptyArgValue(
+            $method,
+            $argName)
+        {
+            $message
+            = 'Empty Argument Error.'
+            . "\n For [Method: {$method}] in [Argument: {$argName}}]";
+
+            $code
+            = 130102; // devTimeCoding.argument.emptyValue
+        }
+
+
         //
         // Not Found Errors
         //
