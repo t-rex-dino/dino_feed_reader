@@ -91,11 +91,17 @@ namespace Dino\Contents
             }
             
             if (!is_array($routers)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'routers',
+                    'array|string');
             }
             
             if (!is_string($path)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'string');
             }
             
             foreach ($routers as $router) {
@@ -135,7 +141,10 @@ namespace Dino\Contents
                 $path);
             
             if (!is_array($route)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    "{$router}.toPath.return",
+                    'array');
             }
 
             return $route;
@@ -153,7 +162,10 @@ namespace Dino\Contents
             = strtolower($router);
 
             if (!is_string($path)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'string');
             }
 
             if (!isset(self::$_routers[$router])) {
@@ -169,7 +181,10 @@ namespace Dino\Contents
             }
 
             if (!is_callable(self::$_routers[$router]['checkpath'])) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    "routers.{$router}.checkpath",
+                    'callable');
             }
 
             $check
@@ -178,7 +193,10 @@ namespace Dino\Contents
                 $path);
             
             if (!is_bool($check)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    "routers.{$router}.checkpath.retern",
+                    'boolean');
             }
 
             return $check;
@@ -193,11 +211,17 @@ namespace Dino\Contents
             $checker)
         {
             if (!is_string($router)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'router',
+                    'string');
             }
 
             if (!is_callable($checker)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'checker',
+                    'callable');
             }
 
             $router
@@ -216,11 +240,17 @@ namespace Dino\Contents
             $toRoute)
         {
             if (!is_string($router)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'router',
+                    'string');
             }
 
             if (!is_callable($toRoute)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'toRoute',
+                    'callable');
             }
 
             $router
@@ -242,12 +272,18 @@ namespace Dino\Contents
             }
 
             if (!is_array($routers)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'routers',
+                    'array|string');
             }
 
             foreach ($routers as $router) {
                 if (!is_string($router)) {
-                    #ERR
+                    FatalMethod::invalidArgType(
+                        __METHOD__,
+                        'routers.router',
+                        'string');
                 }
 
                 if (!File::check(
@@ -272,7 +308,10 @@ namespace Dino\Contents
         setRoutersFolderPath($path)
         {
             if (!is_string($path)) {
-                #ERR
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'string');
             }
 
             self::$_routersFolderPath
