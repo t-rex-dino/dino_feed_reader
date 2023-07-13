@@ -47,7 +47,9 @@ namespace Dino\Contents
                 {
                     case 'checkpath':
                         if (empty($args)) {
-                            #ERR
+                            FatalError::argNotFound(
+                                __METHOD__,
+                                $requestMethod);
                         }
                         
                         self::addCheckPath(
@@ -57,7 +59,9 @@ namespace Dino\Contents
                     
                     case 'pathtoroute':
                         if (empty($args)) {
-                            #ERR
+                            FatalError::argNotFound(
+                                __METHOD__,
+                                $requestMethod);
                         }
                         
                         self::addPathToRoute(
