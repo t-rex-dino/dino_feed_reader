@@ -27,11 +27,11 @@ namespace Dino\Contents
         static
         function
         __callStatic(
-            $method,
+            $requestMethod,
             $args)
         {
             $method
-            = strtolower($methed);
+            = strtolower($requestMethod);
 
             if (preg_match(
                     '/^([a-z]+[a-z0-9]*)+_[a-z0-9]+$/i',
@@ -72,7 +72,9 @@ namespace Dino\Contents
                 return;
             }
 
-            #ERR
+            FatalError::methodNotFound(
+                __METHOD__,
+                $requestMethod);
         }
         
         
