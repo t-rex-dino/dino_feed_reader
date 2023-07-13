@@ -11,7 +11,10 @@ namespace Dino\General
         __construct($vAndM = array())
         {
             if (!is_array($vAndM)) {
-                #ERR
+                FatalErorr::InvalidArgType(
+                    __METHOD__,
+                    'vAndM',
+                    'array');
             }
 
             if (!isset($this->_vAndM)) {
