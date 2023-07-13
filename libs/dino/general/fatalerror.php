@@ -101,6 +101,10 @@ namespace Dino\General
 
             $code
             = 222; // devTime.coding.notFound.property
+
+            slef::send(
+                $message,
+                $code);
         }
 
 
