@@ -12,7 +12,10 @@ namespace Dino\General
         loadClass($className)
         {
             if (!is_string($className)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'className',
+                    'string');
             }
 
             if (class_exists($className, false)
