@@ -29,7 +29,9 @@ namespace Dino\General
             if (class_exists($className, false)
              && interface_exists($className, false)) {
 
-                #ERR
+                FatalError::classNotFound(
+                    __METHOD__,
+                    $className);
             }
         }
 
@@ -51,7 +53,9 @@ namespace Dino\General
                 }
             }
 
-            #ERR
+            FatalError::FileNotFound(
+                __METHOD__,
+                $filePath);
         }
     }
 }
