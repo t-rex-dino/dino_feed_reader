@@ -6,6 +6,17 @@ namespace Dino\General
 {
     class FatalError
     {
+        ///
+        ///
+        /// Run Time Errors
+        ///
+        ///
+
+
+        //
+        // Not Found Error 
+        //
+        
         public
         static
         function
@@ -24,6 +35,20 @@ namespace Dino\General
         }
 
 
+
+
+
+        ///
+        ///
+        /// Develop Time Errors
+        ///
+        ///
+
+
+        //
+        // Argument Errors
+        //
+        
         public
         static
         function
@@ -46,6 +71,10 @@ namespace Dino\General
         }
 
 
+        //
+        // Not Found Errors
+        //
+        
         public
         static
         function
@@ -146,6 +175,16 @@ namespace Dino\General
         }
 
 
+
+
+
+        ///
+        ///
+        /// Base Errors
+        ///
+        ///
+        
+        
         public
         static
         function
