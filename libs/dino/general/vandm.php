@@ -97,7 +97,9 @@ namespace Dino\General
                 return $value;
             }
 
-            #ERR
+            FatalError::methodNotFound(
+                __METHOD__,
+                $method);
         }
     }
 }
