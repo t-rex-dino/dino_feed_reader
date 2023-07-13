@@ -9,6 +9,24 @@ namespace Dino\General
         public
         static
         function
+        routerNotFound($method)
+        {
+            $message
+            = 'WebApp Router Not Found Error.'
+            . "\n For [Method: {$method}]";
+
+            $code
+            = 100301; // runTimeRoutering.notFound.router
+
+            self::send(
+                $message,
+                $code);
+        }
+
+
+        public
+        static
+        function
         invalidArgType(
             $method,
             $argName,
