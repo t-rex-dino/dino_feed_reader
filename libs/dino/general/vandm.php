@@ -18,7 +18,9 @@ namespace Dino\General
             }
 
             if (!isset($this->_vAndM)) {
-                #ERR
+                FatalError::propertyNotFound(
+                    __METHOD__,
+                    get_called_class() . '::_vAndM');
             }
 
             $this->_vAndM
