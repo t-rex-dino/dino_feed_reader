@@ -242,7 +242,7 @@ namespace Dino\Contents
                 #ERR
             }
 
-            foreach ($routers sa $router) {
+            foreach ($routers as $router) {
                 if (!is_string($router)) {
                     #ERR
                 }
