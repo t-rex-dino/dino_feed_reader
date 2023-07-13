@@ -29,7 +29,7 @@ namespace Dino\General
                     $route);
                 
                 if ($router == false) {
-                    #ERR
+                    FatalError::routerNotFound(__METHOD__);
                 }
                 
                 $route
