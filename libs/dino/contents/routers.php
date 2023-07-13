@@ -136,7 +136,9 @@ namespace Dino\Contents
                         $router,
                         $path)) {
                 
-                #ERR
+                FatalError::invalidPath(
+                    __METHOD__,
+                    $path);
             }
 
             $route
