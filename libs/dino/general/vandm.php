@@ -58,7 +58,9 @@ namespace Dino\General
                 return $value;
             }
 
-            #ERR
+            FatalError::propertynotFound(
+                __METHOD__,
+                $path);
         }
 
 
