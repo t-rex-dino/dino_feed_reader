@@ -34,7 +34,10 @@ namespace Dino\General
             &$fullPath = false)
         {
             if (!is_string($path)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'string');
             }
 
             $incPaths
@@ -73,12 +76,18 @@ namespace Dino\General
             = array_shift($parts);
 
             if (!is_string($root)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'root',
+                    'string');
             }
 
             foreach ($parts as $branch) {
                 if (!is_string($branch)) {
-                    #ERR
+                    FatalError::invalidArgType(
+                        __METHOD__,
+                        'branch',
+                        'string');
                 }
 
                 if (empty($branch)) {
