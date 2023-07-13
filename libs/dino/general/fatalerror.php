@@ -212,6 +212,31 @@ namespace Dino\General
 
 
 
+        //
+        // Path Errors
+        //
+
+        public
+        static
+        function
+        invalidPath(
+            $method,
+            $path)
+        {
+            $message
+            = 'Path Invalid Error.'
+            . "\n For [Method: {$method}] sended [Path: {$path}]";
+
+            $code
+            = 160601; // devTimeEditing.path.invalid
+            
+            self::send(
+                $message,
+                $code);
+        }
+
+
+
 
 
         ///
