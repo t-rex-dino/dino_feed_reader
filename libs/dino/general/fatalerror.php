@@ -90,6 +90,24 @@ namespace Dino\General
         //
         // Not Found Errors
         //
+
+
+        public
+        static
+        function
+        argNotFound($method)
+        {
+            $message
+            = 'Argumentr requirment Error.'
+            . "\n For [Method: {$method}]";
+
+            $code
+            = 160301; // devTimeEditing.notfound.argument
+
+            self::send(
+                $message,
+                $code);
+        }
         
         public
         static
