@@ -163,7 +163,7 @@ namespace Dino\Contents
         public
         static
         function
-        check($route)
+        checkRoute($route)
         {
             if (!is_array($route)) {
                 FatalError::invalidArgType(
