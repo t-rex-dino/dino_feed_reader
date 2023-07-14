@@ -97,7 +97,8 @@ namespace Dino\Contents
         load($route)
         {
             if (!self::checkRoute($route)) {
-                #ERR
+                FatalError::invalidRoute(
+                    __METHOD__);
             }
 
             if (!isset(self::$_launchers[$route['launcher']]['loader'])) {
@@ -127,7 +128,8 @@ namespace Dino\Contents
         RouteToPath($route)
         {
             if (!self::checkRoute($route)) {
-                #ERR
+                FatalError::invalidRoute(
+                    __METHOD__);
             }
 
             if (!isset(self::$_launchers[$route['launcher']]['routeToPath'])) {
