@@ -88,7 +88,7 @@ namespace Dino\General
 
 
         //
-        // Not Found Errors
+        // NotFounds Errors
         //
 
 
