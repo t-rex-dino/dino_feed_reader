@@ -99,7 +99,10 @@ namespace Dino\Contents
             }
 
             if (!isset(self::$_launchers[$route['launcher']]['loader'])) {
-                #ERR
+                FatalError::keyInArrayNotFound(
+                    __METHOD__,
+                    'loader',
+                    "Launcher.{$route['launcher']}");
             }
             
             return
@@ -119,7 +122,10 @@ namespace Dino\Contents
             }
 
             if (!isset(self::$_launchers[$route['launcher']]['topath'])) {
-                #ERR
+                FatalError::keyInArrayNotFound(
+                    __METHOD__,
+                    'routeToPath',
+                    "Launcher.{$route['launcher']}");
             }
             
             $path
@@ -145,19 +151,28 @@ namespace Dino\Contents
             }
             
             if (!isset($route['lancher'])) {
-                #ERR
+                FatalError::keyInArrayNotFound(
+                    __METHOD__,
+                    'router',
+                    'launcher');
             }
             
             if (!isset(self::$_launchers[$route['launcher']])) {
                 self::loadLauncherFile($route['launcher']);
                 
                 if (!isset(self::$_launchers[$route['launcher']])) {
-                    #ERR
+                    FatalError::keyInArrayNotFound(
+                        __METHOD__,
+                        $route['launcher'],
+                        'Launchers');
                 }
             }
             
             if (!isset(self::$_launchers[$route['launcher']]['check'])) {
-                #ERR
+                FatalError::keyInArrayNotFound(
+                    __METHOD__,
+                    $route['launcher'],
+                    'Launchers');
             }
             
             $check
