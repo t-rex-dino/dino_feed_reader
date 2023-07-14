@@ -232,7 +232,7 @@ namespace Dino\General
 
 
         //
-        // Invalid Errors
+        // Invalids Errors
         //
 
         public
