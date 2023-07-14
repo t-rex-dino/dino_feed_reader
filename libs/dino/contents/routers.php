@@ -141,6 +141,13 @@ namespace Dino\Contents
                     $path);
             }
 
+            if (!isset(self::$_routers[$router]['pathToRoute'])) {
+                FatalError::keyInArrayNotFound(
+                    __METHOD__,
+                    'pathToRoute',
+                    "Routers.{$router}");
+            }
+
             $route
             = call_user_func(
                 self::$_routers[$router]['topath'],
