@@ -186,7 +186,10 @@ namespace Dino\Contents
             }
 
             if (!isset(self::$_routers[$router]['checkpath'])) {
-                #ERR
+                FatalError::keyInArrayNotFound(
+                    __METHOD__,
+                    'checkPath',
+                    "Routers.{$router}");
             }
 
             if (!is_callable(self::$_routers[$router]['checkpath'])) {
