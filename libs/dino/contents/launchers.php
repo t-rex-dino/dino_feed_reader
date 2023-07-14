@@ -106,6 +106,13 @@ namespace Dino\Contents
                     'loader',
                     "Launcher.{$route['launcher']}");
             }
+
+            if (!is_callable(self::$_launchers[$route['launcher']]['loader'])) {
+                FatalErro::invalidArgType(
+                    __METHOD__,
+                    "Launchers.{$route['launcher']}.loader",
+                    'callable');
+            }
             
             return
             call_user_func(
