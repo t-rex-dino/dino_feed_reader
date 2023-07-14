@@ -142,7 +142,7 @@ namespace Dino\General
             . "\n For [Method: {$method}] requested [Path: {$path}]";
 
             $code
-            = 160302; // devTimeEditing.notFound.path
+            = 160303; // devTimeEditing.notFound.path
 
             self::send(
                 $message,
@@ -162,7 +162,7 @@ namespace Dino\General
             . "\n For [Method: {$method}] requested [filePath: {$filePath}]";
 
             $code
-            = 160303; // devTimeEditing.notFound.file
+            = 160304; // devTimeEditing.notFound.file
 
             self::send(
                 $message,
@@ -182,7 +182,7 @@ namespace Dino\General
             . "\n For [Method: {$method}] requested [Class: {$className}]";
 
             $code
-            = 130304; // devTimeCoding.notFound.class
+            = 130305; // devTimeCoding.notFound.class
 
             self::send(
                 $message,
@@ -202,7 +202,7 @@ namespace Dino\General
             . "\n For [Method: {$method}] requested [Property: {$property}]";
 
             $code
-            = 130305; // devTimeCoding.notFound.property
+            = 130306; // devTimeCoding.notFound.property
 
             slef::send(
                 $message,
@@ -222,7 +222,7 @@ namespace Dino\General
             . "\n For [Method: {$calledMethod}] requested [Method: {$requestedMethod}]";
 
             $code
-            = 130306; // devTimeCoding.notFound.method
+            = 130307; // devTimeCoding.notFound.method
 
             self::send(
                 $message,
@@ -247,7 +247,7 @@ namespace Dino\General
             . "\n For [Method: {$method}] sended [Path: {$path}]";
 
             $code
-            = 160601; // devTimeEditing.path.invalid
+            = 160608; // devTimeEditing.path.invalid
             
             self::send(
                 $message,
