@@ -178,7 +178,10 @@ namespace Dino\Contents
                 self::loadRouterFile($router);
 
                 if (!isset(self::$_routers[$router])) {
-                    #ERR
+                    FatalError::keyInArrayNotFound(
+                        __METHOD__,
+                        $router,
+                        'Routers');
                 }
             }
 
