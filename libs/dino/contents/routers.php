@@ -148,6 +148,13 @@ namespace Dino\Contents
                     "Routers.{$router}");
             }
 
+            if (!is_callable(self::$_routers[$router]['pathToRoute'])) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Routers.{$router}.pathToRoute",
+                    'callable');
+            }
+
             $route
             = call_user_func(
                 self::$_routers[$router]['pathToRoute'],
