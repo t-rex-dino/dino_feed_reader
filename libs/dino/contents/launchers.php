@@ -96,7 +96,7 @@ namespace Dino\Contents
         function
         load($route)
         {
-            if (!self::check($route)) {
+            if (!self::checkRoute($route)) {
                 #ERR
             }
 
@@ -126,7 +126,7 @@ namespace Dino\Contents
         function
         RouteToPath($route)
         {
-            if (!self::check($route)) {
+            if (!self::checkRoute($route)) {
                 #ERR
             }
 
