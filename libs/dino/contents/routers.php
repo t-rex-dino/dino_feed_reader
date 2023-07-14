@@ -150,13 +150,13 @@ namespace Dino\Contents
 
             $route
             = call_user_func(
-                self::$_routers[$router]['topath'],
+                self::$_routers[$router]['pathToRoute'],
                 $path);
             
             if (!is_array($route)) {
                 FatalMethod::invalidArgType(
                     __METHOD__,
-                    "{$router}.toPath.return",
+                    "{$router}.pathToRoute.return",
                     'array');
             }
 
