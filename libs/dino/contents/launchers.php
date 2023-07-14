@@ -172,7 +172,7 @@ namespace Dino\Contents
                     'array');
             }
             
-            if (!isset($route['lancher'])) {
+            if (!isset($route['launcher'])) {
                 FatalError::keyInArrayNotFound(
                     __METHOD__,
                     'router',
