@@ -94,7 +94,7 @@ namespace Dino\Contents
         
         public
         function
-        load($router)
+        load($route)
         {
             if (!self::check($route)) {
                 #ERR
