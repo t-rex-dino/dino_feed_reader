@@ -232,7 +232,7 @@ namespace Dino\General
 
 
         //
-        // Path Errors
+        // Invalid Errors
         //
 
         public
@@ -247,7 +247,7 @@ namespace Dino\General
             . "\n For [Method: {$method}] sended [Path: {$path}]";
 
             $code
-            = 160601; // devTimeEditing.path.invalid
+            = 160601; // devTimeEditing.invalid.path
             
             self::send(
                 $message,
