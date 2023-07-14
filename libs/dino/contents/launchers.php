@@ -190,7 +190,7 @@ namespace Dino\Contents
                 }
             }
             
-            if (!isset(self::$_launchers[$route['launcher']]['check'])) {
+            if (!isset(self::$_launchers[$route['launcher']]['checkRoute'])) {
                 FatalError::keyInArrayNotFound(
                     __METHOD__,
                     $route['launcher'],
@@ -199,13 +199,13 @@ namespace Dino\Contents
             
             $check
             = call_user_func(
-                self::$_launchers[$route['launcher']]['check'],
+                self::$_launchers[$route['launcher']]['checkRoute'],
                 $route);
             
             if (!is_bool($check)) {
                 FatalError::invalidArgType(
                     __METHOD__,
-                    "Launchers.{$router['laquncher']}.check.RETURN",
+                    "Launchers.{$router['laquncher']}.checkRoute.RETURN",
                     'boolean');
             }
             
