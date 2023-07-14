@@ -136,7 +136,10 @@ namespace Dino\Contents
                 $route);
             
             if (!is_string($path)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'string');
             }
             
             return $path;
@@ -149,7 +152,10 @@ namespace Dino\Contents
         check($route)
         {
             if (!is_array($route)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'route',
+                    'array');
             }
             
             if (!isset($route['lancher'])) {
@@ -183,7 +189,10 @@ namespace Dino\Contents
                 $route);
             
             if (!is_bool($check)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Launchers.{$router['laquncher']}.check.RETURN",
+                    'boolean');
             }
             
             return $check;
@@ -196,7 +205,10 @@ namespace Dino\Contents
         loadLauncherFile($name)
         {
             if (!is_string($name)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'name',
+                    'string');
             }
             
             if (File::check(
@@ -222,11 +234,17 @@ namespace Dino\Contents
             $launcher)
         {
             if (!is_string($name)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'name',
+                    'string');
             }
             
             if (!is_callable($launcher)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'launcher',
+                    'callable');
             }
             
             $name
@@ -245,11 +263,17 @@ namespace Dino\Contents
             $toPath)
         {
             if (!is_string($name)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'name',
+                    'string');
             }
             
             if (!is_callable($toPath)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'toPath',
+                    'callable');
             }
             
             $name
@@ -268,11 +292,17 @@ namespace Dino\Contents
             $checker)
         {
             if (!is_string($name)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'name',
+                    'string');
             }
             
             if (!is_callable($checker)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'checkRoute',
+                    'callable');
             }
             
             $name
@@ -289,7 +319,10 @@ namespace Dino\Contents
         setLaunchersFolderPath($path)
         {
             if (!is_string($path)) {
-                #ERR
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'string');
             }
 
             self::$_routersFolderPath
