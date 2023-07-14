@@ -274,7 +274,7 @@ namespace Dino\Contents
         function
         addRouteToPath(
             $name,
-            $toPath)
+            $routeToPath)
         {
             if (!is_string($name)) {
                 FatalError::invalidArgType(
@@ -283,17 +283,17 @@ namespace Dino\Contents
                     'string');
             }
             
-            if (!is_callable($toPath)) {
+            if (!is_callable($routeToPath)) {
                 FatalError::invalidArgType(
                     __METHOD__,
-                    'toPath',
+                    'routeToPath',
                     'callable');
             }
             
             $name
             = strtolower($name);
             
-            self::$_launchers[$name]['topath']
+            self::$_launchers[$name]['routeToPath']
             = $toPath;
         }
         
@@ -303,7 +303,7 @@ namespace Dino\Contents
         function
         addCheckRoute(
             $name,
-            $checker)
+            $checkRoute)
         {
             if (!is_string($name)) {
                 FatalError::invalidArgType(
@@ -312,7 +312,7 @@ namespace Dino\Contents
                     'string');
             }
             
-            if (!is_callable($checker)) {
+            if (!is_callable($checkRoute)) {
                 FatalError::invalidArgType(
                     __METHOD__,
                     'checkRoute',
@@ -322,7 +322,7 @@ namespace Dino\Contents
             $name
             = strtolower($name);
             
-            self::$_launchers[$name]['check']
+            self::$_launchers[$name]['checkRoute']
             = $checker;
         }
 
