@@ -4,6 +4,9 @@
 
 namespace Dino\Contents
 {
+    use Dino\General\FatalError;
+
+    
     class Launchers
     {
         private
