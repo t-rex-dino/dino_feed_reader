@@ -255,6 +255,24 @@ namespace Dino\General
         }
 
 
+        public
+        static
+        function
+        invalidRoute($method)
+        {
+            $message
+            = 'Route Invalid Error.'
+            . "\n For [Method: {$method}]";
+
+            $code
+            = 130602; // devTimeEditing.invalid.route
+
+            self::send(
+                $message,
+                $code);
+        }
+
+
 
 
 
