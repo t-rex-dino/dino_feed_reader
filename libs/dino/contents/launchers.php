@@ -86,7 +86,9 @@ namespace Dino\Contents
                 return;
             }
 
-            #ERR
+            FatalError::methodNotFound(
+                __METHOD__,
+                $requestedMethod);
         }
         
         
