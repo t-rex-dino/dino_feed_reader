@@ -110,7 +110,26 @@ namespace Dino\General
                 $message,
                 $code);
         }
-        
+
+
+        public
+        static
+        function
+        keyInArrayNotFound($method,$key,$array)
+        {
+            $message
+            = 'Array Key Not Found Error.'
+            . "\n For [Method: {$method}] this [Key: {$key}] in [Array: {$array}]";
+
+            $code
+            = 160302; // devTimeEditing.notFound.keyInArray
+
+            self::send(
+                $message,
+                $code);
+        }
+
+
         public
         static
         function
