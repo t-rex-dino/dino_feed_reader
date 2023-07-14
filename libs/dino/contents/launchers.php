@@ -130,16 +130,23 @@ namespace Dino\Contents
                 #ERR
             }
 
-            if (!isset(self::$_launchers[$route['launcher']]['topath'])) {
+            if (!isset(self::$_launchers[$route['launcher']]['routeToPath'])) {
                 FatalError::keyInArrayNotFound(
                     __METHOD__,
                     'routeToPath',
                     "Launcher.{$route['launcher']}");
             }
+
+            if (!is_callable(self::$_launchers[$route['launcher']]['routeToPath'])) {
+                FatalErro::invalidArgType(
+                    __METHOD__,
+                    "Launchers.{$route['launcher']}.routeToPath",
+                    'callable');
+            }
             
             $path
             = call_user_func(
-                self::$_launchers[$route['launcher']]['topath'],
+                self::$_launchers[$route['launcher']]['routeToPath'],
                 $route);
             
             if (!is_string($path)) {
