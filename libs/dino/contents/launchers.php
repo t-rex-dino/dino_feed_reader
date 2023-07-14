@@ -25,11 +25,11 @@ namespace Dino\Contents
         static
         function
         __callStatic(
-            $method,
+            $requestedMethod,
             $args)
         {
             $method
-            = strtolower($methed);
+            = strtolower($requestedMethod);
 
             if (preg_match(
                     '/^([a-z]+[a-z0-9]*)+_[a-z0-9]+$/i',
