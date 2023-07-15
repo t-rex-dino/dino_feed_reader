@@ -4,7 +4,7 @@
 
 namespace Dino\General
 {
-    class Foloder
+    class Folder
     {
         public
         static
