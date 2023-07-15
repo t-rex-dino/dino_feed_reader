@@ -2,7 +2,7 @@
 
 
 
-namespace Dino\General
+namespace Dino\Contents
 {
     use Dino\General\FatalError;
     use Dino\General\DataStore;
