@@ -42,7 +42,7 @@ require WEBAPP_LIBS_FOLDER_PATH . '/dino/general/fatalerror.php';
 require WEBAPP_LIBS_FOLDER_PATH . '/dino/general/folder.php';
 require WEBAPP_LIBS_FOLDER_PATH . '/dino/general/file.php';
 require WEBAPP_LIBS_FOLDER_PATH . '/dino/general/loader.php';
-require WEBAPP_LIBS_FOLDER_PATH . '/dino/general/config.php';
+require WEBAPP_LIBS_FOLDER_PATH . '/dino/general/datastore.php';
 
 
 
