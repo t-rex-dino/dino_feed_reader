@@ -2,4 +2,4 @@
 
 
 
-Dino\General\Config::set();
+#Dino\General\Config::set();
