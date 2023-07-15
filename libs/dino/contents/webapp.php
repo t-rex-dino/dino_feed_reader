@@ -17,12 +17,12 @@ namespace Dino\Contents
         {
             if (empty($route)) {
                 $route
-                = DataStore::get('WebApp.Path');
+                = DataStore::get('Config.WebApp.Path');
             }
 
             if (is_string($route)) {
                 $routers
-                = DataStore::get('WebApp.Routers');
+                = DataStore::get('Config.WebApp.Routers');
                 
                 $router
                 = Routers::findRouterByPath(
