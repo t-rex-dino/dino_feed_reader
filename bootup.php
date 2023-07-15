@@ -73,4 +73,4 @@ spl_autoload_register(
 require WEBAPP_CONFIG_FILE_PATH;
 
 // load WebApp
-Dino\Content\WebApp::load();
+Dino\Contents\WebApp::load();
