@@ -77,7 +77,7 @@ namespace Dino\General
                     'array');
             }
 
-            if (!is_string($seperator)) {
+            if (!is_string($separator)) {
                 FatalError::invalidArgType(
                     __METHOD__,
                     'separator',
