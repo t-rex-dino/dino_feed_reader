@@ -94,12 +94,6 @@ namespace Dino\General
                     continue;
                 }
 
-                $branch
-                = str_replace(
-                    array('/', '//', '\\', '\\\\'),
-                    DIRECTORY_SEPARATOR,
-                    $branch);
-
                 if (!empty($root)) {
                     $root
                     = $root
@@ -110,6 +104,12 @@ namespace Dino\General
                 = $root
                 . $branch;
             }
+
+            $root
+            = str_replace(
+                array('/','//','\\','\\\\'),
+                DIRECTORY_SEPARATOR,
+                $root);
 
             return $root;
         }
