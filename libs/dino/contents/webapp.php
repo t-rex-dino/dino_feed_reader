@@ -53,7 +53,7 @@ namespace Dino\Contents
                 $route['ext']
                 = $ext;
             }
-            
+            print_r($route);
             #Routers::setRoutersFolderPath();
             #Launchers::setLaunchersFolderPath();
         }
