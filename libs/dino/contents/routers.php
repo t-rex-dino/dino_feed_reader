@@ -161,7 +161,7 @@ namespace Dino\Contents
                 $path);
             
             if (!is_array($route)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     "Routers.{$router}.pathToRoute.RETURN",
                     'array');
