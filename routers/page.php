@@ -39,7 +39,7 @@ Dino\Contents\Routers::Page_PathToRoute(
                 '/^[a-z0-9_\/]+(\-[a-z0-9_])+$/',
                 $path)) {
             
-            list($path, $route['args'])
+            list($path, $route['params'])
             = explode(
                 '-',
                 $path,
