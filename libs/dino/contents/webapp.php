@@ -40,8 +40,8 @@ namespace Dino\Contents
                     $route);
             }
             
-            Routers::setRoutersFolderPath();
-            Launchers::setLaunchersFolderPath();
+            #Routers::setRoutersFolderPath();
+            #Launchers::setLaunchersFolderPath();
         }
     }
 }
