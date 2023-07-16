@@ -167,6 +167,24 @@ namespace Dino\Contents
                     'array');
             }
 
+            $route
+            = array_change_key_case(
+                $route,
+                CASE_LOWER);
+            
+            if (!isset($route['launcher'])) {
+                FatalError::keyInArrayNotFound(
+                    __METHOD__,
+                    'launcher',
+                    'route');
+            }
+
+            $route['path']
+            = $path;
+
+            $route['router']
+            = $router;
+
             return $route;
         }
         
