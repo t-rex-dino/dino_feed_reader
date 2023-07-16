@@ -21,8 +21,8 @@ Dino\Contents\Routers::Page_checkPath(
 Dino\Contents\Routers::Page_PathToRoute(
     function ($path) {
         $route
-        = array('
-            launcher' => 'page');
+        = array(
+            'launcher' => 'page');
 
         if (preg_match(
                 '/^page\//i',
