@@ -57,5 +57,8 @@ Dino\Contents\Routers::Home_PathToRoute(
         $route['launcher']
         = 'page';
 
+        $route['ext']
+        = Dino\General\DataStore::get('Config.WebApp.DefaultExt');
+
         return $route;
     });
