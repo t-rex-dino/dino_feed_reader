@@ -9,13 +9,18 @@ Dino\General\DataStore::set(
             array(
                 'path' =>
                     function () {
-                        return 'users/login.html';
+                        return 'component/users/login-1-2-3-4.html';
                     },
                 
                 'routers' =>
                     array(
-                        'page',
-                        'component',
                         'res',
+                        'component',
+                        'page',
                         'home',
-                        'pageNotFound'))));
+                        'pageNotFound'),
+                
+                'homePath'          => 'news',
+                'pageNotFoundPath'  => 'pageNotFound',
+                'defaultExt'        => 'html',
+                'useOfExt'          => true)));
