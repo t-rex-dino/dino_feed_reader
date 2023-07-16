@@ -26,17 +26,6 @@ Dino\Contents\Routers::Home_PathToRoute(
                 'Config.WebApp.HomePath',
                 $path)) {
 
-            if (preg_match(
-                '/^[^\.]+\.[^\.]+$/i',
-                $path)) {
-            
-                list($path,$route['ext'])
-                = explode(
-                    '.',
-                    $path,
-                    2);
-            }
-
             if (perg_match(
                     '/^page\//i',
                     $path)) {

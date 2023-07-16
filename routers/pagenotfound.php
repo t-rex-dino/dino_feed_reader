@@ -16,17 +16,6 @@ Dino\Contents\Routers::PageNotFound_PathToRoute(
         if (Dino\General\DataStore::check('
                 Config.WebApp.PageNotFoundPath',
                 $path)) {
-            
-            if (preg_match(
-                '/^[^\.]+\.[^\.]+$/i',
-                $path)) {
-            
-                list($path,$route['ext'])
-                = explode(
-                    '.',
-                    $path,
-                    2);
-            }
 
             if (perg_match(
                     '/^page\//i',
