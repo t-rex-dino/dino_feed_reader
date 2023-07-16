@@ -46,6 +46,9 @@ namespace Dino\General
             $firstKey
             = array_shift($path);
 
+            $firstKey
+            = strtolower($firstKey);
+            
             if (!empty($path)) {
                 $value
                 = self::add(
