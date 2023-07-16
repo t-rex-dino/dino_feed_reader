@@ -312,7 +312,7 @@ namespace Dino\Contents
                         'string');
                 }
 
-                if (!File::check(
+                if (File::check(
                             Folder::branch(
                                         self::$_routersFolderPath,
                                         "{$router}.php"),
