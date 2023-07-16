@@ -107,6 +107,11 @@ namespace Dino\General
             $firstKey
             = strtolower($firstKey);
 
+            $source
+            = array_change_key_case(
+                $source,
+                CASE_LOWER);
+
             if (!isset($source[$firstKey])) {
                 return false;
             }
