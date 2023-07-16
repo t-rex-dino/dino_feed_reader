@@ -101,6 +101,9 @@ namespace Dino\General
             $firstKey
             = array_shift($path);
 
+            $firstKey
+            = strtolower($firstKey);
+
             if (!isset($source[$firstKey])) {
                 return false;
             }
