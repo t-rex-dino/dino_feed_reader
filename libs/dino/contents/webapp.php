@@ -49,6 +49,9 @@ namespace Dino\Contents
                 = Routers::pathToRoute(
                     $router,
                     $route);
+                
+                $route['ext']
+                = $ext;
             }
             
             #Routers::setRoutersFolderPath();
