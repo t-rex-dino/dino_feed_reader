@@ -21,7 +21,7 @@ namespace Dino\Contents
         = 'launchers';
         
         
-        public
+        /*public
         static
         function
         __callStatic(
@@ -89,7 +89,7 @@ namespace Dino\Contents
             FatalError::methodNotFound(
                 __METHOD__,
                 $requestedMethod);
-        }
+        }*/
         
         
         public
