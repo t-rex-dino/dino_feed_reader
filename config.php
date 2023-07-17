@@ -9,7 +9,20 @@ Dino\General\DataStore::set(
             array(
                 'path' =>
                     function () {
-                        return 'component/users/login-1-2-3-4.html';
+                        $path
+                        = rtrim($_SERVER['PHP_SELF'], '/');
+                        
+                        return
+                        preg_match(
+                            '/\/:request:/i',
+                            $path)
+                        
+                        ? preg_replace(
+                            '/^.*\/:request:/',
+                            '',
+                            $path)
+                        
+                        : '';
                     },
                 
                 'routers' =>
