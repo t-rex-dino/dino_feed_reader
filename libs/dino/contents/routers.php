@@ -128,9 +128,30 @@ namespace Dino\Contents
             $router,
             $path)
         {
+            if (!is_string($router)) {
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'router',
+                    'string');
+            }
+            
             $router
             = strtolower(
                 $router);
+            
+            if (is_callable($path)) {
+                self::$_routers[$router]['pathToRoute']
+                = $toRoute;
+                
+                return;
+            }
+            
+            if (!is_string($path)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'string|callable');
+            }
             
             if (!self::checkPath(
                         $router,
@@ -196,14 +217,29 @@ namespace Dino\Contents
             $router,
             $path)
         {
+            if (!is_string($router)) {
+                FatalMethod::invalidArgType(
+                    __METHOD__,
+                    'router',
+                    'string');
+            }
+            
             $router
-            = strtolower($router);
-
+            = strtolower(
+                $router);
+            
+            if (is_callable($path)) {
+                self::$_routers[$router]['checkPath']
+                = $checker;
+                
+                return;
+            }
+            
             if (!is_string($path)) {
                 FatalMethod::invalidArgType(
                     __METHOD__,
                     'path',
-                    'string');
+                    'string|callable');
             }
 
             if (!isset(self::$_routers[$router])) {
