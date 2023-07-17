@@ -6,9 +6,6 @@
 // Constants
 //
 
-// find Include key
-defined('INCLUDE_KEY')
-    or die;
 
 // WebApp Root Folder Path
 defined(
