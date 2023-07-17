@@ -8,26 +8,20 @@
 
 
 // WebApp Root Folder Path
-defined(
-    'WEBAPP_ROOT_FOLDER_PATH')
-    or define(
-        'WEBAPP_ROOT_FOLDER_PATH',
-        __DIR__);
+define(
+    'WEBAPP_ROOT_FOLDER_PATH',
+    __DIR__);
 
 // WebApp Librarys Folder Path
-defined(
-    'WEBAPP_LIBS_FOLDER_PATH')
-    or define(
-        'WEBAPP_LIBS_FOLDER_PATH',
-        WEBAPP_ROOT_FOLDER_PATH
-        . '/libs');
+define(
+    'WEBAPP_LIBS_FOLDER_PATH',
+    WEBAPP_ROOT_FOLDER_PATH
+    . '/libs');
 
 // WebApp Config File Path
-defined(
-    'WEBAPP_CONFIG_FILE_PATH')
-    or define(
-        'WEBAPP_CONFIG_FILE_PATH',
-        'config.php');
+define(
+    'WEBAPP_CONFIG_FILE_PATH',
+    'config.php');
 
 
 
