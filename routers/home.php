@@ -26,7 +26,7 @@ Dino\Contents\Routers::Home_PathToRoute(
                 'Config.WebApp.HomePath',
                 $path)) {
 
-            if (perg_match(
+            /*if (preg_match(
                     '/^page\//i',
                     $path)) {
                 
@@ -37,8 +37,11 @@ Dino\Contents\Routers::Home_PathToRoute(
                     $path);
             }
         
-            if (preg_match('',$path)) {
-                list($path,$route['params'])
+            if (preg_match(
+                    '/^[a-z0-9_\/]+(\-[a-z0-9_])+$/',
+                    $path)) {
+                
+                list($path, $route['params'])
                 = explode(
                     '-',
                     $path,
@@ -46,7 +49,9 @@ Dino\Contents\Routers::Home_PathToRoute(
             }
 
             $route['content']
-            = $path;
+            = $path;*/
+            $route
+            = Routers::page_pathToRoute($path);
         }
 
         if (empty($route)) {
