@@ -2,7 +2,7 @@
 
 
 
-Dino\Contents\Routers::Res_checkPath(
+Dino\Contents\Routers::res_checkPath(
     function ($path) {
         if (!empty($path)
          && preg_match(
@@ -16,7 +16,7 @@ Dino\Contents\Routers::Res_checkPath(
     });
 
 
-Dino\Contents\Routers::Res_PathToRoute(
+Dino\Contents\Routers::res_PathToRoute(
     function ($path) {
         return
         array(
