@@ -95,14 +95,14 @@ namespace Dino\Contents
             }
             
             if (!is_array($routers)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'routers',
                     'array|string');
             }
             
             if (!is_string($path)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'path',
                     'string');
@@ -129,7 +129,7 @@ namespace Dino\Contents
             $path)
         {
             if (!is_string($router)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'router',
                     'string');
@@ -218,7 +218,7 @@ namespace Dino\Contents
             $path)
         {
             if (!is_string($router)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'router',
                     'string');
@@ -236,7 +236,7 @@ namespace Dino\Contents
             }
             
             if (!is_string($path)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'path',
                     'string|callable');
@@ -261,7 +261,7 @@ namespace Dino\Contents
             }
 
             if (!is_callable(self::$_routers[$router]['checkPath'])) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     "Routers.{$router}.checkPath",
                     'callable');
@@ -273,7 +273,7 @@ namespace Dino\Contents
                 $path);
             
             if (!is_bool($check)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     "Routers.{$router}.checkPath.RETURN",
                     'boolean');
@@ -291,14 +291,14 @@ namespace Dino\Contents
             $checker)
         {
             if (!is_string($router)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'router',
                     'string');
             }
 
             if (!is_callable($checker)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'checker',
                     'callable');
@@ -320,14 +320,14 @@ namespace Dino\Contents
             $toRoute)
         {
             if (!is_string($router)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'router',
                     'string');
             }
 
             if (!is_callable($toRoute)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'pathToRoute',
                     'callable');
@@ -352,7 +352,7 @@ namespace Dino\Contents
             }
 
             if (!is_array($routers)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'routers',
                     'array|string');
@@ -360,7 +360,7 @@ namespace Dino\Contents
 
             foreach ($routers as $router) {
                 if (!is_string($router)) {
-                    FatalMethod::invalidArgType(
+                    FatalError::invalidArgType(
                         __METHOD__,
                         'Routers.router',
                         'string');
@@ -388,7 +388,7 @@ namespace Dino\Contents
         setRoutersFolderPath($path)
         {
             if (!is_string($path)) {
-                FatalMethod::invalidArgType(
+                FatalError::invalidArgType(
                     __METHOD__,
                     'path',
                     'string');
