@@ -37,7 +37,7 @@ namespace Dino\Contents
                     '/^([a-z]+[a-z0-9]*)+_[a-z0-9]+$/i',
                     $method)) {
             
-                list($launcher, $method)
+                list($router, $method)
                 = explode(
                     '_',
                     $method,
@@ -52,8 +52,8 @@ namespace Dino\Contents
                                 $requestMethod);
                         }
                         
-                        self::addCheckPath(
-                                $launcher,
+                        self::checkPath(
+                                $router,
                                 $args[0]);
                         break;
                     
@@ -64,8 +64,8 @@ namespace Dino\Contents
                                 $requestMethod);
                         }
                         
-                        self::addPathToRoute(
-                                $launcher,
+                        self::pathToRoute(
+                                $router,
                                 $args[0]);
                         break;
                     
@@ -141,7 +141,7 @@ namespace Dino\Contents
             
             if (is_callable($path)) {
                 self::$_routers[$router]['pathToRoute']
-                = $toRoute;
+                = $path;
                 
                 return;
             }
@@ -230,7 +230,7 @@ namespace Dino\Contents
             
             if (is_callable($path)) {
                 self::$_routers[$router]['checkPath']
-                = $checker;
+                = $path;
                 
                 return;
             }
@@ -280,64 +280,6 @@ namespace Dino\Contents
             }
 
             return $check;
-        }
-
-
-        public
-        static
-        function
-        addCheckPath(
-            $router,
-            $checker)
-        {
-            if (!is_string($router)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'router',
-                    'string');
-            }
-
-            if (!is_callable($checker)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'checker',
-                    'callable');
-            }
-
-            $router
-            = strtolower($router);
-
-            self::$_routers[$router]['checkPath']
-            = $checker;
-        }
-
-
-        public
-        static
-        function
-        addPathToRoute(
-            $router,
-            $toRoute)
-        {
-            if (!is_string($router)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'router',
-                    'string');
-            }
-
-            if (!is_callable($toRoute)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'pathToRoute',
-                    'callable');
-            }
-
-            $router
-            = strtolower($router);
-
-            self::$_routers[$router]['pathToRoute']
-            = $toRoute;
         }
 
 
