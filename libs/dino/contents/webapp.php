@@ -50,9 +50,19 @@ namespace Dino\Contents
                     $router,
                     $route);
                 
-                $route['ext']
-                = $ext;
+                $route
+                = array_change_key_case(
+                    $route,
+                    CASE_LOWER);
+                
+                if (!isset($route['ext'])
+                 && isset($ext)) {
+                    
+                    $route['ext']
+                    = $ext;
+                }
             }
+            
             print_r($route);
             #Routers::setRoutersFolderPath();
             #Launchers::setLaunchersFolderPath();
