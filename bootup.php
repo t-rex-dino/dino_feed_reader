@@ -54,6 +54,12 @@ spl_autoload_register(
         Dino\General\Loader::loadClass(strtolower($class));
     });
 
+// set exception handler
+set_exception_handler(
+    function ($e) {
+        print_r($e);
+    });
+
 
 
 //
