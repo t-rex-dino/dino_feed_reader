@@ -2,13 +2,13 @@
 
 
 
-Dino\Contents\Routers::PageNotFound_checkPath(
+Dino\Contents\Routers::pageNotFound_checkPath(
     function ($path) {
         return true;
     });
 
 
-Dino\Contents\Routers::PageNotFound_PathToRoute(
+Dino\Contents\Routers::pageNotFound_PathToRoute(
     function ($path) {
         $route
         = array();
