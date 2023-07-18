@@ -51,7 +51,7 @@ Dino\Contents\Routers::Home_PathToRoute(
             $route['content']
             = $path;*/
             $route
-            = Routers::page_pathToRoute($path);
+            = Dino\Contents\Routers::page_pathToRoute($path);
         }
 
         if (empty($route)) {
