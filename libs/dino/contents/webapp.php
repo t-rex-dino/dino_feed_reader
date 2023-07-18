@@ -35,6 +35,14 @@ namespace Dino\Contents
                 $routers
                 = DataStore::get('Config.WebApp.Routers');
                 
+                if (DataStorr::check(
+                        'Config.WebApp.RoutersFolder',
+                        $routersFolder)) {
+                    
+                    Routers::setRoutersFolderPath(
+                        $routersFolder);
+                }
+                
                 $router
                 = Routers::findRouterByPath(
                     $routers,
@@ -63,9 +71,34 @@ namespace Dino\Contents
                 }
             }
             
-            print_r($route);
-            #Routers::setRoutersFolderPath();
-            #Launchers::setLaunchersFolderPath();
+            if (!is_array($route)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'route',
+                    'array|string');
+            }
+            
+            $route
+            = array_change_key_case(
+                $route,
+                CASE_LOWER);
+            
+            if (!isset($route['launcher'])) {
+                FatalError::keyInAryNotFound(
+                    __METHOD__,
+                    'launcher',
+                    'route');
+            }
+            
+            if (DataStore::check(
+                    'Config.WebApp.LaunchersFolder',
+                    $launchersFolder)) {
+                
+                Launchers::setLaunchersFolderPath(
+                    $launcherFolder);
+            }
+            
+            Launcher::load($route);
         }
     }
 }
