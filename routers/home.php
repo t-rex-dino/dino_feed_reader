@@ -2,7 +2,7 @@
 
 
 
-Dino\Contents\Routers::Home_checkPath(
+Dino\Contents\Routers::home_checkPath(
     function ($path) {
         if (empty($path)
          && (Dino\General\DataStore::check(
@@ -17,7 +17,7 @@ Dino\Contents\Routers::Home_checkPath(
     });
 
 
-Dino\Contents\Routers::Home_PathToRoute(
+Dino\Contents\Routers::home_PathToRoute(
     function ($path) {
         $route
         = array();
@@ -25,31 +25,7 @@ Dino\Contents\Routers::Home_PathToRoute(
         if (Dino\General\DataStore::check(
                 'Config.WebApp.HomePath',
                 $path)) {
-
-            /*if (preg_match(
-                    '/^page\//i',
-                    $path)) {
-                
-                $path
-                = str_ireplace(
-                    'page/',
-                    '',
-                    $path);
-            }
-        
-            if (preg_match(
-                    '/^[a-z0-9_\/]+(\-[a-z0-9_])+$/',
-                    $path)) {
-                
-                list($path, $route['params'])
-                = explode(
-                    '-',
-                    $path,
-                    2);
-            }
-
-            $route['content']
-            = $path;*/
+            
             $route
             = Dino\Contents\Routers::page_pathToRoute($path);
         }
