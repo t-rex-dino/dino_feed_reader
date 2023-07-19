@@ -4,11 +4,25 @@
 
 Dino\Contents\Routers::page_checkPath(
     function ($path) {
+        $useOfExt
+        = (bool)
+        Dino\General\DataStore::get('Config.WebApp.UseOfExt');
+
+        $extExists
+        = (bool)
+        preg_match(
+            '/^[^\.]+\.[^\.]+$/i',
+            $path);
+        
+        if ($useOfExt !== $extExists) {
+            return false;
+        }
+
         if (!empty($path)
          && preg_match(
                 '/^(page\/)?([a-z0-9_]+'
                 . '\/)*[a-z0-9_]+(\-[a-z'
-                . '0-9_])*$/i',
+                . '0-9_])*(\.[a-z0-9_]+)?$/i',
                 $path)) {
             
             return true;
@@ -24,6 +38,21 @@ Dino\Contents\Routers::page_PathToRoute(
         = array(
             'launcher' => 'page');
 
+        if(preg_match(
+                '/^[^\.]+\.[^\.]+$/i',
+                $path)) {
+            
+            list($path, $route['ext'])
+            = explode(
+                '.',
+                $path,
+                2);
+        }
+        else {
+            $route['ext']
+            = Dino\General\DataStore::get('Config.WebApp.DefaultExt');
+        }
+        
         if (preg_match(
                 '/^page\//i',
                 $path)) {
