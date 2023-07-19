@@ -98,7 +98,7 @@ namespace Dino\Contents
                     $launcherFolder);
             }
             
-            Launcher::load($route);
+            Launchers::load($route);
         }
     }
 }
