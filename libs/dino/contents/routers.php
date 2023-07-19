@@ -301,10 +301,10 @@ namespace Dino\Contents
                 }
 
                 if (File::check(
-                            Folder::branch(
-                                        self::$_routersFolderPath,
-                                        "{$router}.php"),
-                            $fullPath)) {
+                        Folder::branch(
+                            self::$_routersFolderPath,
+                            "{$router}.php"),
+                        $fullPath)) {
                     
                     require $fullPath;
                     
