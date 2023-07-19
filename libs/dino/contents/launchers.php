@@ -46,6 +46,11 @@ namespace Dino\Contents
                 $arg
                 = array_shift($arg);
                 
+                if (is_array($arg)) {
+                    $arg['launcher']
+                    = $launcher;
+                }
+                
                 switch ($method)
                 {
                     case 'loader':
@@ -54,11 +59,6 @@ namespace Dino\Contents
                             = $arg;
                             
                             return;
-                        }
-                        
-                        if (is_array($arg)) {
-                            $arg['launcher']
-                            = $launcher;
                         }
                         
                         return
@@ -74,11 +74,6 @@ namespace Dino\Contents
                             return;
                         }
                         
-                        if (is_array($arg)) {
-                            $arg['launcher']
-                            = $launcher;
-                        }
-                        
                         return
                         self::routeToPath($arg);
                         
@@ -90,11 +85,6 @@ namespace Dino\Contents
                             = $arg;
                             
                             return;
-                        }
-                        
-                        if (is_array($arg)) {
-                            $arg['launcher']
-                            = $launcher;
                         }
                         
                         return
@@ -221,6 +211,13 @@ namespace Dino\Contents
                     "Launchers.{$route['launcher']}");
             }
             
+            if (!is_callable(self::$_launchers[$route['launcher']]['checkroute'])) {
+                FatalError::invalidAtgType(
+                    __METHOD__,
+                    "Launchers.{$route['launcher']}.checkPath",
+                    'callable');
+            }
+            
             $check
             = call_user_func(
                 self::$_launchers[$route['launcher']]['checkroute'],
@@ -250,10 +247,10 @@ namespace Dino\Contents
             }
             
             if (File::check(
-                        Folder::branch(
-                                    self::$_launchersFolderPath,
-                                    "{$name}.php"),
-                        $fullPath)) {
+                    Folder::branch(
+                        self::$_launchersFolderPath,
+                        "{$name}.php"),
+                    $fullPath)) {
                 
                 require $fullPath;
                 
@@ -261,93 +258,6 @@ namespace Dino\Contents
             }
             
             return false;
-        }
-        
-        
-        public
-        static
-        function
-        addLoader(
-            $name,
-            $launcher)
-        {
-            if (!is_string($name)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'name',
-                    'string');
-            }
-            
-            if (!is_callable($launcher)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'launcher',
-                    'callable');
-            }
-            
-            $name
-            = strtolower($name);
-            
-            self::$_launchers[$name]['loader']
-            = $launcher;
-        }
-        
-        
-        public
-        static
-        function
-        addRouteToPath(
-            $name,
-            $routeToPath)
-        {
-            if (!is_string($name)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'name',
-                    'string');
-            }
-            
-            if (!is_callable($routeToPath)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'routeToPath',
-                    'callable');
-            }
-            
-            $name
-            = strtolower($name);
-            
-            self::$_launchers[$name]['routeToPath']
-            = $toPath;
-        }
-        
-        
-        public
-        static
-        function
-        addCheckRoute(
-            $name,
-            $checkRoute)
-        {
-            if (!is_string($name)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'name',
-                    'string');
-            }
-            
-            if (!is_callable($checkRoute)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'checkRoute',
-                    'callable');
-            }
-            
-            $name
-            = strtolower($name);
-            
-            self::$_launchers[$name]['checkRoute']
-            = $checker;
         }
 
 
