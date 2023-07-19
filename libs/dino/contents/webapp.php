@@ -35,7 +35,7 @@ namespace Dino\Contents
                 $routers
                 = DataStore::get('Config.WebApp.Routers');
                 
-                if (DataStorr::check(
+                if (DataStore::check(
                         'Config.WebApp.RoutersFolder',
                         $routersFolder)) {
                     
