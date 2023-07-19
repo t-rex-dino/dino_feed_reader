@@ -5,6 +5,8 @@
 namespace Dino\Contents
 {
     use Dino\General\FatalError;
+    use Dino\General\Folder;
+    use Dino\General\File;
 
     
     class Launchers
@@ -93,6 +95,7 @@ namespace Dino\Contents
         
         
         public
+        static
         function
         load($route)
         {
