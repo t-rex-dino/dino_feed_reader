@@ -21,7 +21,7 @@ namespace Dino\Contents
             }
 
             if (is_string($route)) {
-                if (preg_match(
+                /*if (preg_match(
                         '/^[^\.]+\.[^\.]+$/i',
                         $route)) {
                     
@@ -30,7 +30,7 @@ namespace Dino\Contents
                         '.',
                         $route,
                         '2');
-                }
+                }*/
 
                 $routers
                 = DataStore::get('Config.WebApp.Routers');
