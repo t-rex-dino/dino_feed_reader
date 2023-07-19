@@ -36,7 +36,7 @@ namespace Dino\Contents
                 = DataStore::get('Config.WebApp.Routers');
                 
                 if (DataStore::check(
-                        'Config.WebApp.RoutersFolder',
+                        'Config.WebApp.RoutersPath',
                         $routersFolder)) {
                     
                     Routers::setRoutersFolderPath(
@@ -91,11 +91,11 @@ namespace Dino\Contents
             }
             
             if (DataStore::check(
-                    'Config.WebApp.LaunchersFolder',
+                    'Config.WebApp.LaunchersPath',
                     $launchersFolder)) {
                 
                 Launchers::setLaunchersFolderPath(
-                    $launcherFolder);
+                    $launchersFolder);
             }
             
             Launchers::load($route);

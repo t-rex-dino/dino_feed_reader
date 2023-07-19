@@ -28,7 +28,7 @@ namespace Dino\Contents
         function
         __callStatic(
             $requestMethod,
-            $args)
+            $arg)
         {
             $method
             = strtolower($requestMethod);
@@ -43,37 +43,43 @@ namespace Dino\Contents
                     $method,
                     2);
                 
+                $arg
+                = array_shift($arg);
+                
                 switch ($method)
                 {
                     case 'checkpath':
-                        if (empty($args)) {
-                            FatalError::argNotFound(
-                                __METHOD__,
-                                $requestMethod);
+                        if (is_callable($arg)) {
+                            self::$_routers[$router]['checkpath']
+                            = $arg;
+                            
+                            return;
                         }
+                        
                         return
                         self::checkPath(
-                                $router,
-                                $args[0]);
+                            $router,
+                            $arg);
+                        
                         break;
                     
                     case 'pathtoroute':
-                        if (empty($args)) {
-                            FatalError::argNotFound(
-                                __METHOD__,
-                                $requestMethod);
+                        if (is_callable($arg)) {
+                            self::$_routers[$router]['pathtoroute']
+                            = $arg;
+                            
+                            return;
                         }
+                        
                         return
                         self::pathToRoute(
                                 $router,
-                                $args[0]);
+                                $arg);
                         break;
                     
                     default:
                         break;
                 }
-
-                return;
             }
 
             FatalError::methodNotFound(
@@ -139,13 +145,6 @@ namespace Dino\Contents
             = strtolower(
                 $router);
             
-            if (is_callable($path)) {
-                self::$_routers[$router]['pathToRoute']
-                = $path;
-                
-                return;
-            }
-            
             if (!is_string($path)) {
                 FatalError::invalidArgType(
                     __METHOD__,
@@ -162,14 +161,14 @@ namespace Dino\Contents
                     $path);
             }
 
-            if (!isset(self::$_routers[$router]['pathToRoute'])) {
+            if (!isset(self::$_routers[$router]['pathtoroute'])) {
                 FatalError::keyInArrayNotFound(
                     __METHOD__,
                     'pathToRoute',
                     "Routers.{$router}");
             }
 
-            if (!is_callable(self::$_routers[$router]['pathToRoute'])) {
+            if (!is_callable(self::$_routers[$router]['pathtoroute'])) {
                 FatalError::invalidArgType(
                     __METHOD__,
                     "Routers.{$router}.pathToRoute",
@@ -178,7 +177,7 @@ namespace Dino\Contents
 
             $route
             = call_user_func(
-                self::$_routers[$router]['pathToRoute'],
+                self::$_routers[$router]['pathtoroute'],
                 $path);
             
             if (!is_array($route)) {
@@ -228,13 +227,6 @@ namespace Dino\Contents
             = strtolower(
                 $router);
             
-            if (is_callable($path)) {
-                self::$_routers[$router]['checkPath']
-                = $path;
-                
-                return;
-            }
-            
             if (!is_string($path)) {
                 FatalError::invalidArgType(
                     __METHOD__,
@@ -253,14 +245,14 @@ namespace Dino\Contents
                 }
             }
 
-            if (!isset(self::$_routers[$router]['checkPath'])) {
+            if (!isset(self::$_routers[$router]['checkpath'])) {
                 FatalError::keyInArrayNotFound(
                     __METHOD__,
                     'checkPath',
                     "Routers.{$router}");
             }
 
-            if (!is_callable(self::$_routers[$router]['checkPath'])) {
+            if (!is_callable(self::$_routers[$router]['checkpath'])) {
                 FatalError::invalidArgType(
                     __METHOD__,
                     "Routers.{$router}.checkPath",
@@ -269,7 +261,7 @@ namespace Dino\Contents
 
             $check
             = call_user_func(
-                self::$_routers[$router]['checkPath'],
+                self::$_routers[$router]['checkpath'],
                 $path);
             
             if (!is_bool($check)) {

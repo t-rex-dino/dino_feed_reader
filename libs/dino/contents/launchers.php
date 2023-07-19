@@ -17,18 +17,18 @@ namespace Dino\Contents
         = array();
         
         
-        public
+        private
         static
         $_launchersFolderPath
         = 'launchers';
         
         
-        /*public
+        public
         static
         function
         __callStatic(
             $requestedMethod,
-            $args)
+            $arg)
         {
             $method
             = strtolower($requestedMethod);
@@ -43,55 +43,74 @@ namespace Dino\Contents
                     $method,
                     2);
                 
+                $arg
+                = array_shift($arg);
+                
                 switch ($method)
                 {
                     case 'loader':
-                        if (empty($args)) {
-                            FatalError::argNotFound(
-                                __METHOD__,
-                                $requestedMethod);
+                        if (is_callable($arg)) {
+                            self::$_launchers[$launcher]['loader']
+                            = $arg;
+                            
+                            return;
                         }
                         
-                        self::addLoader(
-                                $launcher,
-                                $args[0]);
+                        if (is_array($arg)) {
+                            $arg['launcher']
+                            = $launcher;
+                        }
+                        
+                        return
+                        self::loader($arg);
+                        
                         break;
                     
                     case 'routetopath':
-                        if (empty($args)) {
-                            FatalError::argNotFound(
-                                __METHOD__,
-                                $requestedMethod);
+                        if (is_callable($arg)) {
+                            self::$_launchers[$launcher]['roitetopath']
+                            = $arg;
+                            
+                            return;
                         }
                         
-                        self::addRouteToPath(
-                                $launcher,
-                                $args[0]);
+                        if (is_array($arg)) {
+                            $arg['launcher']
+                            = $launcher;
+                        }
+                        
+                        return
+                        self::routeToPath($arg);
+                        
                         break;
                     
                     case 'checkroute':
-                        if (empty($args)) {
-                            FatalError::argNotFound(
-                                __METHOD__,
-                                $requestedMethod);
+                        if (is_callable($arg)) {
+                            self::$_launchers[$launcher]['chakeroute']
+                            = $arg;
+                            
+                            return;
                         }
                         
-                        self::addCheckRoute(
-                                $launcher,
-                                $args[0]);
+                        if (is_array($arg)) {
+                            $arg['launcher']
+                            = $launcher;
+                        }
+                        
+                        return
+                        self::checkRoute($arg);
+                        
                         break;
                     
                     default:
                         break;
                 }
-
-                return;
             }
 
             FatalError::methodNotFound(
                 __METHOD__,
                 $requestedMethod);
-        }*/
+        }
         
         
         public
@@ -344,7 +363,7 @@ namespace Dino\Contents
                     'string');
             }
 
-            self::$_routersFolderPath
+            self::$_launchersFolderPath
             = $path;
         }
     }
