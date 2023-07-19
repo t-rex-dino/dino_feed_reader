@@ -68,7 +68,7 @@ namespace Dino\Contents
                     
                     case 'routetopath':
                         if (is_callable($arg)) {
-                            self::$_launchers[$launcher]['roitetopath']
+                            self::$_launchers[$launcher]['routetopath']
                             = $arg;
                             
                             return;
@@ -86,7 +86,7 @@ namespace Dino\Contents
                     
                     case 'checkroute':
                         if (is_callable($arg)) {
-                            self::$_launchers[$launcher]['chakeroute']
+                            self::$_launchers[$launcher]['checkroute']
                             = $arg;
                             
                             return;
@@ -154,14 +154,14 @@ namespace Dino\Contents
                     __METHOD__);
             }
 
-            if (!isset(self::$_launchers[$route['launcher']]['routeToPath'])) {
+            if (!isset(self::$_launchers[$route['launcher']]['routetopath'])) {
                 FatalError::keyInArrayNotFound(
                     __METHOD__,
                     'routeToPath',
                     "Launcher.{$route['launcher']}");
             }
 
-            if (!is_callable(self::$_launchers[$route['launcher']]['routeToPath'])) {
+            if (!is_callable(self::$_launchers[$route['launcher']]['routetopath'])) {
                 FatalErro::invalidArgType(
                     __METHOD__,
                     "Launchers.{$route['launcher']}.routeToPath",
@@ -170,7 +170,7 @@ namespace Dino\Contents
             
             $path
             = call_user_func(
-                self::$_launchers[$route['launcher']]['routeToPath'],
+                self::$_launchers[$route['launcher']]['routetopath'],
                 $route);
             
             if (!is_string($path)) {
@@ -214,16 +214,16 @@ namespace Dino\Contents
                 }
             }
             
-            if (!isset(self::$_launchers[$route['launcher']]['checkRoute'])) {
+            if (!isset(self::$_launchers[$route['launcher']]['checkroute'])) {
                 FatalError::keyInArrayNotFound(
                     __METHOD__,
-                    $route['launcher'],
-                    'Launchers');
+                    'checkRoute',
+                    "Launchers.{$route['launcher']}");
             }
             
             $check
             = call_user_func(
-                self::$_launchers[$route['launcher']]['checkRoute'],
+                self::$_launchers[$route['launcher']]['checkroute'],
                 $route);
             
             if (!is_bool($check)) {
