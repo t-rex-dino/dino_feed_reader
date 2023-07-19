@@ -51,7 +51,7 @@ namespace Dino\Contents
                                 __METHOD__,
                                 $requestMethod);
                         }
-                        
+                        return
                         self::checkPath(
                                 $router,
                                 $args[0]);
@@ -63,7 +63,7 @@ namespace Dino\Contents
                                 __METHOD__,
                                 $requestMethod);
                         }
-                        
+                        return
                         self::pathToRoute(
                                 $router,
                                 $args[0]);
