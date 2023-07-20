@@ -8,7 +8,8 @@ namespace Dino\General
     {
         public
         function
-        __construct($vAndM = array())
+        __construct(
+            $vAndM = array())
         {
             if (!is_array($vAndM)) {
                 FatalErorr::InvalidArgType(
@@ -58,7 +59,7 @@ namespace Dino\General
                 return $value;
             }
 
-            FatalError::propertynotFound(
+            FatalError::propertyNotFound(
                 __METHOD__,
                 $path);
         }

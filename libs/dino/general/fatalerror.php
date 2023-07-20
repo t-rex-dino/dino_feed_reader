@@ -80,7 +80,7 @@ namespace Dino\General
             $message
             = 'Invalid Argument Type Error.'
             . "\n For [Method: {$method}] in [Argument: {$argName}]"
-            . "acceptable [Types : {$argType}]";
+            . " acceptable [Types : {$argType}]";
 
             $code
             = 130101; // devTimeCoding.argument.type
@@ -108,7 +108,7 @@ namespace Dino\General
 
 
         //
-        // NotFounds Errors
+        // Not Founds Errors
         //
 
 
