@@ -5,10 +5,8 @@
 Dino\Contents\Routers::home_checkPath(
     function ($path) {
         if (empty($path)
-         && (Dino\General\DataStore::check(
-                'Config.WebApp.HomePath')
-             || Dino\General\DataStore::check(
-                    'Config.WebApp.HomeRoute'))) {
+         && Dino\General\DataStore::check(
+                'Config.Page.HomePath')) {
             
             return true;
         }
@@ -22,24 +20,21 @@ Dino\Contents\Routers::home_PathToRoute(
         $route
         = array();
 
-        if (Dino\General\DataStore::check(
-                'Config.WebApp.HomePath',
-                $path)) {
+        $path
+        = Dino\General\DataStore::get(
+            'Config.Page.HomePath');
+        
+        if (Dino\General\DataStore::get(
+                'Config.Page.UseOfExt')) {
             
-            $route
-            = Dino\Contents\Routers::page_pathToRoute($path);
+            $path
+            = $path
+            . '.'
+            . Dino\General\DataStore::get(
+                'Config.Page.DefaultExt');
         }
-
-        if (empty($route)) {
-            $route
-            = Dino\General\DataStore::get('Config.WebApp.HomeRoute');
-        }
-
-        $route['launcher']
-        = 'page';
-
-        $route['ext']
-        = Dino\General\DataStore::get('Config.WebApp.DefaultExt');
-
-        return $route;
+        
+        return
+        Dino\Contents\Routers::page_pathToRoute(
+            $path);
     });

@@ -8,7 +8,7 @@ Dino\Contents\Routers::component_checkPath(
          && preg_match(
                 '/^(component\/)([a-z0-9_]+'
                 . '\/)*[a-z0-9_]+(\-[a-z'
-                . '0-9_])*$/i',
+                . '0-9_])*\.json$/i',
                 $path)) {
             
             return true;
@@ -23,6 +23,12 @@ Dino\Contents\Routers::component_PathToRoute(
         $route
         = array(
             'launcher' => 'component');
+        
+        $path
+        = preg_replace(
+            '/\.json/i',
+            '',
+            $path);
     
         $path
         = str_ireplace(

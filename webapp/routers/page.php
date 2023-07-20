@@ -6,7 +6,8 @@ Dino\Contents\Routers::page_checkPath(
     function ($path) {
         $useOfExt
         = (bool)
-        Dino\General\DataStore::get('Config.WebApp.UseOfExt');
+        Dino\General\DataStore::get(
+            'Config.Page.UseOfExt');
 
         $extExists
         = (bool)
@@ -50,7 +51,8 @@ Dino\Contents\Routers::page_PathToRoute(
         }
         else {
             $route['ext']
-            = Dino\General\DataStore::get('Config.WebApp.DefaultExt');
+            = Dino\General\DataStore::get(
+                'Config.Page.DefaultExt');
         }
         
         if (preg_match(
