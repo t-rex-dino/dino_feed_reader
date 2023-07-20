@@ -33,6 +33,26 @@ namespace Dino\General
                 $message,
                 $code);
         }
+        
+        
+        public
+        static
+        function
+        pageNotFound(
+            $method,
+            $path)
+        {
+            $message
+            = 'Page Not Found.'
+            . "[page: {$path}]";
+            
+            $code
+            = 100302;
+            
+            self::send(
+                $message,
+                $code);
+        }
 
 
 
