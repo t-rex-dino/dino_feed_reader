@@ -2,22 +2,21 @@
 
 
 
-Dino\Contents\Launchers::page_loader(
+Dino\Contents\Launchers::component_loader(
     function ($route) {
         print_r($route);
     });
 
 
-Dino\Contents\Launchers::page_routeToPath(
+Dino\Contents\Launchers::component_routeToPath(
     function ($route) {
         
     });
 
 
-Dino\Contents\Launchers::page_checkRoute(
+Dino\Contents\Launchers::component_checkRoute(
     function ($route) {
         return
         isset(
-            $route['content'],
-            $route['ext']);
+            $route['content']);
     });
