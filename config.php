@@ -33,9 +33,15 @@ Dino\General\DataStore::set(
                         'home',
                         'pageNotFound'),
                 
-                'homePath'              => 'news',
-                'pageNotFoundPath'      => 'pageNotFound',
-                'defaultExt'            => 'html',
-                'useOfExt'              => true,
                 'routersFolderPath'     => 'webapp/routers',
-                'launchersFolderPath'   => 'webapp/launchers')));
+                'launchersFolderPath'   => 'webapp/launchers'),
+        
+        'page' =>
+            array(
+                'homePath' => 'news',
+                'defaultExt' => 'html',
+                'useOfExt' => false),
+        
+        'res' =>
+            array(
+                'exts' => 'css|js')));
