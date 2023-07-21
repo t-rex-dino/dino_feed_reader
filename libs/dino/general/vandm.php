@@ -82,6 +82,26 @@ namespace Dino\General
         function
         __call($path,$args)
         {
+            //
+            // set
+            //
+            
+            if (!empty($args)
+             && is_callable($args[0])) {
+                
+                return
+                AryByPath::add(
+                    $this->_vAndM,
+                    $path,
+                    $arg[0],
+                    '_');
+            }
+            
+            
+            //
+            // get
+            //
+            
             if (AryByPath::check(
                             $this->_vAndM,
                             $path,
