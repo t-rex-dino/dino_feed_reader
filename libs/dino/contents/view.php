@@ -55,7 +55,14 @@ namespace Dino\Contents
         function
         load()
         {
-            echo __FILE__;
+            if (!File::check($this->_viewFilePath)) {
+                FatalError::fileNotFound(
+                    __METHOD__,
+                    $this->_viewFilePath);
+            }
+
+            require
+            $this->_viewFilePath;
         }
     }
 }
