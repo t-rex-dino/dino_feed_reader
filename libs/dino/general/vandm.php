@@ -93,7 +93,7 @@ namespace Dino\General
                 AryByPath::add(
                     $this->_vAndM,
                     $path,
-                    $arg[0],
+                    $args[0],
                     '_');
             }
             
