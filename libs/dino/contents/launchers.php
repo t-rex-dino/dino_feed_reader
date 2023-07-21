@@ -20,7 +20,7 @@ namespace Dino\Contents
         private
         static
         $_launchersFolderPath
-        = 'launchers';
+        = false;
         
         
         public
@@ -137,7 +137,7 @@ namespace Dino\Contents
         public
         static
         function
-        RouteToPath($route)
+        routeToPath($route)
         {
             if (!self::checkRoute($route)) {
                 FatalError::invalidRoute(
@@ -244,6 +244,17 @@ namespace Dino\Contents
                     __METHOD__,
                     'name',
                     'string');
+            }
+
+            if (self::$_launchersFolderPath == false) {
+                DataStore::check(
+                    'Config.WebApp.LaunchersFolderPath',
+                    self::$_launchersFolderPath);
+                
+                if (empty(self::$_launchersFolderPath)) {
+                    self::$_launchersFolderPath
+                    = 'launchers';
+                }
             }
             
             if (File::check(

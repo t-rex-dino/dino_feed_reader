@@ -20,7 +20,7 @@ namespace Dino\Contents
         private
         static
         $_routersFolderPath
-        = 'routers';
+        = false;
 
 
         public
@@ -290,6 +290,18 @@ namespace Dino\Contents
                     __METHOD__,
                     'routers',
                     'array|string');
+            }
+
+            
+            if (self::$_routersFolderPath == false) {
+                DataStore::check(
+                    'Config.WebApp.RoutersFolderPath',
+                    self::$_routersFolderPath);
+                
+                if (empty(self::$_routersFolderPath)) {
+                    self::$_routersFolderPath
+                    = 'routers';
+                }
             }
 
             foreach ($routers as $router) {
