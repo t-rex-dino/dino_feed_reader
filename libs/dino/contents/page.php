@@ -145,7 +145,7 @@ namespace Dino\Contents
                         
                         if (empty($templateNamePattern)) {
                             $templateNamePattern
-                            = "%PageTemplateName%.%PageExtension%.php";
+                            = '%PageTemplateName%.%PageExtension%.php';
                         }
                         return
                         str_ireplace(
