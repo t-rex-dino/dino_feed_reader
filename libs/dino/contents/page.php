@@ -131,7 +131,7 @@ namespace Dino\Contents
 
                         break;
                     
-                    case 'themeName':
+                    case 'themename':
                         return
                         DataStore::get(
                             'Config.WebApp.ThemeName');
