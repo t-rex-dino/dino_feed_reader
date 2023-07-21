@@ -6,6 +6,11 @@ namespace Dino\General
 {
     class VAndM
     {
+        protected
+        $_vAndM
+        = array();
+        
+        
         public
         function
         __construct(
