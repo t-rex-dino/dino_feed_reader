@@ -120,7 +120,7 @@ namespace Dino\General
 
             FatalError::methodNotFound(
                 __METHOD__,
-                $method);
+                $path);
         }
     }
 }
