@@ -21,27 +21,8 @@ namespace Dino\Contents
             }
 
             if (is_string($route)) {
-                /*if (preg_match(
-                        '/^[^\.]+\.[^\.]+$/i',
-                        $route)) {
-                    
-                    list($route, $ext)
-                    = explode(
-                        '.',
-                        $route,
-                        '2');
-                }*/
-
                 $routers
                 = DataStore::get('Config.WebApp.Routers');
-                
-                if (DataStore::check(
-                        'Config.WebApp.RoutersFolderPath',
-                        $routersFolder)) {
-                    
-                    Routers::setRoutersFolderPath(
-                        $routersFolder);
-                }
                 
                 $router
                 = Routers::findRouterByPath(
@@ -88,14 +69,6 @@ namespace Dino\Contents
                     __METHOD__,
                     'launcher',
                     'route');
-            }
-            
-            if (DataStore::check(
-                    'Config.WebApp.LaunchersFolderPath',
-                    $launchersFolder)) {
-                
-                Launchers::setLaunchersFolderPath(
-                    $launchersFolder);
             }
             
             Launchers::load($route);
