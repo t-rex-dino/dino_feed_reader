@@ -5,6 +5,7 @@
 namespace Dino\Contents
 {
     use Dino\General\FatalError;
+    use Dino\General\File;
     use Dino\General\VAndM;
     
     
