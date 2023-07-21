@@ -8,21 +8,12 @@ namespace Dino\Contents
     use Dino\General\FatalError;
     use Dino\General\Folder;
     use Dino\General\File;
+    use Dino\General\VAndM;
     
     
     class Page
-        extends \Dino\General\VAndM
+        extends VAndM
     {
-        protected
-        $_vAndM
-        = array();
-        
-        
-        private
-        $_contentsFolderPath
-        = 'contents';
-        
-        
         public
         function
         __construct($page)
@@ -88,27 +79,42 @@ namespace Dino\Contents
                             = $contentsFolderPath;
                         }
                         
-                    break;
-                    
+                        break;
+                        
                     case 'contentfoldername':
                         $folder
-                    = dirname($this->route_content);
+                        = dirname($this->route_content);
+                        
+                        if ($folder == '.') {
+                            $folder
+                            = '';
+                        }
+                        
+                        return
+                        $folder;
+                        
+                        break;
                     
-                    if ($folder == '.') {
-                        $folder
-                        = '';
-                    }
+                    case 'contentname':
+                        return
+                        basename($this->route_content);
+                        break;
                     
-                    return
-                    $folder;
+                    case 'page':
+                        $this->_vAndM['page']
+                        = new View(
+                                array(),
+                                $this->pageViewFilePath);
+                        
+                        break;
                     
-                    break;
-                
-                case 'contentname':
-                    return
-                    basename($this->route_content);
-                    break;
-            }
+                    case 'pageviewfilepath':
+                        return
+                        Folder::branch(
+                            $this->themesFolderPath,
+                            $this->themeName);
+                        break;
+                }
             }
             
             return
@@ -133,6 +139,8 @@ namespace Dino\Contents
         load()
         {
             $this->content();
+            
+            $this->page->load();
         }
         
         
