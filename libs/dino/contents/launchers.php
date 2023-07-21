@@ -4,6 +4,7 @@
 
 namespace Dino\Contents
 {
+    use Dino\General\DataStore;
     use Dino\General\FatalError;
     use Dino\General\Folder;
     use Dino\General\File;
