@@ -33,6 +33,7 @@ Dino\General\DataStore::set(
                         'home',
                         'pageNotFound'),
                 
+                'contentsFolderPath'    => 'webapp/contents',
                 'routersFolderPath'     => 'webapp/routers',
                 'launchersFolderPath'   => 'webapp/launchers'),
         
