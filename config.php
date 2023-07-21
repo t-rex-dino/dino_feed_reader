@@ -35,7 +35,11 @@ Dino\General\DataStore::set(
                 
                 'contentsFolderPath'    => 'webapp/contents',
                 'routersFolderPath'     => 'webapp/routers',
-                'launchersFolderPath'   => 'webapp/launchers'),
+                'launchersFolderPath'   => 'webapp/launchers',
+                'themesFolderPath'      => 'webapp/themes',
+
+                'themeName' => 'blueBill',
+                'templateNamePattern' => '%PageTemplateName%.%PageExtension%.php'),
         
         'page' =>
             array(
