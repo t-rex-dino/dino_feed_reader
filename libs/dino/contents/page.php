@@ -112,7 +112,67 @@ namespace Dino\Contents
                         return
                         Folder::branch(
                             $this->themesFolderPath,
-                            $this->themeName);
+                            $this->themeName,
+                            $this->templateFileName);
+                        break;
+                    
+                    case 'themesfolderpath':
+                        DataStore::check(
+                            'Config.WebApp.ThemesFolderPath',
+                            $themesFolderPath);
+                        
+                        if (empty($themesFolderPath)) {
+                            $themesFolderPath
+                            = 'themes';
+                        }
+
+                        return
+                        $themesFolderPath;
+
+                        break;
+                    
+                    case 'themeName':
+                        return
+                        DataStore::get(
+                            'Config.WebApp.ThemeName');
+                        
+                        break;
+                    
+                    case 'templatefilename':
+                        DataStore::check(
+                            'Config.WebApp.TemplateNamePattern',
+                            $templateNamePattern);
+                        
+                        if (empty($templateNamePattern)) {
+                            $templateNamePattern
+                            = "%PageTemplateName%.%PageExtension%.php";
+                        }
+                        return
+                        str_ireplace(
+                            array(
+                                '%PageTemplateName%',
+                                '%PageExtension%'),
+                            array(
+                                $this->pageTemplateName,
+                                $this->pageExtension),
+                            $templateNamePattern);
+                        break;
+                    
+                    case 'pagetemplatename':
+                        return
+                        'page';
+                        break;
+                    
+                    case 'pageextension':
+                        if (isset($this->route_ext)) {
+                            return
+                            $this->route_ext;
+                        }
+
+                        return
+                        DataStore::get(
+                            'Config.Page.DefaultExt');
+
                         break;
                 }
             }
