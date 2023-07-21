@@ -4,7 +4,11 @@
 
 Dino\Contents\Launchers::page_loader(
     function ($route) {
-        print_r($route);
+        $contentsFolder
+        = Dino\General\DataStore::get(
+            'Config.WebApp.ContentsFolderPath');
+        
+        (new Dino\Contents\Page($route))->load();
     });
 
 
