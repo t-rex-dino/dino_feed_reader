@@ -224,7 +224,7 @@ namespace Dino\General
             $code
             = 130306; // devTimeCoding.notFound.property
 
-            slef::send(
+            self::send(
                 $message,
                 $code);
         }
