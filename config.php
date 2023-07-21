@@ -43,10 +43,10 @@ Dino\General\DataStore::set(
         
         'page' =>
             array(
-                'homePath' => 'news',
-                'defaultExt' => 'html',
-                'useOfExt' => false),
+                'homePath'      => 'news',
+                'defaultExt'    => 'html',
+                'useOfExt'      => false),
         
         'res' =>
             array(
-                'exts' => 'css|js')));
+                'exts' => 'css|js|png')));
