@@ -32,9 +32,6 @@ namespace Dino\Contents
             }
             
             parent::__construct($page);
-            
-            
-            $this->_loadContentFile();
         }
         
         
@@ -48,67 +45,14 @@ namespace Dino\Contents
                     $path);
                 switch ($prpt)
                 {
-                    case 'contentfolderpath':
-                        return
-                        Folder::branch(
-                            $this->contentsFolderPath,
-                            $this->contentFolderName);
-                        break;
-                    
-                    case 'contentfilename':
-                        return
-                        "{$this->contentName}.php";
-                        break;
-                    
-                    case 'contentfilepath':
-                        return
-                        Folder::branch(
-                            $this->contentFolderPath,
-                            $this->contentFileName);
-                        break;
-                    
-                    case 'contentsfolderpath':
-                        $this->_vAndM['contentsfolderpath']
-                            = 'contents';
-                        
-                        if (DataStore::check(
-                                'Config.WebApp.ContentsFolderPath',
-                                $contentsFolderPath)) {
-                            
-                            $this->_vAndM['contentsfolderpath']
-                            = $contentsFolderPath;
-                        }
-                        
-                        break;
-                        
-                    case 'contentfoldername':
-                        $folder
-                        = dirname($this->route_content);
-                        
-                        if ($folder == '.') {
-                            $folder
-                            = '';
-                        }
-                        
-                        return
-                        $folder;
-                        
-                        break;
-                    
-                    case 'contentname':
-                        return
-                        basename($this->route_content);
-                        break;
-                    
-                    case 'page':
-                        $this->_vAndM['page']
+                    case 'view':
+                        $this->_vAndM['view']
                         = new View(
-                                array(),
-                                $this->pageViewFilePath);
+                                $this->viewFilePath);
                         
                         break;
                     
-                    case 'pageviewfilepath':
+                    case 'viewfilepath':
                         return
                         Folder::branch(
                             $this->themesFolderPath,
@@ -147,23 +91,24 @@ namespace Dino\Contents
                             $templateNamePattern
                             = '%PageTemplateName%.%PageExtension%.php';
                         }
+
                         return
                         str_ireplace(
                             array(
                                 '%PageTemplateName%',
                                 '%PageExtension%'),
                             array(
-                                $this->pageTemplateName,
-                                $this->pageExtension),
+                                $this->templateName,
+                                $this->extension),
                             $templateNamePattern);
                         break;
                     
-                    case 'pagetemplatename':
+                    case 'templatename':
                         return
                         'page';
                         break;
                     
-                    case 'pageextension':
+                    case 'extension':
                         if (isset($this->route_ext)) {
                             return
                             $this->route_ext;
@@ -184,37 +129,9 @@ namespace Dino\Contents
         
         public
         function
-        __call(
-            $requestedMethod,
-            $args)
-        {
-            parent::__call(
-                $requestedMethod,
-                $args);
-        }
-        
-        
-        public
-        function
         load()
         {
-            $this->content();
-            
-            $this->page->load();
-        }
-        
-        
-        public
-        function
-        _loadContentFile()
-        {
-            if (!File::check($this->contentFilePath)) {
-                FatalError::fileNotFound(
-                    __METHOD__,
-                    $this->contentFilePath);
-            }
-            
-            require $this->contentFilePath;
+            $this->view->load();
         }
     }
 }
