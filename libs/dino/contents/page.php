@@ -16,22 +16,22 @@ namespace Dino\Contents
     {
         public
         function
-        __construct($page)
+        __construct($pageVars)
         {
-            if (is_array($page)) {
-                $page
+            if (is_array($pageVars)) {
+                $pageVars
                 = array_change_key_case(
-                    $page,
+                    $pageVars,
                     CASE_LOWER);
                 
-                if (!isset($page['route'])) {
-                    $page
+                if (!isset($pageVars['route'])) {
+                    $pageVars
                     = array(
-                        'route' => $page);
+                        'route' => $pageVars);
                 }
             }
             
-            parent::__construct($page);
+            parent::__construct($pageVars);
         }
         
         
@@ -45,67 +45,8 @@ namespace Dino\Contents
                     $path);
                 switch ($prpt)
                 {
-                    case 'view':
-                        $this->_vAndM['view']
-                        = new View(
-                                $this->viewFilePath);
-                        
-                        break;
-                    
-                    case 'viewfilepath':
-                        return
-                        Folder::branch(
-                            $this->themesFolderPath,
-                            $this->themeName,
-                            $this->templateFileName);
-                        break;
-                    
-                    case 'themesfolderpath':
-                        DataStore::check(
-                            'Config.WebApp.ThemesFolderPath',
-                            $themesFolderPath);
-                        
-                        if (empty($themesFolderPath)) {
-                            $themesFolderPath
-                            = 'themes';
-                        }
-
-                        return
-                        $themesFolderPath;
-
-                        break;
-                    
-                    case 'themename':
-                        return
-                        DataStore::get(
-                            'Config.WebApp.ThemeName');
-                        
-                        break;
-                    
-                    case 'templatefilename':
-                        DataStore::check(
-                            'Config.WebApp.TemplateNamePattern',
-                            $templateNamePattern);
-                        
-                        if (empty($templateNamePattern)) {
-                            $templateNamePattern
-                            = '%PageTemplateName%.%PageExtension%.php';
-                        }
-
-                        return
-                        str_ireplace(
-                            array(
-                                '%PageTemplateName%',
-                                '%PageExtension%'),
-                            array(
-                                $this->templateName,
-                                $this->extension),
-                            $templateNamePattern);
-                        break;
-                    
-                    case 'templatename':
-                        return
-                        'page';
+                    case 'name':
+                        return 'page';
                         break;
                     
                     case 'extension':
@@ -119,6 +60,53 @@ namespace Dino\Contents
                             'Config.Page.DefaultExt');
 
                         break;
+                    
+                    case 'view':
+                        $this->_vAndM['view']
+                        = new View(
+                                $this->viewFilePath);
+                        
+                        break;
+                    
+                    case 'viewfilepath':
+                        return
+                        Folder::branch(
+                            $this->themesFolderPath,
+                            $this->themeName,
+                            $this->viewFileName);
+                        break;
+                    
+                    case 'themesfolderpath':
+                        return
+                        DataStore::get(
+                            'Config.WebApp.ThemesFolderPath');
+                        
+                        break;
+                    
+                    case 'themename':
+                        return
+                        DataStore::get(
+                            'Config.WebApp.ThemeName');
+                        
+                        break;
+                    
+                    case 'viewfilename':
+                        return
+                        str_ireplace(
+                            array(
+                                '%name%',
+                                '%extension%'),
+                            array(
+                                $this->name,
+                                $this->extension),
+                            $this->viewFileNamePattern);
+                        break;
+                    
+                    case 'viewfilenamepattern':
+                        return
+                        DataStore::get(
+                            'Config.WebApp.ViewFileNamePattern');
+                        break;
                 }
             }
             
@@ -131,6 +119,9 @@ namespace Dino\Contents
         function
         load()
         {
+            $this->view->content
+            = new Component($this);
+            
             $this->view->load();
         }
     }
