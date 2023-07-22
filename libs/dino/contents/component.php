@@ -4,6 +4,7 @@
 
 namespace Dino\Contents
 {
+    use Dino\General\DataStore;
     use Dino\General\Folder;
     use Dino\General\VAndM;
 
@@ -13,15 +14,15 @@ namespace Dino\Contents
     {
         public
         function
-        __construct($component)
+        __construct($componentVars)
         {
-            if ($component instanceof Page) {
-                $component
+            if ($componentVars instanceof Page) {
+                $componentVars
                 = array(
-                    'page' => $component);
+                    'page' => $componentVars);
             }
 
-            parent::__construct($component);
+            parent::__construct($componentVars);
         }
 
 
@@ -35,6 +36,48 @@ namespace Dino\Contents
 
                 switch($prpt)
                 {
+                    case 'name':
+                        return
+                        basename($this->page->route_content);
+                        
+                        break;
+                    
+                    case 'extension':
+                        return
+                        $this->page->route_ext;
+                        
+                        break;
+                    
+                    case 'contentfoldername':
+                        $contentFolderName
+                        = dirname(
+                            $this->page->route_content);
+                        
+                        if ($contentFolderName == '.') {
+                            $contentFolderName
+                            = '';
+                        }
+                        
+                        $this->_vAndM['contentfoldername']
+                        = $contentFolderName;
+                        
+                        break;
+                        
+                    case 'contentsfolderpath':
+                        return
+                        DataStore::get(
+                            'Config.WebApp.ContentsFolderPath');
+                        
+                        break;
+                    
+                    case 'contentfolderpath':
+                        $this->_vAndM['contentfolderpath']
+                        = Folder::branch(
+                            $this->contentsFolderPath,
+                            $this->contentFolderName);
+                        
+                        break;
+                    
                     case 'view':
                         $this->_vAndM['view']
                         = new View(
@@ -42,29 +85,43 @@ namespace Dino\Contents
                         break;
                     
                     case 'viewfilepath':
-                        $viewFilePathPattern
-                        = DataStore::get('Config.Page.ViewFilePathPattern');
+                        $this->_vAndM['viewfilepath']
+                        = str_ireplace(
+                            array(
+                                '%ContentFolderPath%',
+                                '%ViewFileName%'),
+                            array(
+                                $this->contentFolderPath,
+                                $this->viewFileName),
+                            $this->viewFilePathPattern);
                         
+                        break;
+                    
+                    case 'viewfilename':
                         return
-                        Folder::branch(
-                            $this->contentsFolderPath,
-                            $this->contentFolderName,
-                            $this->viewFolderName,
-                            $this->templateFileName);
+                        str_ireplace(
+                            array(
+                                '%name%',
+                                '%extension%'),
+                            array(
+                                $this->name,
+                                $this->extension),
+                            $this->viewFileNamePattern);
                         
                         break;
                     
-                    case 'contentsfolderpath':
-
+                    case 'viewfilepathpattern':
+                        return
+                        DataStore::get(
+                            'Config.WebApp.ViewFilePathPattern');
+                        
                         break;
                     
-                    case 'contentfoldername':
-                        break;
-                    
-                    case 'viewfoldername':
-                        break;
-                    
-                    case 'templatefilename':
+                    case 'viewfilenamepattern':
+                        return
+                        Datastore::get(
+                            'Config.WebApp.ViewFileNamePattern');
+                        
                         break;
                 }
             }
