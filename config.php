@@ -38,8 +38,9 @@ Dino\General\DataStore::set(
                 'launchersFolderPath'   => 'webapp/launchers',
                 'themesFolderPath'      => 'webapp/themes',
 
-                'themeName' => 'blueBill',
-                'templateNamePattern' => '%PageTemplateName%.%PageExtension%.php'),
+                'themeName'             => 'blueBill',
+                'viewFilePathPattern'   => '%contentFolderPath%/~views/%viewFileName%',
+                'viewFileNamePattern'   => '%Name%.%Extension%.php'),
         
         'page' =>
             array(
