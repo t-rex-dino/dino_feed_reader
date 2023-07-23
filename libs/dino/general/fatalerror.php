@@ -89,6 +89,26 @@ namespace Dino\General
                 $message,
                 $code);
         }
+        
+        
+        public
+        static
+        function
+        invalidArgValue(
+            $method,
+            $argName)
+        {
+            $message
+            = 'Invalid Argument Value Error.'
+            . "\n For [Method: {$method}] "
+            . "and [Argument: {$argName}]";
+            
+            $code = 3090; // temp
+            
+            self::send(
+                $message,
+                $sode);
+        }
 
 
         public
