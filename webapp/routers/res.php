@@ -54,7 +54,7 @@ Dino\Contents\Routers::res_checkPath(
 
 Dino\Contents\Routers::res_pathToRoute(
     function ($path) {
-        $router
+        $route
         = array(
             'launcher' => 'res');
         
