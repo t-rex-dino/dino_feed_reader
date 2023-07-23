@@ -41,7 +41,7 @@ Dino\General\DataStore::set(
                 'themeName'             => 'blueBill',
                 'viewFilePathPattern'   => '%contentFolderPath%/~views/%viewFileName%',
                 'viewFileNamePattern'   => '%Name%.%Extension%.php',
-                'resFilePathPattern'    => '%Theme%/~res/%Extension%/%ResFileName%'),
+                'resFilePathPattern'    => '%Theme%/~res/%ResFile%'),
         
         'page' =>
             array(
