@@ -4,7 +4,7 @@
 
 Dino\Contents\Launchers::res_loader(
     function ($route) {
-        (new Dino\Contents\Res($route['path']))->load();
+        (new Dino\Contents\Res($route))->load();
     });
 
 
@@ -18,5 +18,5 @@ Dino\Contents\Launchers::res_checkRoute(
     function ($route) {
         return
         isset(
-            $route['path']);
+            $route['res']);
     });
