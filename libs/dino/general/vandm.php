@@ -17,7 +17,7 @@ namespace Dino\General
             $vAndM = array())
         {
             if (!is_array($vAndM)) {
-                FatalErorr::InvalidArgType(
+                FatalError::InvalidArgType(
                     __METHOD__,
                     'vAndM',
                     'array');
