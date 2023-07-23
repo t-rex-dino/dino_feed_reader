@@ -38,13 +38,10 @@ Dino\Contents\Routers::res_checkPath(
                 . '[a-z0-9_\-]+)*$/i',
                 $resExts)) {
             
-            #FatalError
+            Dino\General\FatalError::invalidArgValue(
+                __METHOD__,
+                'Config.Res.Exts');
         }
-        
-        $strRegE
-        = '/^(res\/).+\.('
-        . $resExts
-        . ')$/i';
         
         return
         (bool)preg_match(
@@ -55,7 +52,7 @@ Dino\Contents\Routers::res_checkPath(
     });
 
 
-Dino\Contents\Routers::res_PathToRoute(
+Dino\Contents\Routers::res_pathToRoute(
     function ($path) {
         return
         array(
