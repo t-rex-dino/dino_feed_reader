@@ -54,8 +54,16 @@ Dino\Contents\Routers::res_checkPath(
 
 Dino\Contents\Routers::res_pathToRoute(
     function ($path) {
+        $router
+        = array(
+            'launcher' => 'res');
+        
+        $route['res']
+        = str_ireplace(
+            'res/',
+            '',
+            $path);
+        
         return
-        array(
-            'launcher' => 'res',
-            'path' => $path);
+        $route;
     });
