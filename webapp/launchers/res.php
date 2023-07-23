@@ -4,6 +4,10 @@
 
 Dino\Contents\Launchers::res_loader(
     function ($route) {
+        $route
+        = array(
+            'route' => $route);
+        
         (new Dino\Contents\Res($route))->load();
     });
 
