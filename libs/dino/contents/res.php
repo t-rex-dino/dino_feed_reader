@@ -4,6 +4,7 @@
 
 namespace Dino\Contents
 {
+    use Dino\General\DataStore;
     use Dino\General\Folder;
     use Dino\General\VAndM;
     
@@ -37,31 +38,22 @@ namespace Dino\Contents
                 {
                     case 'resfilepath':
                         return
-                        str_ireplace(
-                            array(
-                                $this->themeFolderPath,
-                                $this->extension,
-                                $this->resFileName),
-                            array(
-                                'Theme',
-                                'Extension',
-                                'ResFileName'),
-                            $this->resFilePathPattern);
+                        strtolower(
+                            str_ireplace(
+                                array(
+                                    '%Theme%',
+                                    '%ResFile%'),
+                                
+                                array(
+                                    Folder::branch(
+                                        DataStore::get('Config.WebApp.ThemesFolderPath'),
+                                        DataStore::get('Config.WebApp.ThemeName')),
+                                    
+                                    $this->route_res),
+                                
+                                DataStore::get(
+                                    'Config.WebApp.ResFilePathPattern')));
                         
-                        break;
-                    
-                    case 'resfilepathpattern':
-                        return
-                        DataStore::get('Config.WebApp.ResFilePathPattern');
-                        break;
-                    
-                    case 'themefolderpath':
-                        break;
-                    
-                    case 'extension':
-                        break;
-                    
-                    case 'resfilename':
                         break;
                 }
             }
