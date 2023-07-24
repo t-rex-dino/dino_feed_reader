@@ -64,6 +64,12 @@ Dino\Contents\Routers::res_pathToRoute(
             '',
             $path);
         
+        $route['ext']
+        = preg_replace(
+            '/^.+(\..+)*\./i',
+            '',
+            $path);
+        
         return
         $route;
     });
