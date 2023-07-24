@@ -39,7 +39,7 @@ namespace Dino\Contents
                         return
                         str_ireplace(
                             array(
-                                $this->themeFolderPathm
+                                $this->themeFolderPath,
                                 $this->extension,
                                 $this->resFileName),
                             array(
