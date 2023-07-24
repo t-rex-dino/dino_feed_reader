@@ -22,5 +22,6 @@ Dino\Contents\Launchers::res_checkRoute(
     function ($route) {
         return
         isset(
-            $route['res']);
+            $route['res'],
+            $route['ext']);
     });
