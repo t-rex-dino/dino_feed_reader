@@ -100,6 +100,7 @@ namespace  Dino\Contents
         onLoad($onLoad = null)
         {
             if (is_null($onLoad)) {
+                if (isset($this->_events['onload']))
                 foreach (
                     $this->_events['onload']
                     as $onLoad) {
