@@ -37,20 +37,6 @@ namespace Dino\Contents
             $router,
             $path)
         {
-            if (!is_string($router)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'router',
-                    'string');
-            }
-
-            if (!is_string($path)) {
-                FatalError::invalidArgType(
-                    __METHOD__,
-                    'path',
-                    'string');
-            }
-
             if (!self::checkPath($router, $path)) {
                 FatalError::invalidRouterPath(
                     __METHOD__,
@@ -97,6 +83,13 @@ namespace Dino\Contents
                 FatalError::invalidArgType(
                     __METHOD__,
                     'router',
+                    'string');
+            }
+
+            if (!is_string($path)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'path',
                     'string');
             }
 
