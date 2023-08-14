@@ -9,6 +9,12 @@ namespace Dino\Contents
 
     class Router
     {
+        private
+        static
+        $_routers
+        = array();
+
+        
         public
         static
         function
