@@ -27,7 +27,7 @@ namespace Dino\Contents
 
             if (is_string($route)) {
                 $route
-                = Router::findByPath($route);
+                = Router::renderByPath($route);
             }
 
             Launcher::load($route);
