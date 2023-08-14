@@ -27,6 +27,19 @@ namespace Dino\Contents
                     'path',
                     'string');
             }
+
+            $routers
+            = self::routers();
+
+            foreach ($routers as $router) {
+                self::loadRouter($router);
+
+                if (self::checkPath($router, $path)) {
+                    return $router;
+                }
+            }
+
+            return false;
         }
 
 
