@@ -33,6 +33,58 @@ namespace Dino\Contents
         public
         static
         function
+        checkPath(
+            $router,
+            $path)
+        {
+            if (!is_string($router)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'router',
+                    'string');
+            }
+
+            $router
+            = strtolower($router);
+
+            if (!isset(self::$_routers[$router])) {
+                FatalError::routreNotFound(
+                    __METHOD__,
+                    $router);
+            }
+
+            if (!isset(self::$_routers[$router]['checkpath'])) {
+                FatalError::routerCheckPathNotFound(
+                    __METHOD__,
+                    $router);
+            }
+
+            if (!is_callable(self::$_routers[$router]['checkpath'])) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Routers.{$router}.checkPath",
+                    'callable');
+            }
+
+            $check
+            = call_user_func(
+                self::$_routers[$router]['checkpath'],
+                $path);
+            
+            if (!is_bool($check)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Routers.{$router}.checkPath.RETURN",
+                    'bool');
+            }
+
+            return $check;
+        }
+
+
+        public
+        static
+        function
         routers()
         {
             $routers
