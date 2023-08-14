@@ -26,7 +26,7 @@ namespace Dino\Contents
         public
         static
         function
-        routersList()
+        routers()
         {}
     }
 }
