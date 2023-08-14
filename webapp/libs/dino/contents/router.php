@@ -33,6 +33,15 @@ namespace Dino\Contents
         public
         static
         function
+        pathToRoute($router,$path)
+        {
+            
+        }
+
+
+        public
+        static
+        function
         checkPath(
             $router,
             $path)
