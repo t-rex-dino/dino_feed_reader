@@ -19,6 +19,27 @@ namespace Dino\Contents
         public
         static
         function
+        reanderByPath($path)
+        {
+            $router
+            = self::findByPath($path);
+
+            if ($router == false) {
+                FatalError::invalidRouterPath(
+                    __METHOD__,
+                    $path);
+            }
+
+            return
+            self::pathToRoute(
+                $router,
+                $path);
+        }
+
+
+        public
+        static
+        function
         findByPath($path)
         {
             if (!is_string($path)) {
