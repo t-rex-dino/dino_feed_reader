@@ -21,5 +21,12 @@ namespace Dino\Contents
                     'string');
             }
         }
+
+
+        public
+        static
+        function
+        routersList()
+        {}
     }
 }
