@@ -44,6 +44,13 @@ namespace Dino\General
         public
         static
         function
+        invalidRouterPath()
+        {}
+
+
+        public
+        static
+        function
         readOnly()
         {}
     }
