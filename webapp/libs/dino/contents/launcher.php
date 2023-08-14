@@ -29,7 +29,32 @@ namespace Dino\Contents
         static
         function
         load($route)
-        {}
+        {
+            if (!self::checkRoute($route)) {
+                FatalError::invalidLauncherRoute(
+                    __METHOD__);
+            }
+
+            $route
+            = array_change_key_case($route);
+
+            if (!isset(self::$_launchers[$route['launcher']]['loader'])) {
+                FatalError::launcherLoaderNotFound(
+                    __METHOD__,
+                    $route['launcher']);
+            }
+
+            if (!is_callable(self::$_launchers[$route['launcher']]['loader'])) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Launchers.{$route['launcher']}.loader",
+                    'callable');
+            }
+
+            call_user_func(
+                self::$_launchers[$route['launcher']]['loader'],
+                $route);
+        }
 
 
         public
