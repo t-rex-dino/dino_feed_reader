@@ -111,7 +111,7 @@ namespace Dino\Contents
             }
 
             $luancherFilePath
-            = "launchers/{$launcer}.php";
+            = "launchers/{$launcher}.php";
 
             if (!File::exists($luancherFilePath)) {
                 FatalError::launcherNotFound(
