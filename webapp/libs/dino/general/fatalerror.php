@@ -51,6 +51,13 @@ namespace Dino\General
         public
         static
         function
+        launcherNotFound()
+        {}
+
+
+        public
+        static
+        function
         readOnly()
         {}
 
