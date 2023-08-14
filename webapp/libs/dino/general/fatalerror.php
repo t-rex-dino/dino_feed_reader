@@ -58,6 +58,13 @@ namespace Dino\General
         public
         static
         function
+        invalidRoute()
+        {}
+
+
+        public
+        static
+        function
         readOnly()
         {}
 
