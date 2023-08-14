@@ -33,9 +33,56 @@ namespace Dino\Contents
         public
         static
         function
-        pathToRoute($router,$path)
+        pathToRoute(
+            $router,
+            $path)
         {
+            if (!is_string($router)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'router',
+                    'string');
+            }
+
+            if (!is_string($path)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'path',
+                    'string');
+            }
+
+            if (!self::checkPath($router, $path)) {
+                FatalError::invalidRouterPath(
+                    __METHOD__,
+                    $router);
+            }
+
+            if (!isset(self::$_routers[$router]['pathtoroute'])) {
+                FatalError::routerPathToRouteNotFound(
+                    __METHOD__,
+                    $router);
+            }
+
+            if (!is_callable(self::$_routers[$router]['pathtoroute'])) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Routers.{$router}.pathToRoute",
+                    'callable');
+            }
             
+            $route
+            = call_user_func(
+                self::$_routers[$router]['pathtoroute'],
+                $path);
+            
+            if (!is_array($route)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Routers.{$router}.pathToRoute.RETURN",
+                    'array');
+            }
+
+            return $route;
         }
 
 
