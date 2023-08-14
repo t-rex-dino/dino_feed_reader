@@ -14,6 +14,25 @@ namespace Dino\Contents
         $_config
         = array();
 
+
+        public
+        static
+        function
+        load($route)
+        {
+            if (is_callable($route)) {
+                $route
+                = call_user_func($route);
+            }
+
+            if (is_string($route)) {
+                $route
+                = Router::findByPath($route);
+            }
+
+            Launcher::load($route);
+        }
+
         public
         static
         function
