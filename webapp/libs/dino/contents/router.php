@@ -5,6 +5,7 @@
 namespace Dino\Contents
 {
     use Dino\General\FatalError;
+    use Dino\General\File;
 
 
     class Router
@@ -71,6 +72,17 @@ namespace Dino\Contents
             if (isset(self::$_routers[$router])) {
                 return;
             }
+
+            $routerFilePath
+            = "routers/{$router}.php";
+
+            if (!File::exists($routerFilePath)) {
+                FatalError::fileNotFound(
+                    __METHOD__,
+                    $routerFilePath);
+            }
+
+            require $routerFilePath;
         }
     }
 }
