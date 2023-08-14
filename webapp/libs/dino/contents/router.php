@@ -14,7 +14,7 @@ namespace Dino\Contents
         $_routers
         = array();
 
-        
+
         public
         static
         function
@@ -50,6 +50,27 @@ namespace Dino\Contents
             }
 
             return $routers;
+        }
+
+
+        public
+        static
+        function
+        loadRouter($router)
+        {
+            if (!is_string($router)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'router',
+                    'string');
+            }
+
+            $router
+            = strtolower($router);
+
+            if (isset(self::$_routers[$router])) {
+                return;
+            }
         }
     }
 }
