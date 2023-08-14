@@ -19,6 +19,48 @@ namespace Dino\Contents
         public
         static
         function
+        __callStatic(
+            $requested,
+            $act)
+        {
+            if (preg_match(
+                    '/^[a-z0-9]_(checkpath|pathtoroute)$/i',
+                    $requested)) {
+                
+                $method
+                = strtolower($requested);
+
+                list($router, $method)
+                = explode(
+                    '_',
+                    $method,
+                    2);
+
+                $act
+                = array_shift($act);
+
+                if (!is_callable($act)) {
+                    FatalError::invalidArgType(
+                        $requested,
+                        'act',
+                        'callable');
+                }
+
+                self::$_routers[$router][$method]
+                = $act;
+
+                return;
+            }
+
+            FatalError::invalidMethod(
+                __METHOD__,
+                $requested);
+        }
+
+
+        public
+        static
+        function
         renderByPath($path)
         {
             $router
