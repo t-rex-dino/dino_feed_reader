@@ -30,7 +30,7 @@ namespace Dino\Contents
                 = Router::renderByPath($route);
             }
 
-            Launcher::load($route);
+            Launcher::loader($route);
         }
 
         public
