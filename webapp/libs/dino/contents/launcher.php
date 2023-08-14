@@ -4,6 +4,10 @@
 
 namespace Dino\Contents
 {
+    use Dino\General\FatalError;
+    use Dino\General\File;
+
+
     class Launcher
     {
         private
@@ -45,7 +49,32 @@ namespace Dino\Contents
         public
         static
         function
-        loadLauncher()
-        {}
+        loadLauncher($launcher)
+        {
+            if (!is_string($launcher)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'launcher',
+                    'string');
+            }
+
+            $launcher
+            = strtolower($launcher);
+
+            if (isset(self::$_launchers[$launcher])) {
+                return;
+            }
+
+            $luancherFilePath
+            = "launchers/{$launcer}.php";
+
+            if (!File::exists($luancherFilePath)) {
+                FatalError::launcherNotFound(
+                    __METHOD__,
+                    $luancherFilePath);
+            }
+
+            require $luancherFilePath;
+        }
     }
 }
