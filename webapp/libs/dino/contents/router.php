@@ -19,7 +19,7 @@ namespace Dino\Contents
         public
         static
         function
-        reanderByPath($path)
+        renderByPath($path)
         {
             $router
             = self::findByPath($path);
