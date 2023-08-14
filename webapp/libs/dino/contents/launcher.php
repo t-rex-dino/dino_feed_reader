@@ -6,6 +6,12 @@ namespace Dino\Contents
 {
     class Launcher
     {
+        private
+        static
+        $_launchers
+        = array();
+
+        
         public
         static
         function
