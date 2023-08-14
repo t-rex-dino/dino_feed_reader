@@ -72,6 +72,13 @@ namespace Dino\General
         public
         static
         function
+        invalidLauncherRoute()
+        {}
+
+
+        public
+        static
+        function
         readOnly()
         {}
 
