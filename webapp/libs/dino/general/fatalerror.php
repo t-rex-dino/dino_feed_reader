@@ -23,6 +23,13 @@ namespace Dino\General
         public
         static
         function
+        routerNotFound()
+        {}
+
+
+        public
+        static
+        function
         readOnly()
         {}
     }
