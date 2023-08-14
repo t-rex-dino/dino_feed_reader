@@ -65,6 +65,13 @@ namespace Dino\General
         public
         static
         function
+        launcherCheckRouteNotFound()
+        {}
+
+
+        public
+        static
+        function
         readOnly()
         {}
 
