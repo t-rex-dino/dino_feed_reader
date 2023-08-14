@@ -30,6 +30,13 @@ namespace Dino\General
         public
         static
         function
+        routerCheckPathNotFound()
+        {}
+
+
+        public
+        static
+        function
         readOnly()
         {}
     }
