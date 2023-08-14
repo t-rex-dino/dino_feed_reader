@@ -72,6 +72,13 @@ namespace Dino\General
         public
         static
         function
+        launcherRouteToPathNotFound()
+        {}
+
+
+        public
+        static
+        function
         invalidLauncherRoute()
         {}
 
