@@ -43,7 +43,52 @@ namespace Dino\Contents
         static
         function
         checkRoute($route)
-        {}
+        {
+            if (!is_array($route)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'route',
+                    'array');
+            }
+
+            $route
+            = array_change_key_case($route);
+
+            if (!isset($route['launcher'])) {
+                FatalError::invalidRoute(
+                    __METHOD__,
+                    'launcher not is set');
+            }
+
+            self::loadLauncher($route['launcher']);
+
+            if (!isset(self::$_launchers[$route['launcher']]['checkroute'])) {
+                FatalError::launcherCheckRouteNotFound(
+                    __METHOD__,
+                    $route['launcher']);
+            }
+
+            if (!is_callable(self::$_launchers[$route['launcher']]['checkroute'])) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Launchers.{$route['launcher']}.checkRoute",
+                    'callable');
+            }
+
+            $check
+            = call_user_func(
+                self::$_launchers[$route['launcher']]['checkroute'],
+                $route);
+            
+            if (!is_bool($check)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Launchers.{$route['launcher']}.checkRoute.RETURN",
+                    'bool');
+            }
+
+            return $check;
+        }
 
 
         public
