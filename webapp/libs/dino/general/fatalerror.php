@@ -53,5 +53,12 @@ namespace Dino\General
         function
         readOnly()
         {}
+
+
+        public
+        static
+        function
+        invalidMethod()
+        {}
     }
 }
