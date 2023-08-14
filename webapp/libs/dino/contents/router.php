@@ -27,6 +27,23 @@ namespace Dino\Contents
         static
         function
         routers()
-        {}
+        {
+            $routers
+            = WebApp::config('routers');
+
+            if ($routers == false) {
+                FatalError::routersNotFound(
+                    __METHOD__);
+            }
+
+            if (!is_array($routers)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'WebApp.routers',
+                    'array');
+            }
+
+            return $routers;
+        }
     }
 }
