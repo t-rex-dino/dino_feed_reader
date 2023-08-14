@@ -22,7 +22,40 @@ namespace Dino\Contents
         __callStatic(
             $requested,
             $act)
-        {}
+        {
+            if (preg_match(
+                    '/^[a-z0-9]_(checkroute|routetopath|loader)$/i',
+                    $requested)) {
+                
+                $method
+                = strtolower($requested);
+
+                list($launcher, $method)
+                = explode(
+                    '_',
+                    $method,
+                    2);
+
+                $act
+                = array_shift($act);
+
+                if (!is_callable($act)) {
+                    FatalError::invalidArgType(
+                        $requested,
+                        'act',
+                        'callable');
+                }
+
+                self::$_launchers[$launcher][$method]
+                = $act;
+
+                return;
+            }
+
+            FatalError::invalidMethod(
+                __METHOD__,
+                $requested);
+        }
 
 
         public
