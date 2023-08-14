@@ -28,7 +28,7 @@ namespace Dino\Contents
         public
         static
         function
-        load($route)
+        loader($route)
         {
             if (!self::checkRoute($route)) {
                 FatalError::invalidLauncherRoute(
