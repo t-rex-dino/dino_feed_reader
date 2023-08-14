@@ -35,8 +35,43 @@ namespace Dino\Contents
         public
         static
         function
-        routeToPath()
-        {}
+        routeToPath($route)
+        {
+            if (!self::checkRoute($route)) {
+                FatalError::invalidLauncherRoute(
+                    __METHOD__);
+            }
+
+            $route
+            = array_change_key_case($route);
+
+            if (!isset(self::$_launchers[$route['launcher']]['routetopath'])) {
+                FatalError::launcherRouteToPathNotFound(
+                    __METHOD__,
+                    $route['launcher']);
+            }
+
+            if (!is_callable(self::$_launchers[$route['launcher']]['routetopath'])) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Launchers.{$route['launcher']}.routeToPath",
+                    'callable');
+            }
+
+            $path
+            = call_user_func(
+                self::$_launchers[$route['launcher']]['routetopath'],
+                $route);
+            
+            if (!is_string($path)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    "Launchers.{$route['launcher']}.routeToPath.RETURN",
+                    'string');
+            }
+            
+            return $path;
+        }
 
 
         public
