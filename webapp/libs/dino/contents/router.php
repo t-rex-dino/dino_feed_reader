@@ -173,7 +173,7 @@ namespace Dino\Contents
             = strtolower($router);
 
             if (!isset(self::$_routers[$router])) {
-                FatalError::routreNotFound(
+                FatalError::routerNotFound(
                     __METHOD__,
                     $router);
             }
