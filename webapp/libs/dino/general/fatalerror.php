@@ -95,5 +95,12 @@ namespace Dino\General
         function
         invalidMethod()
         {}
+
+
+        public
+        static
+        function
+        pageNotFound()
+        {}
     }
 }
