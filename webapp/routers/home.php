@@ -3,10 +3,10 @@
 
 
 //
-// page Router PathToRoute
+// home Router PathToRoute
 //
 
-Dino\Contents\Router::page_pathToRoute(
+Dino\Contents\Router::home_pathToRoute(
     function ($path) {
         return
         Dino\Contents\Router::page_pathToRoute(
@@ -16,10 +16,10 @@ Dino\Contents\Router::page_pathToRoute(
 
 
 //
-// components Route CheckPath
+// home Route CheckPath
 //
 
-Dino\Contents\Router::page_checkPath(
+Dino\Contents\Router::home_checkPath(
     function ($path) {
         if (!empty($path)) {
             return false;
