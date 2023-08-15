@@ -3,14 +3,14 @@
 
 
 //
-// components Router PathToRoute
+// component Router PathToRoute
 //
 
-Dino\Contents\Router::components_pathToRoute(
+Dino\Contents\Router::component_pathToRoute(
     function ($path) {
         $router
         = array(
-            'launcher' => 'components');
+            'launcher' => 'component');
         
         $path
         = str_ireplace(
@@ -35,10 +35,10 @@ Dino\Contents\Router::components_pathToRoute(
 
 
 //
-// components Route CheckPath
+// component Route CheckPath
 //
 
-Dino\Contents\Router::components_checkPath(
+Dino\Contents\Router::component_checkPath(
     function ($path) {
         if (!empty($path)
          || preg_match('/^components\/.+\.json+$/i', $path)) {
