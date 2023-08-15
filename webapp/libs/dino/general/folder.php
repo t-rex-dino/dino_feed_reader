@@ -9,11 +9,11 @@ namespace Dino\General
         public
         static
         function
-        check(
+        exists(
             $path,
             &$fullPath = false)
         {
-            if (self::checkPath(
+            if (self::existsPath(
                         $path,
                         $fullPath)) {
                 
@@ -29,7 +29,7 @@ namespace Dino\General
         public
         static
         function
-        checkPath(
+        existsPath(
             $path,
             &$fullPath = false)
         {

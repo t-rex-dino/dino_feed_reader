@@ -43,7 +43,7 @@ namespace Dino\General
             $filePath,
             $once = false)
         {
-            if (File::check(
+            if (File::exists(
                     $filePath,
                     $fullPath)) {
                 

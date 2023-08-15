@@ -39,7 +39,7 @@ namespace Dino\General
                             'string');
                     }
 
-                    if (self::check(
+                    if (self::exists(
                             Folder::branch(
                                 $folder,
                                 $file),
@@ -57,11 +57,11 @@ namespace Dino\General
         public
         static
         function
-        check(
+        exists(
             $path,
             &$fullPath = false)
         {
-            if (Folder::checkPath(
+            if (Folder::existsPath(
                     $path,
                     $fullPath)) {
 
