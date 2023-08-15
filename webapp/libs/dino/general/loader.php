@@ -56,7 +56,7 @@ namespace Dino\General
                     $fullPath;
             }
 
-            FatalError::FileNotFound(
+            FatalError::fileNotFound(
                 __METHOD__,
                 $filePath,
                 FatalError::STRUCTURE_ERROR);
