@@ -10,6 +10,14 @@
 
 Dino\Contents\WebApp::Config(
     array(
-        'homePath' => '',
-        'routers' => array(),
-        'theme' => ''));
+        'homePathPath' => 'users/login',
+        'routers' =>
+            array(
+                'res',
+                'component',
+                'page',
+                'home',
+                'pageNotFound'),
+        'useOfExt'   => false,
+        'defaultExt' => 'html',
+        'theme'      => 'bluebill'));
