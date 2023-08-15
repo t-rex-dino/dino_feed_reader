@@ -62,7 +62,7 @@ namespace Dino\Contents
             $config
             = strtolower($config);
 
-            if (!isset(slef::$_config[$config])) {
+            if (!isset(self::$_config[$config])) {
                 return false;
             }
 
