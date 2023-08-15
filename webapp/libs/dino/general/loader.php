@@ -31,8 +31,7 @@ namespace Dino\General
 
                 FatalError::classNotFound(
                     __METHOD__,
-                    $className,
-                    FatalError::CODING_TIME_ERROR);
+                    $className);
             }
         }
 
@@ -58,8 +57,7 @@ namespace Dino\General
 
             FatalError::fileNotFound(
                 __METHOD__,
-                $filePath,
-                FatalError::STRUCTURE_ERROR);
+                $filePath);
         }
     }
 }
