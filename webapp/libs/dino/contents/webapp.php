@@ -48,6 +48,8 @@ namespace Dino\Contents
                 self::$_config
                 = array_change_key_case(
                     $config);
+                
+                return;
             }
 
             if (!is_string($config)) {
