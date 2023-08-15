@@ -102,5 +102,12 @@ namespace Dino\General
         function
         pageNotFound()
         {}
+
+
+        public
+        static
+        function
+        fileNotFound()
+        {}
     }
 }
