@@ -39,14 +39,17 @@ namespace Dino\Contents
                 $act
                 = array_shift($act);
 
-                if (!is_callable($act)) {
+                if (is_callable($act)) {
                     self::$_routers[$router][$method]
                     = $act;
 
                     return;
                 }
 
-                if (isset(self::$_routers[$router][$method]))
+                if (self::checkPath($router, $arg)) {
+                    return
+                    self::pathToRoute($route, $arg);
+                }
             }
 
             FatalError::invalidMethod(
