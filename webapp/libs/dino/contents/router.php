@@ -40,16 +40,13 @@ namespace Dino\Contents
                 = array_shift($act);
 
                 if (!is_callable($act)) {
-                    FatalError::invalidArgType(
-                        $requested,
-                        'act',
-                        'callable');
+                    self::$_routers[$router][$method]
+                    = $act;
+
+                    return;
                 }
 
-                self::$_routers[$router][$method]
-                = $act;
-
-                return;
+                if (isset(self::$_routers[$router][$method]))
             }
 
             FatalError::invalidMethod(
