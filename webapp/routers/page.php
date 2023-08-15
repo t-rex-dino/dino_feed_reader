@@ -35,7 +35,7 @@ Dino\Contents\Router::page_pathToRoute(
 
 
 //
-// components Route CheckPath
+// page Route CheckPath
 //
 
 Dino\Contents\Router::page_checkPath(
