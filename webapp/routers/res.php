@@ -40,11 +40,46 @@ Dino\Contents\Router::res_pathToRoute(
 
 Dino\Contents\Router::res_checkPath(
     function ($path) {
+        $resExtSupporets
+        = __res_extSupporteds();
+
         if (!empty($path)
-         || preg_match('/^res\/.+\..+$/i', $path)) {
+         || preg_match(
+                '/^res\/.+\.(' . $resExtSupporets . ')$/i',
+                $path)) {
             
             return true;
         }
 
         return false;
     });
+
+
+//
+// Functions
+//
+
+function
+__res_extSupporteds()
+{
+    $resExtSupporteds
+    = Dino\Contents\WebApp::config('resExtSupported');
+
+    if ($resExtSupporteds == false) {
+        $resExtSupporteds
+        = array(
+            'css',
+            'js',
+            'png',
+            'jpg');
+    }
+
+    if (is_array($resExtSupporteds)) {
+        $resExtSupporteds
+        = implode(
+            '|',
+            $resExtSupporteds);
+    }
+
+    return $resExtSupporteds;
+}

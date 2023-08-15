@@ -30,6 +30,15 @@ Dino\Contents\Router::component_pathToRoute(
             '',
             $path);
         
+        $route['params']
+        = explode(
+            '-',
+            $route['path']);
+        
+        $route['path']
+        = array_shift(
+            $route['params']);
+        
         return $route;
     });
 
@@ -40,11 +49,48 @@ Dino\Contents\Router::component_pathToRoute(
 
 Dino\Contents\Router::component_checkPath(
     function ($path) {
+        $componentExtSupporteds
+        = __component_extSupporteds();
+
         if (!empty($path)
-         || preg_match('/^components\/.+\.json+$/i', $path)) {
+         || preg_match(
+                '/^components\/([a-z0-9]+\/)*[a-z0-9]'
+                . '+(\-[a-z0-9]+)*\.('
+                . $componentExtSupporteds
+                . ')$/i',
+                $path)) {
             
             return true;
         }
 
         return false;
     });
+
+
+//
+// Functions
+//
+
+function
+__component_extSupporteds()
+{
+    $componentExtSupporteds
+    = Dino\Contents\WebApp::config('componentExtSupported');
+
+    if ($componentExtSupporteds == false) {
+        $componentExtSupporteds
+        = array(
+            'json',
+            'xml',
+            'html');
+    }
+
+    if (is_array($componentExtSupporteds)) {
+        $componentExtSupporteds
+        = implode(
+            '|',
+            $componentExtSupporteds);
+    }
+
+    return $componentExtSupporteds;
+}
