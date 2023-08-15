@@ -95,8 +95,6 @@ namespace Dino\Contents
             = self::routers();
 
             foreach ($routers as $router) {
-                self::loadRouter($router);
-
                 if (self::checkPath($router, $path)) {
                     return $router;
                 }
@@ -171,6 +169,9 @@ namespace Dino\Contents
 
             $router
             = strtolower($router);
+
+            // load router
+            self::loadRouter($router);
 
             if (!isset(self::$_routers[$router])) {
                 FatalError::routerNotFound(
