@@ -24,7 +24,7 @@ namespace Dino\Contents
             $act)
         {
             if (preg_match(
-                    '/^[a-z0-9]_(checkpath|pathtoroute)$/i',
+                    '/^[a-z0-9]+_(checkpath|pathtoroute)$/i',
                     $requested)) {
                 
                 $method
