@@ -116,6 +116,12 @@ namespace Dino\Contents
                     __METHOD__,
                     $router);
             }
+            
+            $router
+            = strtolower($router);
+            
+            $path
+            = strtolower($path);
 
             if (!isset(self::$_routers[$router]['pathtoroute'])) {
                 FatalError::routerPathToRouteNotFound(
