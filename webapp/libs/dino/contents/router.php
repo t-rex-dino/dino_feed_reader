@@ -175,6 +175,9 @@ namespace Dino\Contents
 
             $router
             = strtolower($router);
+            
+            $path
+            = strtolower($path);
 
             // load router
             self::loadRouter($router);
