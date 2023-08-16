@@ -79,12 +79,12 @@ Dino\Contents\WebApp::load(
             = $_SERVER['PHP_SELF'];
     
             if (preg_match(
-                    '/\/\~public\/index.php\//i',
+                    '/\/\~public\/index.php/i',
                     $path)) {
                 
                 $path
                 = preg_replace(
-                    '/^.*\/\~public\/index.php\//i',
+                    '/^.*\/\~public\/index.php/i',
                     '',
                     $path);
             }
