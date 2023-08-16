@@ -8,10 +8,19 @@
 
 Dino\Contents\Router::home_pathToRoute(
     function ($path) {
+        $path
+        = Dino\Contents\WebApp::config('homePagePath');
+        
+        if (__page_useOfExt()) {
+            $path
+            = $path
+            . '.'
+            . __page_defaultExt();
+        }
+        
         return
         Dino\Contents\Router::page_pathToRoute(
-            Dino\Contents\WebApp::config(
-                'homePagePath'));
+            $path);
     });
 
 
