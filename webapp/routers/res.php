@@ -8,25 +8,25 @@
 
 Dino\Contents\Router::res_pathToRoute(
     function ($path) {
-        $router
-        = array(
-            'launcher' => 'res');
-        
         $path
-        = str_ireplace(
-            'res\/',
+        = preg_replace(
+            '/^res\//i',
             '',
             $path);
         
+        $route
+        = array(
+            'launcher' => 'res');
+        
         $route['path']
         = preg_replace(
-            '/^\.[^\.]+$/i',
+            '/\.[^\.]+$/i',
             '',
             $path);
         
         $route['ext']
         = str_ireplace(
-            $route['path'],
+            "{$route['path']}.",
             '',
             $path);
         
@@ -40,12 +40,12 @@ Dino\Contents\Router::res_pathToRoute(
 
 Dino\Contents\Router::res_checkPath(
     function ($path) {
-        $resExtSupporets
+        $resExtSupporteds
         = __res_extSupporteds();
 
         if (!empty($path)
-         || preg_match(
-                '/^res\/.+\.(' . $resExtSupporets . ')$/i',
+         && preg_match(
+                '/^res\/.+\.(' . $resExtSupporteds . ')$/i',
                 $path)) {
             
             return true;

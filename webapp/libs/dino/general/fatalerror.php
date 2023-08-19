@@ -72,7 +72,7 @@ namespace Dino\General
         public
         static
         function
-        invalidRoute()
+        invalidRoute($rm, $rn)
         {
             self::send(__METHOD__);
         }
@@ -126,7 +126,7 @@ namespace Dino\General
         public
         static
         function
-        pageNotFound()
+        pageNotFound($m, $path)
         {
             self::send(__METHOD__);
         }
@@ -137,6 +137,24 @@ namespace Dino\General
         function
         fileNotFound()
         {
+            self::send(__METHOD__);
+        }
+        
+        
+        public
+        static
+        function
+        propertyNotFound($m, $p)
+        {var_dump($m, $p);
+            self::send(__METHOD__);
+        }
+        
+        
+        public
+        static
+        function
+        viewNotFound($m, $f)
+        {var_dump($m, $f);
             self::send(__METHOD__);
         }
 

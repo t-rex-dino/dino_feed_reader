@@ -2,12 +2,36 @@
 
 
 
+use Dino\Contents\Content;
+
+
 //
 // res Launcher Loader
 //
 
 Dino\Contents\Launcher::res_loader(
-    function () {});
+    function ($route) {
+        $route
+        = array_change_key_case(
+            $route);
+        
+        $res
+        = new Content(
+                array(
+                    'path' => $route['path'],
+                    'extension' => $route['ext']));
+        
+        $res->viewFolderPath
+        = $res->theme . '/'
+        . $res->extension;
+        
+        $res->viewExtension
+        = array(
+            $res->extension,
+            "php");
+        
+        $res->load();
+    });
 
 
 //
@@ -15,7 +39,9 @@ Dino\Contents\Launcher::res_loader(
 //
 
 Dino\Contents\Launcher::res_routeToPath(
-    function () {});
+    function ($route) {
+        var_dump($route);
+    });
 
 
 //
@@ -23,4 +49,13 @@ Dino\Contents\Launcher::res_routeToPath(
 //
 
 Dino\Contents\Launcher::res_checkRoute(
-    function () {});
+    function ($route) {
+        $route
+        = array_change_key_case(
+            $route);
+        
+        return
+        isset(
+            $route['path'],
+            $route['ext']);
+    });

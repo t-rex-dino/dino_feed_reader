@@ -8,27 +8,57 @@
 
 Dino\Contents\Router::page_pathToRoute(
     function ($path) {
-        $router
-        = array(
-            'launcher' => 'page');
-        
         $path
-        = str_ireplace(
-            'pages\/',
-            '',
-            $path);
-        
-        $route['path']
         = preg_replace(
-            '/^\.[^\.]+$/i',
+            '/^pages\//i',
             '',
             $path);
         
-        $route['ext']
-        = str_ireplace(
-            $route['path'],
-            '',
-            $path);
+        $route
+        = array(
+            'launcher' => 'page',
+            'path' => $path,
+            'ext' => Dino\Contents\WebApp::defaultExt(),
+            'params' => array());
+        
+        if (Dino\Contents\WebApp::useOfExt()) {
+            $route['path']
+            = preg_replace(
+                '/\.[^\.]+$/i',
+                '',
+                $path);
+        
+            $route['ext']
+            = str_ireplace(
+                "{$route['path']}.",
+                '',
+                $path);
+        }
+        
+        if (preg_match(
+                '/^([a-z0-9_\-]+\/)*[a-z'
+                . '0-9\_]+(\-[a-z0-9_]+)+/i',
+                $route['path'])) {
+            
+            $route['params']
+            = preg_replace(
+                '/^([a-z0-9_\-]+\/)*[a-z0-9\_]+/i',
+                '',
+                $route['path']);
+            
+            $route['path']
+            = str_ireplace(
+                $route['params'],
+                '',
+                $route['path']);
+            
+            $route['params']
+            = explode(
+                '-',
+                ltrim(
+                    $route['params'],
+                    '-'));
+        }
         
         return $route;
     });
@@ -41,13 +71,14 @@ Dino\Contents\Router::page_pathToRoute(
 Dino\Contents\Router::page_checkPath(
     function ($path) {
         $pageExtSupported
-        = __page_useOfExt()
+        = Dino\Contents\WebApp::useOfExt()
         ? '\.('. __page_extSupporteds() .')'
         : '';
 
         if (!empty($path)
-         && preg_match('/^(pages\/)?([a-z0-9]+\/)*'
-                . '[a-z0-9]+(\-[a-z0-9])*'
+         && preg_match(
+                 '/^(pages\/)?([a-z0-9_\-]+\/)*'
+                . '[a-z0-9_]+(\-[a-z0-9_]+)*'
                 . $pageExtSupported
                 . '$/i',
                 $path)
@@ -64,27 +95,6 @@ Dino\Contents\Router::page_checkPath(
 //
 // Functions
 //
-
-
-function
-__page_useOfExt()
-{
-    return 
-    Dino\Contents\WebApp::config('useOfExt');
-}
-
-
-function
-__page_defaultExt()
-{
-    $defaultExt
-    = Dino\Contents\WebApp::config('defaultExt');
-
-    if ($defaultExt == false) {
-        $defaultExt
-        = 'html';
-    }
-}
 
 function
 __page_extSupporteds()

@@ -47,12 +47,13 @@ namespace Dino\Contents
                 }
 
                 if (self::checkPath($router, $act)) {
-                    if ($method == 'checkpath') {
-                        return true;
+                    switch ($method) {
+                        case 'pathtoroute' :
+                            return
+                            self::pathToRoute($router, $act);
                     }
                     
-                    return
-                    self::pathToRoute($router, $act);
+                    return true;
                 }
             }
 

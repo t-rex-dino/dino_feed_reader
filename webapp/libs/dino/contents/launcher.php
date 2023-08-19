@@ -24,7 +24,7 @@ namespace Dino\Contents
             $act)
         {
             if (preg_match(
-                    '/^[a-z0-9]_(checkroute|routetopath|loader)$/i',
+                    '/^[a-z0-9]+_(checkroute|routetopath|loader)$/i',
                     $requested)) {
                 
                 $method
@@ -39,15 +39,36 @@ namespace Dino\Contents
                 $act
                 = array_shift($act);
 
-                if (!is_callable($act)) {
-                    FatalError::invalidArgType(
-                        $requested,
-                        'act',
-                        'callable');
+                if (is_callable($act)) {
+                    self::$_launchers[$launcher][$method]
+                    = $act;
+
+                    return;
+                }
+                
+                if (is_array($act)) {
+                    $act
+                    = array_change_key_case(
+                        $act);
+                    
+                    $act['launcher']
+                    = $launcher;
                 }
 
-                self::$_launchers[$launcher][$method]
-                = $act;
+                if (self::checkRoute($act)) {
+                    switch ($method)
+                    {
+                        case 'loader':
+                            return
+                            self::loader($act);
+                        
+                        case 'routetopath':
+                            return
+                            self::routeToPath($act);
+                    }
+                    
+                    return true;
+                }
 
                 return;
             }

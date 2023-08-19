@@ -69,5 +69,124 @@ namespace Dino\Contents
             return
             self::$_config[$config];
         }
+        
+        
+        public
+        static
+        function
+        contentsFolderPath()
+        {
+            $contentsFolderPath
+            = self::config('contentsFolderPath');
+            
+            if ($contentsFolderPath == false) {
+                $contentsFolderPath
+                = 'contents';
+            }
+            
+            return $contentsFolderPath;
+        }
+        
+        
+        public
+        static
+        function
+        viewFolderName()
+        {
+            $viewFolderName
+            = self::config('viewFolderName');
+            
+            if ($viewFolderName == false) {
+                $viewFolderName
+                = '~views';
+            }
+            
+            return $viewFolderName;
+        }
+        
+        
+        public
+        static
+        function
+        viewName()
+        {
+            $viewName
+            = self::config('viewName');
+            
+            if ($viewName == false) {
+                $viewName
+                = 'page';
+            }
+            
+            return $viewName;
+        }
+        
+        
+        public
+        static
+        function
+        defaultExt()
+        {
+            $defaultExt
+            = self::config('defaultExt');
+            
+            if ($defaultExt == false) {
+                $defaultExt
+                = 'html';
+            }
+            
+            return $defaultExt;
+        }
+        
+        
+        public
+        static
+        function
+        useOfExt()
+        {
+            return
+            self::config('useOfExt');
+        }
+        
+        
+        public
+        static
+        function
+        theme()
+        {
+            $theme
+            = self::config('theme');
+            
+            if ($theme == false) {
+                $theme
+                = 'themes/sample';
+            }
+            
+            return $theme;
+        }
+        
+        
+        public
+        static
+        function
+        homePagePath()
+        {
+            $home
+            = self::config('homePagePath');
+            
+            if ($home == false) {
+                $home
+                = 'home';
+            }
+            
+            if (self::useOfExt()) {
+                $home
+                = $home
+                . '.'
+                . self::defaultExt();
+            }
+            
+            return $home;
+        }
     }
 }

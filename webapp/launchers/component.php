@@ -7,7 +7,9 @@
 //
 
 Dino\Contents\Launcher::component_loader(
-    function () {});
+    function ($route) {
+        print_r($route);
+    });
 
 
 //
@@ -15,7 +17,9 @@ Dino\Contents\Launcher::component_loader(
 //
 
 Dino\Contents\Launcher::component_routeToPath(
-    function () {});
+    function ($route) {
+        var_dump($route);
+    });
 
 
 //
@@ -23,4 +27,13 @@ Dino\Contents\Launcher::component_routeToPath(
 //
 
 Dino\Contents\Launcher::component_checkRoute(
-    function () {});
+    function ($route) {
+        $route
+        = array_change_key_case(
+            $route);
+        
+        return
+        isset(
+            $route['path'],
+            $route['ext']);
+    });
