@@ -4,8 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bootstrap demo</title>
+        <link href="res/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <h1><?php $this->content->load(); ?></h1>
+        <h1>Hello, world!</h1>
+        <script src="res/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
