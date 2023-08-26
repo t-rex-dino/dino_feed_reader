@@ -71,7 +71,8 @@ __res_extSupporteds()
             'css',
             'js',
             'png',
-            'jpg');
+            'jpg',
+            'map');
     }
 
     if (is_array($resExtSupporteds)) {

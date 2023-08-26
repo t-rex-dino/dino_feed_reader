@@ -2,13 +2,27 @@
 
 
 
+use Dino\Contents\Component;
+use Dino\Contents\Launcher;
+
+
 //
 // component Launcher Loader
 //
 
-Dino\Contents\Launcher::component_loader(
+Launcher::component_loader(
     function ($route) {
-        print_r($route);
+        $route
+        = array_change_key_case(
+            $route);
+        
+        $component
+        = new Component(
+                $route['path'],
+                $route['ext']);
+        
+        $component->load();
+        $component->view->load();
     });
 
 
@@ -16,7 +30,7 @@ Dino\Contents\Launcher::component_loader(
 // component Launcher routeToPath
 //
 
-Dino\Contents\Launcher::component_routeToPath(
+Launcher::component_routeToPath(
     function ($route) {
         var_dump($route);
     });
@@ -26,7 +40,7 @@ Dino\Contents\Launcher::component_routeToPath(
 // component Launcher checkRoute
 //
 
-Dino\Contents\Launcher::component_checkRoute(
+Launcher::component_checkRoute(
     function ($route) {
         $route
         = array_change_key_case(
@@ -37,3 +51,11 @@ Dino\Contents\Launcher::component_checkRoute(
             $route['path'],
             $route['ext']);
     });
+
+
+
+///
+///
+/// 
+///
+///

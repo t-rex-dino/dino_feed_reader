@@ -4,14 +4,14 @@
 
 namespace Dino\Views
 {
-    class MAP
+    class JS
         extends View
     {
         public
         function
         headers()
         {
-            header('Content-type: text/json');
+            header('Content-type: text/js');
         }
         
         

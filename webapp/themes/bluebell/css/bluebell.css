@@ -1,0 +1,72 @@
+
+
+
+
+
+/**
+ *
+ * header
+ *
+ */
+
+header .bb-header {
+    /*background-color: #787ACF;*/
+    /*background-color: #888BD8;*/
+    /*background-color: #B5AFED;*/
+    background-color: #D9D3FF;
+    height: 100px;
+    color: #787ACF;
+}
+
+
+/**
+ *
+ * navbar
+ *
+ */
+
+nav .bb-navbar {
+    background-color: #787ACF;
+    height: 20px;
+}
+
+
+/**
+ *
+ * main
+ *
+ */
+
+main .bb-main {
+    
+}
+
+
+/**
+ *
+ * footer
+ *
+ */
+
+footer .bb-footer {
+    background-color: #787ACF;
+    height: 100px;
+}
+
+
+/**
+ *
+ * classes
+ *
+ */
+
+.bb-py-divs-2>div {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+
+.bb-py-divs-3>div {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+}

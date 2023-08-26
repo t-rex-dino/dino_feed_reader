@@ -2,11 +2,8 @@
 
 
 
-use Dino\Contents\Content;
 use Dino\Contents\Launcher;
-use Dino\Contents\WebApp;
-
-use Dino\General\Folder;
+use Dino\Contents\Component;
 
 
 //
@@ -19,27 +16,16 @@ Launcher::page_loader(
         = array_change_key_case(
             $route);
         
-        $page
-        = new Content(
-                array(
-                    'path'      => $route['path'],
-                    'extension' => $route['ext']));
+        $content
+        = new Component(
+                $route['path'],
+                $route['ext']);
         
-        $page->viewName
-        = 'page';
+        $content->load();
         
-        $page->viewFolderPath
-        = $page->theme;
+        $content->page->load();
         
-        $page->viewExtension
-        = "{$page->extension}.php";
-        
-        $page->view->content
-        = new Content(
-                array(
-                    'path' => $page->path));
-        
-        $page->load();
+        $content->page->view->load();
     });
 
 

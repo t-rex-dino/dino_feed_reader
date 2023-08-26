@@ -74,14 +74,31 @@ namespace Dino\Contents
         public
         static
         function
-        contentsFolderPath()
+        pagesFolderPath()
+        {
+            $pagesFolderPath
+            = self::config('pagesFolderPath');
+            
+            if ($pagesFolderPath == false) {
+                $pagesFolderPath
+                = 'pages';
+            }
+            
+            return $pagesFolderPath;
+        }
+        
+        
+        public
+        static
+        function
+        componentsFolderPath()
         {
             $contentsFolderPath
-            = self::config('contentsFolderPath');
+            = self::config('componentsFolderPath');
             
             if ($contentsFolderPath == false) {
                 $contentsFolderPath
-                = 'contents';
+                = 'components';
             }
             
             return $contentsFolderPath;
@@ -104,22 +121,6 @@ namespace Dino\Contents
             return $viewFolderName;
         }
         
-        
-        public
-        static
-        function
-        viewName()
-        {
-            $viewName
-            = self::config('viewName');
-            
-            if ($viewName == false) {
-                $viewName
-                = 'page';
-            }
-            
-            return $viewName;
-        }
         
         
         public

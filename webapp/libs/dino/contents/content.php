@@ -5,32 +5,43 @@
 namespace Dino\Contents
 {
     use Dino\General\FatalError;
-    use Dino\General\Folder;
-    use Dino\General\File;
-    
     
     class Content
     {
-        private
+        protected
         $_prpts
+        = array();
+        
+        
+        protected
+        $_events
         = array();
         
         
         public
         function
         __construct(
-            $prpts = array())
+            $path,
+            $extension)
         {
-            if (!is_array($prpts)) {
+            if (!is_string($path)) {
                 FatalError::invalidArgType(
                     __METHOD__,
-                    'prpts',
-                    'array');
+                    'path',
+                    'string');
+            }
+            
+            if (!is_string($extension)) {
+                FatalError::invalidArgType(
+                    __METHOD__,
+                    'extension',
+                    'string');
             }
             
             $this->_prpts
-            = array_change_key_case(
-                $prpts);
+            = array(
+                'path' => $path,
+                'exteneion' => $extension);
         }
         
         
@@ -40,126 +51,27 @@ namespace Dino\Contents
             $prpt,
             $value)
         {
-            $name
-            = strtolower($prpt);
-            
-            $this->_prpts[$name]
+            $this->_prpts[strtolower($prpt)]
             = $value;
         }
         
         
         public
         function
-        __get(
-            $prpt)
+        __get($prpt)
         {
             $name
-            = strtolower($prpt);
+            = strtolower(
+                $prpt);
             
             if (!isset($this->_prpts[$name]))
             switch ($name)
             {
-                case 'path':
-                    return
-                    'home';
-                    break;
-                
-                case 'name':
-                    return
-                    basename($this->path);
-                    break;
-                
-                case 'folder':
-                    $folder
-                    = dirname($this->path);
-                    
-                    if ($folder == '.') {
-                        $folder
-                        = '.';
-                    }
-                    
-                    $this->_prpts['folder']
-                    = $folder;
-                    break;
-                
                 case 'extension':
                     return
                     WebApp::defaultExt();
                     break;
                 
-                case 'contentfolder':
-                    $this->_prpts['contentfolder']
-                    = Folder::branch(
-                        WebApp::contentsFolderPath(),
-                        $this->folder);
-                    break;
-                
-                
-                //
-                // View
-                //
-                
-                case 'view':
-                    $view
-                    = "Dino\\Views\\"
-                    . $this->extension;
-                    
-                    if (!class_exists($view)) {
-                        FatalError::viewNotFound(
-                            __METHOD__,
-                            $view);
-                    }
-                    
-                    $this->_prpts['view']
-                    = new $view($this->viewValues);
-                    break;
-                
-                case 'viewname':
-                    return
-                    $this->name;
-                    break;
-                
-                case 'viewfoldername':
-                    return
-                    '~views';
-                    break;
-                
-                case 'viewvalues':
-                    $this->_prpts['viewvalues']
-                    = array();
-                    break;
-                
-                case 'viewfilepath':
-                    $this->_prpts['viewfilepath']
-                    = File::findExistsPath(
-                        $this->viewName,
-                        $this->viewFolderPath,
-                        $this->viewExtension);
-                    break;
-                
-                case 'viewfolderpath':
-                    $this->_prpts['viewfolderpath']
-                    = array(
-                        $this->contentFolder . '/'
-                        . $this->viewFolderName . '/'
-                        . $this->extension,
-                        
-                        $this->theme . '/'
-                        . $this->extension .'/'
-                        . $this->folder);
-                    break;
-                
-                case 'viewextension':
-                    return
-                    array(
-                        $this->extension,
-                        'php');
-                    break;
-                
-                
-                //
-                // Theme
-                //
                 
                 case 'theme':
                     return
@@ -180,9 +92,102 @@ namespace Dino\Contents
         
         public
         function
+        __call(
+            $method,
+            $args)
+        {
+            $action
+            = strtolower(
+                $method);
+            
+            
+            //
+            // Events
+            //
+            
+            if (preg_match(
+                    '/^(on|before|after)/i',
+                    $method)) {
+                
+                
+                //
+                // Call
+                //
+                
+                if (empty($args))
+                if (isset($this->_events[$action])) {
+                    
+                    if (!is_array($this->_events[$action])) {
+                        $this->_events[$action]
+                        = array($this->_events[$action]);
+                    }
+                    
+                    foreach (
+                        $this->_events[$action]
+                        as $event) {
+                        
+                        if (!is_callable($event)) {
+                            FatalError::invalidArgType(
+                                __METHOD__,
+                                "{$method}.event",
+                                'callable');
+                        }
+                        
+                        call_user_func($event);
+                    }
+                    
+                    return;
+                }
+                
+                
+                //
+                // Set
+                //
+                
+                $args
+                = array_shift(
+                    $args);
+                
+                if (!is_callable($args)) {
+                    FatalError::invalidArgType(
+                        __METHOD__,
+                        "{$method}.action",
+                        'callable');
+                }
+                
+                if (!isset($this->_events[$action])) {
+                    $this->_events[$action]
+                    = array();
+                }
+                
+                $this->_events[$action][]
+                = $args;
+                
+                return;
+            }
+            
+            FatalError::methodNotFound(
+                __METHOD__,
+                $method);
+        }
+        
+        
+        public
+        function
         load()
         {
-            $this->view->load($this->viewFilePath);
+            //
+            // load content file
+            //
+            
+            require_once $this->contentFilePath;
+            
+            
+            //
+            // onLoad event
+            //
+            
+            $this->onLoad();
         }
     }
 }
